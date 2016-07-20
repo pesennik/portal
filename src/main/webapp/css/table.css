@@ -1,0 +1,211 @@
+/**  CSS file is auto-generated from table.scss */
+/** Padding & alignment for table cells. Used with table tag, affect whole table */
+/* Cell alignments */
+table.left_td > tr > td {
+  text-align: left;
+}
+
+table.left_td > tbody > tr > td {
+  text-align: left;
+}
+
+table.right_td > tr > td {
+  text-align: right;
+}
+
+table.right_td > tbody > tr > td {
+  text-align: right;
+}
+
+table.center_td > tr > td {
+  text-align: center;
+}
+
+table.center_td > tbody > tr > td {
+  text-align: center;
+}
+
+table.top_td > tr > td {
+  vertical-align: top;
+}
+
+table.top_td > tbody > tr > td {
+  vertical-align: top;
+}
+
+table.bottom_td > tr > td {
+  vertical-align: bottom;
+}
+
+table.bottom_td > tbody > tr > td {
+  vertical-align: bottom;
+}
+
+table.middle_td > tr > td {
+  vertical-align: middle;
+}
+
+table.middle_td > tbody > tr > td {
+  vertical-align: middle;
+}
+
+/* Cell paddings*/
+table.pl0_td > tr > td {
+  padding-left: 0;
+}
+
+table.pl0_td > tbody > tr > td {
+  padding-left: 0;
+}
+
+table.pr0_td > tr > td {
+  padding-right: 0;
+}
+
+table.pr0_td > tbody > tr > td {
+  padding-right: 0;
+}
+
+table.pt0_td > tr > td {
+  padding-top: 0;
+}
+
+table.pt0_td > tbody > tr > td {
+  padding-top: 0;
+}
+
+table.pb0_td > tr > td {
+  padding-bottom: 0;
+}
+
+table.pb0_td > tbody > tr > td {
+  padding-bottom: 0;
+}
+
+table.pl5_td > tr > td {
+  padding-left: 5px;
+}
+
+table.pl5_td > tbody > tr > td {
+  padding-left: 5px;
+}
+
+table.pr5_td > tr > td {
+  padding-right: 5px;
+}
+
+table.pr5_td > tbody > tr > td {
+  padding-right: 5px;
+}
+
+table.pt5_td > tr > td {
+  padding-top: 5px;
+}
+
+table.pt5_td > tbody > tr > td {
+  padding-top: 5px;
+}
+
+table.pb5_td > tr > td {
+  padding-bottom: 5px;
+}
+
+table.pb5_td > tbody > tr > td {
+  padding-bottom: 5px;
+}
+
+table.pl10_td > tr > td {
+  padding-left: 10px;
+}
+
+table.pl10_td > tbody > tr > td {
+  padding-left: 10px;
+}
+
+table.pr10_td > tr > td {
+  padding-right: 10px;
+}
+
+table.pr10_td > tbody > tr > td {
+  padding-right: 10px;
+}
+
+table.pt10_td > tr > td {
+  padding-top: 10px;
+}
+
+table.pt10_td > tbody > tr > td {
+  padding-top: 10px;
+}
+
+table.pb10_td > tr > td {
+  padding-bottom: 10px;
+}
+
+table.pb10_td > tbody > tr > td {
+  padding-bottom: 10px;
+}
+
+table.pl15_td > tr > td {
+  padding-left: 15px;
+}
+
+table.pl15_td > tbody > tr > td {
+  padding-left: 15px;
+}
+
+table.pr15_td > tr > td {
+  padding-right: 15px;
+}
+
+table.pr15_td > tbody > tr > td {
+  padding-right: 15px;
+}
+
+table.pt15_td > tr > td {
+  padding-top: 15px;
+}
+
+table.pt15_td > tbody > tr > td {
+  padding-top: 15px;
+}
+
+table.pb15_td > tr > td {
+  padding-bottom: 15px;
+}
+
+table.pb15_td > tbody > tr > td {
+  padding-bottom: 15px;
+}
+
+table.pl20_td > tr > td {
+  padding-left: 20px;
+}
+
+table.pl20_td > tbody > tr > td {
+  padding-left: 20px;
+}
+
+table.pr20_td > tr > td {
+  padding-right: 20px;
+}
+
+table.pr20_td > tbody > tr > td {
+  padding-right: 20px;
+}
+
+table.pt20_td > tr > td {
+  padding-top: 20px;
+}
+
+table.pt20_td > tbody > tr > td {
+  padding-top: 20px;
+}
+
+table.pb20_td > tr > td {
+  padding-bottom: 20px;
+}
+
+table.pb20_td > tbody > tr > td {
+  padding-bottom: 20px;
+}

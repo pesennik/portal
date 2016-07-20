@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+
+<wicket:extend>
+    <div class="container-fluid ml20 mb50">
+        <div style="max-width: 480px;margin: 0 auto;">
+
+            <form wicket:id="input_form" class="mt50">
+                <h2>Завершите процесс регистрации</h2>
+                <hr>
+                <div wicket:id="feedback"></div>
+
+                <table class="pr20_td pb10_td">
+                    <tr>
+                        <td>
+                            <table class="pr10_td pb10_td nowrap_td">
+                                <tr>
+                                    <td><label for="hash">Код из письма</label></td>
+                                    <td><input wicket:id="email_hash" id="hash" type="text" class="form-control input-sm fsi"/></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="txtl"><a wicket:id="submit_email_hash" class="btn btn-success">Применить</a></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="txtl pt5">
+                                        <a wicket:id="resend_email" class="btn btn-warning">
+                                            Отправить письмо еще раз&nbsp;<i class="glyphicon glyphicon-retweet"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="vat" style="min-width: 100px;">
+                            <wicket:panel wicket:id="socials_panel"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</wicket:extend>
+</html>
+

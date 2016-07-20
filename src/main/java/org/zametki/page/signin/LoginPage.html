@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+
+<wicket:extend>
+    <div class="container-fluid ml20 mb50">
+        <div class="center-block" style="max-width: 480px;">
+
+            <form wicket:id="login_form" class="mt50">
+                <h2>Вход</h2>
+                <hr>
+                <div wicket:id="feedback"></div>
+
+                <table class="pr20_td pb10_td top_td">
+                    <tr>
+                        <td>
+                            <table class="pr20_td pb10_td">
+                                <tr>
+                                    <td class="vat"><label for="login">Пользователь</label></td>
+                                    <td><input wicket:id="login_field" id="login" type="text" class="form-control input-sm fsi"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="vat"><label for="password">Пароль</label></td>
+                                    <td><input wicket:id="password_field" id="password" type="password" class="form-control input-sm fsi"/></td>
+                                    <script>
+                                        require(["site"], function ($site) {
+                                            $site.focusOnEnter("login", "password");
+                                            $site.clickOnEnter("password", "login-button");
+                                        })
+                                    </script>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="txtl"><a wicket:id="login_link" class="btn btn-success" id="login-button">Вход</a></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="txtl pt5">
+                                        <a wicket:id="restore_link" class="muted-d">Забыли пароль?</a>
+                                        <br>
+                                        <a wicket:id="signup_link" class="muted-d">Регистрация</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="vat" style="min-width: 100px;">
+                            <wicket:panel wicket:id="socials_panel"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</wicket:extend>
+</html>
+

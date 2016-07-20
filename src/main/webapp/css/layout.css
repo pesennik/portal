@@ -1,0 +1,27 @@
+/* Common layout for all pages: navbar, content, footer */
+
+* {
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+/*noinspection CssOverwrittenProperties*/
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -55px; /* the bottom margin is the negative value of the footer's height */
+}
+
+.footer, .push {
+    height: 55px; /* .push must be the same height as .footer */
+}
+
+.footer {
+    background-color: #fbfbfb;
+    border-radius: 10px;
+    border-top: 1px solid #CCC;
+}

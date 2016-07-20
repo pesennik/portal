@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<wicket:extend>
+    <div class="container-fluid mb50 mt50 txtc">
+        <div style="font-size: 200%">
+            <i class="fa fa-spinner fa-spin mr5"></i>
+            Сеанс завершен!
+        </div>
+        <div class="mt15">
+            Вы будете перенаправлены на <a href="/">главную</a> страницу через <span id="countdown">10 секунд</span>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var countdownTimer = 10;
+        function redirectCountdown() {
+            countdownTimer = countdownTimer - 1;
+            if (countdownTimer <= 0) {
+                window.location = "/";
+            } else {
+                document.getElementById("countdown").innerHTML = countdownTimer + " секунд" + (countdownTimer > 1 ? (countdownTimer > 4 ? "" : "ы") : "у");
+                window.setTimeout(redirectCountdown, 1000);
+            }
+        }
+        redirectCountdown();
+    </script>
+</wicket:extend>
+</html>
+

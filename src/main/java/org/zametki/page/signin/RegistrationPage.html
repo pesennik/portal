@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<wicket:extend>
+    <div class="container-fluid ml20 mb50">
+        <div class="center-block" style="max-width: 500px;">
+            <form wicket:id="register_form" class="mt50">
+                <h2>Регистрация</h2>
+                <hr>
+                <div wicket:id="feedback"></div>
+                <table class="pr10_td pb10_td top_td" wicket:id="fields_block">
+                    <tr>
+                        <td>
+                            <table class="pr10_td pb10_td">
+                                <tr>
+                                    <td class="vat"><label for="login" class="nw">Имя пользователя</label></td>
+                                    <td><input wicket:id="login_field" id="login" type="text" class="form-control input-sm fsi"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="vat"><label for="email">Email</label></td>
+                                    <td><input wicket:id="email_field" id="email" type="text" class="form-control  input-sm fsi"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="vat"><label for="password1">Пароль</label></td>
+                                    <td><input wicket:id="password1_field" id="password1" type="password" class="form-control  input-sm fsi"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="vat"><label for="password2" class="nw">Пароль (повтор)</label></td>
+                                    <td><input wicket:id="password2_field" id="password2" type="password" class="form-control input-sm fsi"/></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img wicket:id="captcha_image" style="width:180px; height:43px"/>
+                                        <br>
+                                        <a href="#" wicket:id="change_captcha" class="btn btn-default btn-xs ml50 mt5"><i class="fa fa-refresh"></i>Обновить</a>
+                                    </td>
+                                    <td class="vat"><input wicket:id="captcha_value" id="captcha" type="text" class="form-control input-sm fsi" wicket:message="title:captcha_title_attribute"/></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><a wicket:id="submit" class="btn btn-success">Зарегистрироваться</a></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="vat" style="min-width: 100px;">
+                            <wicket:panel wicket:id="socials_panel"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</wicket:extend>
+</html>
+

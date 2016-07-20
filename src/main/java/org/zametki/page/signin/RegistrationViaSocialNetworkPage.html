@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<wicket:extend>
+    <div class="container-fluid ml20 mb50">
+        <div class="row" style="max-width: 690px;margin: 0 auto;">
+            <div class="col-md-12">
+                <h2>Регистрация</h2>
+                <hr>
+            </div>
+            <div class="col-md-6">
+                <form wicket:id="form">
+                    <div wicket:id="feedback"></div>
+                    <table class="pr10_td pb10_td">
+                        <tr>
+                            <td><label for="name" class="control-label">Имя</label></td>
+                            <td><input wicket:id="first_name" id="name" type="text" class="form-control input-sm fsi"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="surname" class="control-label">Фамилия</label></td>
+                            <td><input wicket:id="last_name" id="surname" type="text" class="form-control input-sm fsi"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="login" class="control-label">Логин</label></td>
+                            <td><input wicket:id="login" id="login" type="text" class="form-control input-sm fsi"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="email" class="control-label">Email</label></td>
+                            <td><input wicket:id="email" id="email" type="text" class="form-control input-sm fsi"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="password1" class="control-label">Пароль</label>
+                            </td>
+                            <td><input wicket:id="password1" id="password1" type="password" class="form-control input-sm fsi"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="password2" class="control-label nw">Пароль (повтор)</label></td>
+                            <td><input wicket:id="password2" id="password2" type="password" class="form-control input-sm fsi"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                                <a wicket:id="submit" class="btn btn-success mt10">Зарегистрироваться</a>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <div class="alert-info" style="padding: 10px; max-width: 250px;">
+                    <p>
+                        После регистрации Вы получите письмо с подтверждением и сможете входить на сайт как при помощи социального аккаунта, так и используя логин и пароль.
+                    </p>
+
+                    <p>
+                        Если Вы уже зарегистрированы и хотите начать использовать социальный аккаунт,
+                        <a wicket:id="sign_in_link">войдите на сайт</a> и привяжите социальный аккаунт в настройках профиля.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</wicket:extend>
+</html>
+

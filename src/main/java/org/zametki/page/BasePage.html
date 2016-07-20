@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <title wicket:id="title"></title>
+    <meta name="description" wicket:id="meta_description"/>
+    <meta name="keywords" wicket:id="meta_keywords"/>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/icon" href="/img/favicon.png"/>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!--suppress HtmlUnknownTarget -->
+    <link rel="stylesheet" href="/css/style.css?2">
+</head>
+
+<body>
+
+<div class="wrapper">
+    <wicket:panel wicket:id="header"/>
+
+    <div>
+        <a name="top_marker"></a>
+
+        <div id="back-top" wicket:id="top_link" style="display:none; z-index: 100;">
+            <a href="#top_marker">Наверх</a>
+            <script>
+                require(["site"], function ($site) {
+                    $site.enableScrollTop();
+                });
+            </script>
+        </div>
+        <wicket:child/>
+    </div>
+    <div class="push"></div>
+</div>
+
+<div class="footer">
+    <div class="container-fluid txtc w100">
+        <wicket:panel wicket:id="footer"/>
+        <div class="mt15"><a href="http://github.com/wicket7template" class="txt-muted">© 2015 Wicket7 Template</a></div>
+    </div>
+</div>
+</body>
+</html>

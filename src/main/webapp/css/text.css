@@ -1,0 +1,60 @@
+/* Text sizes & alignments */
+
+.bld {
+    font-weight: bold;
+}
+
+.itl {
+    font-style: italic;
+}
+
+.fwn {
+    font-weight: normal;
+}
+
+.txtr {
+    text-align: right !important;
+}
+
+.txtl {
+    text-align: left !important;
+}
+
+.txtc {
+    text-align: center !important;
+}
+
+.vam {
+    vertical-align: middle !important;
+}
+
+.vat {
+    vertical-align: top !important;
+}
+
+.vab {
+    vertical-align: bottom !important;
+}
+
+/* Default text colors */
+
+/* Normal text color */
+.txt-normal {
+    color: #333333;
+}
+
+/* Muted text */
+.txt-muted {
+    color: #999;
+}
+
+/* Muted link */
+a.txt-muted:hover,
+a.txt-muted:focus {
+    color: #808080;
+}
+
+/* Semi-muted text (muted-dark)*/
+.txt-muted-d {
+    color: #777;
+}

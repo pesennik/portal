@@ -1,0 +1,42 @@
+/**  CSS file is auto-generated from table.scss */
+
+/** Padding & alignment for table cells. Used with table tag, affect whole table */
+
+/* Cell alignments */
+@each $h-align in (left, right, center) {
+  table.#{$h-align}_td > tr > td {
+    text-align: $h-align;
+  }
+  table.#{$h-align}_td > tbody > tr > td {
+    text-align: $h-align;
+  }
+}
+
+@each $v-align in (top, bottom, middle) {
+  table.#{$v-align}_td > tr > td {
+    vertical-align: $v-align;
+  }
+  table.#{$v-align}_td > tbody > tr > td {
+    vertical-align: $v-align;
+  }
+}
+
+/* Cell paddings*/
+
+@for $i from 0 through 4 {
+  $m: $i * 5;
+  $s: unquote("");
+  @if $m != 0 {
+    $s: px;
+  }
+  @each $p in (left, right, top, bottom) {
+    $p1: str_slice($p, 0, 1);
+    table.p#{$p1}#{$m}_td > tr > td {
+      padding-#{$p}: $m#{$s};
+    }
+
+    table.p#{$p1}#{$m}_td > tbody > tr > td {
+      padding-#{$p}: $m#{$s};
+    }
+  }
+}

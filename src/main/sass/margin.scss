@@ -1,0 +1,37 @@
+/**  CSS file is auto-generated from margin.scss */
+
+.m0 {
+    margin: 0;
+}
+
+.p0 {
+    padding: 0;
+}
+
+/* margin right icon-text */
+.mr-it {
+    margin-right: 4px;
+}
+
+/* margin left icon-text */
+.ml-it {
+    margin-left: 4px;
+}
+
+@for $i from 0 through 10 {
+    $val: $i * 5;
+    $suf: unquote("");
+    @if $i != 0 {
+        $suf: px  + $suf;
+    }
+    @each $j in (top, bottom, left, right) {
+        $d: str-slice($j, 0, 1);
+        $s: $d+$val;
+        .m#{$s} {
+            margin-#{$j}: #{$val}$suf;
+        }
+        .p#{$s} {
+            padding-#{$j}: #{$val}$suf;
+        }
+    }
+}
