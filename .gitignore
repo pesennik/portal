@@ -1,0 +1,13 @@
+# Intellij IDEA project files.
+.idea/
+*.iml
+
+# Local data
+local/
+target/
+
+# generated files
+js/package/js/site.js
+
+# node modules
+js/node_modules
