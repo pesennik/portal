@@ -1,6 +1,7 @@
 package com.github.pesennik.component.parsley;
 
 import com.github.pesennik.Constants;
+import com.github.pesennik.Scripts;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
@@ -26,7 +27,7 @@ public class ValidatingJsAjaxSubmitLink extends AjaxSubmitLink {
 
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
-        response.render(Constants.PARSLEY_JS);
+        response.render(Scripts.PARSLEY_JS);
     }
 
 }

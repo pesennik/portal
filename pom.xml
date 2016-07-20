@@ -37,6 +37,7 @@
 
         <!-- Plugins -->
         <plugins>
+            <!-- Java Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -48,6 +49,7 @@
                     <compilerArgument>-XDignore.symbol.file</compilerArgument>
                 </configuration>
             </plugin>
+            <!--WAR file assembler-->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.6</version>

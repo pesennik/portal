@@ -1,6 +1,7 @@
 package com.github.pesennik.component.parsley;
 
 import com.github.pesennik.Constants;
+import com.github.pesennik.Scripts;
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.ComponentTag;
@@ -29,7 +30,7 @@ public class RequiredFieldJsValidator extends Behavior {
     @Override
     public void renderHead(Component component, IHeaderResponse response) {
         super.renderHead(component, response);
-        response.render(Constants.PARSLEY_JS);
+        response.render(Scripts.PARSLEY_JS);
     }
 
     public RequiredFieldJsValidator setRequired(boolean val) {

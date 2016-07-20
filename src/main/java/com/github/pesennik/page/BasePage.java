@@ -1,8 +1,7 @@
 package com.github.pesennik.page;
 
-import com.github.pesennik.Constants;
 import com.github.pesennik.Mounts;
-import com.github.pesennik.UserSession;
+import com.github.pesennik.Scripts;
 import com.github.pesennik.component.SiteFooter;
 import com.github.pesennik.component.SiteHeader;
 import com.github.pesennik.model.TopMenu;
@@ -18,9 +17,6 @@ import org.apache.wicket.request.http.WebResponse;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static org.apache.wicket.markup.head.JavaScriptHeaderItem.forScript;
-import static org.apache.wicket.markup.head.JavaScriptHeaderItem.forUrl;
 
 /**
  * Base page for all pages on site
@@ -118,29 +114,16 @@ public abstract class BasePage extends WebPage implements IRequestablePage {
         response.disableCaching();
     }
 
-    // Add javascript files to every page
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
 
-        // Load JQuery & bootstrap using normal <script> tag in order to use browser level optimizations.
-        // These libraries will be available globally.
         response.render(JavaScriptHeaderItem.forReference(getApplication().getJavaScriptLibrarySettings().getJQueryReference()));
-        response.render(Constants.BOOTSTRAP_JS);
+        response.render(Scripts.BOOTSTRAP_JS);
+        response.render(Scripts.ES6_PROMISE_JS);
+        response.render(Scripts.SITE_JS);
 
-        // use RequireJS to load everything else
+//TODO        response.render(OnDomReadyHeaderItem.forScript("$(document).ready( function() {$('#" + topMenuId + "').addClass( 'active' );} );"));
 
-        // prepare config first
-        response.render(forScript(
-                // set global locale variable. To be used in RequireJS modules definition
-                "var __locale='" + UserSession.get().getLocale().getLanguage() + "';" +
-                        // add Require JS config. Make all JS files loaded this way.
-                        "var require = {" +
-                        "   baseUrl: 'js'" +
-                        "};"
-                , "r-config-js"));
-
-        // load require.js
-        response.render(forUrl("/js/r.js", "r-js"));
     }
 }
 

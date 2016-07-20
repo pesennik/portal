@@ -28,11 +28,7 @@
 
         <div id="back-top" wicket:id="top_link" style="display:none; z-index: 100;">
             <a href="#top_marker">Наверх</a>
-            <script>
-                require(["site"], function ($site) {
-                    $site.enableScrollTop();
-                });
-            </script>
+            <!--TODO: <script>$site.Utils.enableScrollTop();</script>-->
         </div>
         <wicket:child/>
     </div>
@@ -42,7 +38,7 @@
 <div class="footer">
     <div class="container-fluid txtc w100">
         <wicket:panel wicket:id="footer"/>
-        <div class="mt15"><a href="http://github.com/wicket7template" class="txt-muted">© 2015 Wicket7 Template</a></div>
+        <div class="mt15"><a href="http://github.com/pesennik" class="txt-muted">© 2016 Песенник * Онлайн</a></div>
     </div>
 </div>
 </body>
