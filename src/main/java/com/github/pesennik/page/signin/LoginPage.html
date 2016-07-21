@@ -15,18 +15,12 @@
                         <td>
                             <table class="pr20_td pb10_td">
                                 <tr>
-                                    <td class="vat"><label for="login">Пользователь</label></td>
-                                    <td><input wicket:id="login_field" id="login" type="text" class="form-control input-sm fsi"/></td>
+                                    <td class="vat"><label for="email">Email</label></td>
+                                    <td><input wicket:id="email_field" id="email" type="text" class="form-control input-sm fsi" onkeypress="$site.Utils.focusOnEnter(event, '#password');"/></td>
                                 </tr>
                                 <tr>
                                     <td class="vat"><label for="password">Пароль</label></td>
-                                    <td><input wicket:id="password_field" id="password" type="password" class="form-control input-sm fsi"/></td>
-                                    <script>
-                                        require(["site"], function ($site) {
-                                            $site.focusOnEnter("login", "password");
-                                            $site.clickOnEnter("password", "login-button");
-                                        })
-                                    </script>
+                                    <td><input wicket:id="password_field" id="password" type="password" class="form-control input-sm fsi" onkeypress="$site.Utils.clickOnEnter(event, '#login-button')"/></td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -50,6 +44,9 @@
             </form>
         </div>
     </div>
+    <script>
+        $("#email").focus()
+    </script>
 </wicket:extend>
 </html>
 

@@ -1,9 +1,9 @@
 package com.github.pesennik.model;
 
+import com.github.mjdbc.type.DbString;
 import com.github.pesennik.util.JsonUtils;
 import com.github.pesennik.util.TextUtils;
 import org.apache.wicket.ajax.json.JSONObject;
-import org.apache.wicket.util.io.IClusterable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -11,10 +11,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-/**
- *
- */
-public class UserPersonalInfo implements IClusterable {
+public class UserPersonalInfo implements DbString {
     private static final String FIRST_NAME_KEY = "n";
     private static final String LAST_NAME_KEY = "s";
     private static final String PARENTAL_NAME_KEY = "d";
@@ -58,7 +55,7 @@ public class UserPersonalInfo implements IClusterable {
         }
     }
 
-    public String pack() {
+    public String getDbValue() {
         JSONObject obj = new JSONObject();
         try {
             JsonUtils.putOpt(obj, !TextUtils.isEmpty(firstName), FIRST_NAME_KEY, firstName);

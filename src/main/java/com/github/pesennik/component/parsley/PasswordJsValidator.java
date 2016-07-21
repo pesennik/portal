@@ -10,8 +10,8 @@ public class PasswordJsValidator extends RequiredFieldJsValidator {
         attributeMap.put("data-parsley-minlength", Limits.PASSWORD_MIN_LENGTH);
         attributeMap.put("data-parsley-maxlength", Limits.PASSWORD_MAX_LENGTH);
 
-        attributeMap.put("data-parsley-minlength-message", "Мин. длина пароля: " + Plurals.npl(Limits.PASSWORD_MIN_LENGTH, " symbol"));
-        attributeMap.put("data-parsley-maxlength-message", "Пароль не может превышать " + Plurals.npl(Limits.PASSWORD_MAX_LENGTH, " symbol"));
+        attributeMap.put("data-parsley-minlength-message", "Мин. длина пароля: " + Plurals.npl(Limits.PASSWORD_MIN_LENGTH, " символ"));
+        attributeMap.put("data-parsley-maxlength-message", "Пароль не может превышать " + Plurals.npl(Limits.PASSWORD_MAX_LENGTH, " символ"));
 
     }
 }

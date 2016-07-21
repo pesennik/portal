@@ -9,6 +9,7 @@ import com.github.pesennik.util.UserSessionUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.PriorityHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -22,10 +23,11 @@ import org.slf4j.LoggerFactory;
  * Base page for all pages on site
  */
 public abstract class BasePage extends WebPage implements IRequestablePage {
+
     private static final Logger log = LoggerFactory.getLogger(BasePage.class);
 
-    public static final String DEFAULT_KEYWORDS = "wicket7 template bootstrap socials";
-    public static final String DEFAULT_DESCRIPTION = "Example of minimal Wicket7 website with users accounts and signin logic.";
+    public static final String DEFAULT_KEYWORDS = "TODO";
+    public static final String DEFAULT_DESCRIPTION = "TODO";
 
     protected Label title = new Label("title", "Песенник");
 
@@ -116,14 +118,10 @@ public abstract class BasePage extends WebPage implements IRequestablePage {
 
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
-
-        response.render(JavaScriptHeaderItem.forReference(getApplication().getJavaScriptLibrarySettings().getJQueryReference()));
+        response.render(new PriorityHeaderItem(JavaScriptHeaderItem.forReference(getApplication().getJavaScriptLibrarySettings().getJQueryReference())));
         response.render(Scripts.BOOTSTRAP_JS);
         response.render(Scripts.ES6_PROMISE_JS);
         response.render(Scripts.SITE_JS);
-
-//TODO        response.render(OnDomReadyHeaderItem.forScript("$(document).ready( function() {$('#" + topMenuId + "').addClass( 'active' );} );"));
-
     }
 }
 

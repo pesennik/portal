@@ -1,10 +1,5 @@
 package com.github.pesennik.component;
 
-import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.BookmarkablePageLink;
-import org.apache.wicket.markup.html.panel.Panel;
-import org.jetbrains.annotations.Nullable;
 import com.github.pesennik.Constants;
 import com.github.pesennik.UserSession;
 import com.github.pesennik.behavior.ClassAppender;
@@ -14,10 +9,12 @@ import com.github.pesennik.page.HomePage;
 import com.github.pesennik.page.signin.LoginPage;
 import com.github.pesennik.page.signin.LogoutPage;
 import com.github.pesennik.page.signin.RegistrationPage;
+import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.jetbrains.annotations.Nullable;
 
-/**
- *
- */
 public class SiteHeader extends Panel {
 
     public SiteHeader(String id, @Nullable TopMenu menu) {

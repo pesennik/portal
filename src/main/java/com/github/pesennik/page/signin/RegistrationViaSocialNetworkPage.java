@@ -1,14 +1,12 @@
 package com.github.pesennik.page.signin;
 
 import com.github.pesennik.Context;
-import com.github.pesennik.UserSettings;
+import com.github.pesennik.UserSession;
 import com.github.pesennik.annotation.MountPath;
 import com.github.pesennik.component.Feedback;
-import com.github.pesennik.db.dbi.UsersDbi;
 import com.github.pesennik.model.SocialNetworkType;
 import com.github.pesennik.model.User;
 import com.github.pesennik.model.UserPersonalInfo;
-import com.github.pesennik.model.VerificationRecord;
 import com.github.pesennik.page.BasePage;
 import com.github.pesennik.page.HomePage;
 import com.github.pesennik.util.RegistrationUtils;
@@ -16,7 +14,6 @@ import com.github.pesennik.util.TextUtils;
 import com.github.pesennik.util.UDate;
 import com.github.pesennik.util.UserSessionUtils;
 import com.github.pesennik.util.ValidatorUtils;
-import com.github.pesennik.UserSession;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -87,11 +84,9 @@ public class RegistrationViaSocialNetworkPage extends BasePage {
 
         form.add(new AjaxSubmitLink("submit", form) {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                feedback.clear();
-                target.add(feedback);
-
                 try {
-                    UsersDbi userDao = Context.getUsersDbi();
+                    feedback.clear();
+                    target.add(feedback);
 
                     String firstName = firstNameField.getModelObject();
                     if (!ValidatorUtils.isValidFirstOrLastName(firstName)) {
@@ -103,18 +98,8 @@ public class RegistrationViaSocialNetworkPage extends BasePage {
                         feedback.error("Недопустимая фамилия пользователя!");
                         return;
                     }
-                    String login = loginField.getModelObject();
-                    if (!ValidatorUtils.isValidLogin(login)) {
-                        feedback.error("Недопустим логин!");
-                        return;
-                    }
-                    User user = userDao.getUserByLogin(login);
-                    if (user != null) {
-                        feedback.error("Пользователь с таким именем уже существует!");
-                        return;
-                    }
                     String email = emailField.getModelObject();
-                    user = userDao.getUserByEmail(email);
+                    User user = Context.getUsersDbi().getUserByEmail(email);
                     if (user != null) {
                         feedback.error("Пользователь с таким email уже существует!");
                         return;
@@ -127,20 +112,15 @@ public class RegistrationViaSocialNetworkPage extends BasePage {
                         return;
                     }
 
-                    boolean emailIsChecked = verifiedEmail.equals(email);
-
                     UDate now = UDate.now();
                     user = new User();
                     user.lastLoginDate = now;
                     user.registrationDate = now;
                     user.email = email;
-                    user.emailChecked = email.equals(socialData.email);
-                    user.login = login;
                     user.passwordHash = UserSessionUtils.password2Hash(password1);
-                    user.settings = UserSettings.get().toString();
-                    userDao.createUser(user);
+                    Context.getUsersDbi().createUser(user);
 
-                    UserPersonalInfo pi = user.unpackedPersonalInfo();
+                    UserPersonalInfo pi = user.personalInfo;
                     if (TextUtils.isEmpty(pi.firstName)) {
                         pi.firstName = firstName;
                     }
@@ -148,17 +128,11 @@ public class RegistrationViaSocialNetworkPage extends BasePage {
                         pi.lastName = lastName;
                     }
                     pi.socialIds.put(socialData.network, socialData.socialId);
-                    userDao.updatePersonalInfo(user);
+                    Context.getUsersDbi().updatePersonalInfo(user);
 
-                    if (emailIsChecked) {
-                        UserSessionUtils.login(user);
-                        setResponsePage(HomePage.class);
-                        RegistrationUtils.sendWelcomeEmail(user, password1);
-                    } else {
-                        VerificationRecord vr = RegistrationUtils.createEmailVerification(user);
-                        RegistrationUtils.sendVerificationEmailWithUserData(user, password1, vr);
-                        feedback.success("На Ваш почтовый адрес было выслано письмо с инструкцией о том, как завершить процедуру регистрации.");
-                    }
+                    UserSessionUtils.login(user);
+                    setResponsePage(HomePage.class);
+                    RegistrationUtils.sendWelcomeEmail(user, password1);
                 } catch (IOException e) {
                     log.error("Error during sending email! " + e.getMessage());
                     feedback.error("Не удалось отправить письмо для подтверждения регистрации, повторите попытку позже!");

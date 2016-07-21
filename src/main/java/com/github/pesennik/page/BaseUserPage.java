@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import static org.apache.wicket.core.request.handler.RenderPageRequestHandler.RedirectPolicy.NEVER_REDIRECT;
 
 /**
- *
+ * This page is available only for signed in users;
  */
 public abstract class BaseUserPage extends BasePage {
 

@@ -1,12 +1,20 @@
 package com.github.pesennik.page.signin;
 
 import com.github.pesennik.Context;
+import com.github.pesennik.UserSession;
+import com.github.pesennik.annotation.MountPath;
+import com.github.pesennik.component.Feedback;
+import com.github.pesennik.component.PasswordField;
 import com.github.pesennik.model.User;
 import com.github.pesennik.model.VerificationRecord;
 import com.github.pesennik.model.VerificationRecordId;
+import com.github.pesennik.model.VerificationRecordType;
 import com.github.pesennik.page.BasePage;
-import com.github.pesennik.util.HashUtils;
+import com.github.pesennik.page.HomePage;
+import com.github.pesennik.util.DigestUtils;
 import com.github.pesennik.util.RegistrationUtils;
+import com.github.pesennik.util.UDate;
+import com.github.pesennik.util.UserSessionUtils;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
@@ -17,14 +25,6 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.string.StringValue;
-import com.github.pesennik.UserSession;
-import com.github.pesennik.annotation.MountPath;
-import com.github.pesennik.component.Feedback;
-import com.github.pesennik.component.PasswordField;
-import com.github.pesennik.model.VerificationRecordType;
-import com.github.pesennik.page.HomePage;
-import com.github.pesennik.util.UDate;
-import com.github.pesennik.util.UserSessionUtils;
 
 import static org.apache.wicket.core.request.handler.RenderPageRequestHandler.RedirectPolicy.NEVER_REDIRECT;
 
@@ -49,7 +49,7 @@ public class ResetPasswordPage extends BasePage {
         add(newRequestLink);
 
         StringValue hash = params.get(HASH_PARAM);
-        if (hash.isEmpty() || !HashUtils.isValidHash(hash.toString())) {
+        if (hash.isEmpty() || !DigestUtils.isValidUUID(hash.toString())) {
             resetBlock.setVisible(false);
             feedback.error("Некорректный код!");
             return;
@@ -112,7 +112,7 @@ public class ResetPasswordPage extends BasePage {
                 }
                 user.passwordHash = UserSessionUtils.password2Hash(password1);
                 Context.getUsersDbi().updatePassword(user, r1);
-                feedback.info("Пароль изменен. Используйте новый пароль чтобы войти в систему! Ваш логин: " + user.login);
+                feedback.info("Пароль изменен. Используйте новый пароль чтобы войти в систему! Ваш логин: " + user.email);
                 form.setVisible(false);
                 loginLink.setVisible(true);
                 target.add(resetBlock);

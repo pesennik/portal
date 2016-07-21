@@ -1,17 +1,17 @@
 package com.github.pesennik.util;
 
 import com.github.pesennik.Context;
-import com.github.pesennik.UserSettings;
+import com.github.pesennik.UserSession;
 import com.github.pesennik.model.User;
+import com.github.pesennik.model.UserId;
 import com.github.pesennik.page.HomePage;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.core.request.handler.PageProvider;
 import org.apache.wicket.util.string.StringValue;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.github.pesennik.UserSession;
-import com.github.pesennik.model.UserId;
 
 import static org.apache.wicket.core.request.handler.RenderPageRequestHandler.RedirectPolicy.NEVER_REDIRECT;
 
@@ -21,6 +21,7 @@ import static org.apache.wicket.core.request.handler.RenderPageRequestHandler.Re
 public class UserSessionUtils {
     private static final Logger log = LoggerFactory.getLogger(UserSessionUtils.class);
 
+    private static final String USER_AUTH_TOKEN = "zut";
     private static final String ID_PASSWORD_SEPARATOR_CHAR = ":";
 
     /**
@@ -33,7 +34,7 @@ public class UserSessionUtils {
         }
         // try auto login user.
         try {
-            String autoLoginData = UserSettings.getUserAutoLoginInfo();
+            String autoLoginData = UserSessionUtils.getUserAutoLoginInfo();
             if (autoLoginData == null || autoLoginData.length() < 3) {
                 return;
             }
@@ -56,8 +57,8 @@ public class UserSessionUtils {
     }
 
     public static void login(@NotNull User user) {
-        UserSession.get().setUser(user);
-        UserSettings.setUserAutoLoginInfo(user.id.getDbValue() + ID_PASSWORD_SEPARATOR_CHAR + user.passwordHash);
+        UserSession.get().setUser(user.id);
+        UserSessionUtils.setUserAutoLoginInfo(user.id.getDbValue() + ID_PASSWORD_SEPARATOR_CHAR + user.passwordHash);
         user.lastLoginDate = UDate.now();
         Context.getUsersDbi().updateLastLoginDate(user);
     }
@@ -65,10 +66,10 @@ public class UserSessionUtils {
 
     public static void logout() {
         UserSession session = UserSession.get();
-        log.debug("Logging out: " + session.getUserLogin());
+        log.debug("Logging out: " + session.getUserEmail());
         UserId userId = session.getUserId();
         session.cleanOnLogout();
-        UserSettings.setUserAutoLoginInfo(null);
+        UserSessionUtils.setUserAutoLoginInfo(null);
         if (userId != null) {
             Context.getOnlineStatusManager().removeFromOnline(userId);
         }
@@ -80,7 +81,7 @@ public class UserSessionUtils {
     }
 
     public static String password2Hash(String password) {
-        return DigestUtils.md5DigestAsHex(password.getBytes());
+        return DigestUtils.sha256DigestAsHex(password.getBytes());
     }
 
     public static void redirectHomeIfSignedIn() {
@@ -88,4 +89,20 @@ public class UserSessionUtils {
             throw new RestartResponseException(new PageProvider(HomePage.class), NEVER_REDIRECT);
         }
     }
+
+    /**
+     * Sets user auth data to cookies. It will be reused to automatically sign in user on next visit.
+     */
+    public static void setUserAutoLoginInfo(@Nullable String authData) {
+        HttpUtils.setCookieValue(UserSessionUtils.USER_AUTH_TOKEN, authData, HttpUtils.MONTH_1_COOKIE_DEFAULTS);
+    }
+
+    /**
+     * Gets user authentication data from cookies. Used to automatically sign in returning users.
+     */
+    @Nullable
+    public static String getUserAutoLoginInfo() {
+        return HttpUtils.getCookieValue(UserSessionUtils.USER_AUTH_TOKEN);
+    }
+
 }

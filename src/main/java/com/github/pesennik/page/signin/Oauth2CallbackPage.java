@@ -1,17 +1,17 @@
 package com.github.pesennik.page.signin;
 
 import com.github.pesennik.Context;
+import com.github.pesennik.UserSession;
+import com.github.pesennik.annotation.MountPath;
 import com.github.pesennik.db.dbi.UsersDbi;
 import com.github.pesennik.model.SocialNetworkType;
 import com.github.pesennik.model.User;
-import com.github.pesennik.util.HttpIO;
-import com.github.pesennik.util.OauthLink;
-import com.github.pesennik.util.TextUtils;
-import com.github.pesennik.UserSession;
-import com.github.pesennik.annotation.MountPath;
 import com.github.pesennik.util.DigestUtils;
+import com.github.pesennik.util.HttpIO;
 import com.github.pesennik.util.HttpUtils;
+import com.github.pesennik.util.OauthLink;
 import com.github.pesennik.util.OauthUtils;
+import com.github.pesennik.util.TextUtils;
 import com.github.pesennik.util.UserSessionUtils;
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONObject;
@@ -25,9 +25,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * TODO: vulnerability with checked/unchecked emails
- */
 @MountPath("/oauth2callback")
 public class Oauth2CallbackPage extends WebPage {
     private static final Logger log = LoggerFactory.getLogger(Oauth2CallbackPage.class);
@@ -75,7 +72,7 @@ public class Oauth2CallbackPage extends WebPage {
             User user = UserSession.get().getUser();
             if (user != null) { // user is binding his social account with local account
                 if (action == OauthLink.Action.LOGIN) {
-                    throw new IllegalStateException("User " + user.login + " is logged in and action is LOGIN");
+                    throw new IllegalStateException("User " + user + " is logged in and action is LOGIN");
                 }
                 if (action == OauthLink.Action.BIND_ACCOUNT) {
                     bindUserAccount(user, socialData);
@@ -120,16 +117,12 @@ public class Oauth2CallbackPage extends WebPage {
         if (user == null && !TextUtils.isEmpty(sd.email)) {
             user = dao.getUserByEmail(sd.email);
             if (user != null) {
-                if (!user.emailChecked) {
-                    user.emailChecked = true; // TODO:
-                    dao.updateEmailCheckedFlag(user, null);
+                user.personalInfo.socialIds.put(sd.network, sd.socialId);
+                if (TextUtils.isEmpty(user.personalInfo.firstName)) {
+                    user.personalInfo.firstName = sd.firstName;
                 }
-                user.unpackedPersonalInfo().socialIds.put(sd.network, sd.socialId);
-                if (TextUtils.isEmpty(user.unpackedPersonalInfo().firstName)) {
-                    user.unpackedPersonalInfo().firstName = sd.firstName;
-                }
-                if (TextUtils.isEmpty(user.unpackedPersonalInfo().lastName)) {
-                    user.unpackedPersonalInfo().lastName = sd.lastName;
+                if (TextUtils.isEmpty(user.personalInfo.lastName)) {
+                    user.personalInfo.lastName = sd.lastName;
                 }
                 dao.updatePersonalInfo(user);
             }
@@ -144,7 +137,6 @@ public class Oauth2CallbackPage extends WebPage {
 //                log.error("Error during fetching/saving user avatar: ", e);
 //            }
 
-            // TODO: vulnerability - green gate for all
             UserSessionUtils.login(user);
             return true;
         }
@@ -154,15 +146,15 @@ public class Oauth2CallbackPage extends WebPage {
     private void bindUserAccount(@NotNull User sessionUser, @NotNull RegistrationViaSocialNetworkPage.SocialRegData sd) {
         User userWithSocialId = Context.getUsersDbi().getUserBySocialId(sd.network, sd.socialId);
         if (userWithSocialId != null && userWithSocialId.id.equals(sessionUser.id)) {
-            log.warn("User with same social data was found. Session user: " + sessionUser.login + ", founded user: " + userWithSocialId.login);
+            log.warn("User with same social data was found. Session user: " + sessionUser + ", founded user: " + userWithSocialId);
             // TODO: what we should do?
         }
-        sessionUser.unpackedPersonalInfo().socialIds.put(sd.network, sd.socialId);
-        if (TextUtils.isEmpty(sessionUser.unpackedPersonalInfo().firstName)) {
-            sessionUser.unpackedPersonalInfo().firstName = sd.firstName;
+        sessionUser.personalInfo.socialIds.put(sd.network, sd.socialId);
+        if (TextUtils.isEmpty(sessionUser.personalInfo.firstName)) {
+            sessionUser.personalInfo.firstName = sd.firstName;
         }
-        if (TextUtils.isEmpty(sessionUser.unpackedPersonalInfo().lastName)) {
-            sessionUser.unpackedPersonalInfo().lastName = sd.lastName;
+        if (TextUtils.isEmpty(sessionUser.personalInfo.lastName)) {
+            sessionUser.personalInfo.lastName = sd.lastName;
         }
         Context.getUsersDbi().updatePersonalInfo(sessionUser);
 
@@ -188,7 +180,7 @@ public class Oauth2CallbackPage extends WebPage {
                 throw new IllegalStateException("Cannot detect action by state! State: '" + state + "'");
             }
             state = OauthUtils.rejectActionFromState(state);
-            String originalState = UserSession.get().getOauthSecureState();
+            String originalState = UserSession.get().oauthSecureState;
             // this checking is needed to prevent CSRF (Cross-Site Request Forgery)
             if (!originalState.equals(state)) {
                 throw new IllegalStateException("received: '" + state + "', original: '" + originalState + "'");
@@ -215,7 +207,7 @@ public class Oauth2CallbackPage extends WebPage {
                     "&redirect_uri=" + OauthUtils.getCallbackUrl(SocialNetworkType.GOOGLE) +
                     "&grant_type=authorization_code";
 
-            String response = null;//TODO: HttpFetcher.fetchPageRawWithPost(url, postData);
+            String response = HttpIO.post(url, postData);
             JSONObject obj = new JSONObject(response);
             assertEmpty(obj.optString("error", ""));
 
@@ -284,7 +276,7 @@ public class Oauth2CallbackPage extends WebPage {
                         "&client_id=" + OauthUtils.YANDEX_CLIENT_ID +
                         "&client_secret=" + OauthUtils.YANDEX_CLIENT_SECRET;
 
-                String response = null;//TODO: HttpFetcher.fetchPageRawWithPost(url, postData);
+                String response = HttpIO.post(url, postData);
                 JSONObject obj = new JSONObject(response);
                 assertEmpty(obj.optString("error", ""));
                 accessToken = obj.getString("access_token");
@@ -320,7 +312,7 @@ public class Oauth2CallbackPage extends WebPage {
                         "&client_secret=" + OauthUtils.MAIL_CLIENT_SECRET +
                         "&redirect_uri=" + OauthUtils.getCallbackUrl(SocialNetworkType.MAIL_RU);
 
-                String response = null;//TODO: HttpFetcher.fetchPageRawWithPost(url, postData);
+                String response = HttpIO.post(url, postData);
                 JSONObject obj = new JSONObject(response);
                 assertEmpty(obj.optString("error", ""));
                 accessToken = obj.getString("access_token");
@@ -403,7 +395,7 @@ public class Oauth2CallbackPage extends WebPage {
                         "&client_secret=" + OauthUtils.ODNOKLASSNIKI_CLIENT_SECRET +
                         "&redirect_uri=" + OauthUtils.getCallbackUrl(SocialNetworkType.ODNOKLASSNIKI);
 
-                String response = null;//TODO: HttpFetcher.fetchPageRawWithPost(url, postData);
+                String response = HttpIO.post(url, postData);
                 JSONObject obj = new JSONObject(response);
                 assertEmpty(obj.optString("error", ""));
                 accessToken = obj.getString("access_token");

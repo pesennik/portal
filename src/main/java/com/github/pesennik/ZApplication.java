@@ -1,9 +1,9 @@
 package com.github.pesennik;
 
-import com.github.pesennik.util.NoVersionPageMapper;
 import com.github.pesennik.annotation.MountPath;
 import com.github.pesennik.page.HomePage;
 import com.github.pesennik.util.NoVersionHomePageMapper;
+import com.github.pesennik.util.NoVersionPageMapper;
 import com.github.pesennik.util.TextUtils;
 import org.apache.wicket.Page;
 import org.apache.wicket.Session;
@@ -25,8 +25,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-/**
- */
 public class ZApplication extends WebApplication {
     private static final Logger log = LoggerFactory.getLogger(ZApplication.class);
     private static ZApplication instance;
@@ -90,7 +88,7 @@ public class ZApplication extends WebApplication {
             }
         }
         UserSession session = new UserSession(request);
-        session.setIp(ip);
+        session.ip = ip;
         return session;
     }
 

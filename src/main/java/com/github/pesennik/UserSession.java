@@ -4,6 +4,7 @@ import com.github.pesennik.model.User;
 import com.github.pesennik.model.UserId;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.Request;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.math.BigInteger;
@@ -11,13 +12,19 @@ import java.security.SecureRandom;
 
 public class UserSession extends WebSession {
 
+    @Nullable
     private UserId userId;
+
     private boolean initialized;
-    private String ip;
 
-    private final String oauthSecureState = new BigInteger(130, new SecureRandom()).toString(32); // anti-forgery state token
+    @Nullable
+    public String ip;
 
-    private String lastViewedPage; // used to redirect after oauth authorization
+    @NotNull
+    public final String oauthSecureState = new BigInteger(130, new SecureRandom()).toString(32); // anti-forgery state token
+
+    @Nullable
+    public String lastViewedPage; // used to redirect after oauth authorization
 
     public UserSession(Request request) {
         super(request);
@@ -65,38 +72,20 @@ public class UserSession extends WebSession {
         String res = "session:" + hashCode();
         User user = getUser();
         if (user != null) {
-            res += "|user:" + user.login;
+            res += "|user:" + user.email;
         }
         res += "|ip:" + ip;
         return res;
     }
 
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public String getUserLogin() {
+    @Nullable
+    public String getUserEmail() {
         User user = getUser();
-        return user == null ? null : user.login;
+        return user == null ? null : user.email;
     }
 
     public void setUser(User user) {
         setUser(user == null ? null : user.id);
     }
 
-    public String getOauthSecureState() {
-        return oauthSecureState;
-    }
-
-    public String getLastViewedPage() {
-        return lastViewedPage;
-    }
-
-    public void setLastViewedPage(String lastViewedPage) {
-        this.lastViewedPage = lastViewedPage;
-    }
 }

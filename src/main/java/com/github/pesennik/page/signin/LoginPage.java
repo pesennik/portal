@@ -1,17 +1,17 @@
 package com.github.pesennik.page.signin;
 
 import com.github.pesennik.Context;
+import com.github.pesennik.UserSession;
+import com.github.pesennik.annotation.MountPath;
 import com.github.pesennik.component.Feedback;
 import com.github.pesennik.component.PasswordField;
 import com.github.pesennik.component.SocialLoginPanel;
+import com.github.pesennik.component.parsley.EmailJsValidator;
 import com.github.pesennik.component.parsley.PasswordJsValidator;
 import com.github.pesennik.component.parsley.ValidatingJsAjaxSubmitLink;
 import com.github.pesennik.db.dbi.UsersDbi;
 import com.github.pesennik.model.User;
 import com.github.pesennik.page.BasePage;
-import com.github.pesennik.UserSession;
-import com.github.pesennik.annotation.MountPath;
-import com.github.pesennik.component.parsley.LoginJsValidator;
 import com.github.pesennik.page.HomePage;
 import com.github.pesennik.util.HttpUtils;
 import com.github.pesennik.util.TextUtils;
@@ -31,8 +31,6 @@ import org.jetbrains.annotations.NotNull;
 import static org.apache.wicket.core.request.handler.RenderPageRequestHandler.RedirectPolicy.NEVER_REDIRECT;
 
 
-/**
- */
 @MountPath(value = "/signin", alt = "/login")
 public class LoginPage extends BasePage {
     public static final String ERROR_PARAM = "error";
@@ -57,9 +55,9 @@ public class LoginPage extends BasePage {
         form.add(new BookmarkablePageLink<WebPage>("restore_link", ForgotPasswordPage.class));
         form.add(new BookmarkablePageLink<WebPage>("signup_link", RegistrationPage.class));
 
-        TextField<String> loginField = new TextField<>("login_field", Model.of(""));
-        loginField.add(new LoginJsValidator());
-        form.add(loginField);
+        TextField<String> emailField = new TextField<>("email_field", Model.of(""));
+        emailField.add(new EmailJsValidator());
+        form.add(emailField);
         PasswordField passwordField = new PasswordField("password_field", Model.of(""));
         passwordField.add(new PasswordJsValidator());
         form.add(passwordField);
@@ -69,8 +67,8 @@ public class LoginPage extends BasePage {
                 feedback.reset(target);
 
                 UsersDbi dbi = Context.getUsersDbi();
-                String login = TextUtils.trim(loginField.getModelObject());
-                User user = dbi.getUserByLogin(login);
+                String login = TextUtils.trim(emailField.getModelObject());
+                User user = dbi.getUserByEmail(login);
                 if (user == null) {
                     feedback.error("Пользователь с таким именем не найден!");
                     return;
@@ -85,13 +83,8 @@ public class LoginPage extends BasePage {
                     return;
 
                 }
-                // do login for old user and check isEmailChecked for new user
-                if (user.emailChecked) {
-                    UserSessionUtils.login(user);
-                    HttpUtils.redirectToLastViewedPage(LoginPage.this);
-                } else {
-                    setResponsePage(ManualAccountActivationPage.class, ManualAccountActivationPage.getParameters(user.login));
-                }
+                UserSessionUtils.login(user);
+                HttpUtils.redirectToLastViewedPage(LoginPage.this);
             }
         });
     }

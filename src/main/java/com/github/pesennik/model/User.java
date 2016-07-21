@@ -1,69 +1,65 @@
 package com.github.pesennik.model;
 
-import com.github.pesennik.util.UDate;
 import com.github.mjdbc.DbMapper;
 import com.github.mjdbc.Mapper;
+import com.github.pesennik.util.UDate;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import static java.util.Objects.requireNonNull;
 
-/**
- *
- */
 public class User extends Identifiable<UserId> {
 
     /**
      * Authentication.
      */
-    public String login;
-    public String passwordHash;
-    public String email;
-    public String uid; //32-symbols hash, to be used for personal resources mapping (like avatar)
+    @NotNull
+    public String passwordHash = "";
+
+    @NotNull
+    public String email = "";
+
+    @NotNull
+    public String uid = ""; //36-symbols UUID based hash, to be used for personal resources mapping (like avatar)
 
     /**
      * Status.
      */
-    public UDate registrationDate;
+    @NotNull
+    public UDate registrationDate = UDate.MIN_DATE;
+
+    @Nullable
     public UDate terminationDate;
 
     /**
      * Tracking.
      */
-    public UDate lastLoginDate;
-    public boolean emailChecked;
-
-    /**
-     * Personal settings & info in JSON; //TODO: remove
-     */
-    public String settings;
-    public String personalInfo;
-
-    private UserPersonalInfo unpackedPersonalInfo;
-
+    @NotNull
+    public UDate lastLoginDate = UDate.MIN_DATE;
 
     @NotNull
-    public UserPersonalInfo unpackedPersonalInfo() {
-        if (unpackedPersonalInfo == null) {
-            unpackedPersonalInfo = new UserPersonalInfo(personalInfo);
-        }
-        return unpackedPersonalInfo;
-    }
+    public UserSettings settings = new UserSettings("");
+
+    @NotNull
+    public UserPersonalInfo personalInfo = new UserPersonalInfo("");
 
     @Mapper
     public static final DbMapper<User> MAPPER = r -> {
         User res = new User();
         res.id = new UserId(r.getInt("id"));
-        res.login = r.getString("login");
-        res.email = r.getString("email");
         res.uid = r.getString("uid");
+        res.email = r.getString("email");
         res.passwordHash = r.getString("password_hash");
         res.registrationDate = UDate.fromDate(requireNonNull(r.getTimestamp("registration_date")));
         res.terminationDate = UDate.fromDate(r.getTimestamp("termination_date"));
         res.lastLoginDate = UDate.fromDate(r.getTimestamp("last_login_date"));
-        res.emailChecked = r.getBoolean("email_checked");
-        res.settings = r.getString("settings");
-        res.personalInfo = r.getString("personal_info");
+        res.settings = new UserSettings(r.getString("settings"));
+        res.personalInfo = new UserPersonalInfo(r.getString("personal_info"));
         return res;
     };
 
+    @Override
+    public String toString() {
+        return "U[" + (id == null ? "?" : "" + id.getDbValue()) + "|" + email + "]";
+    }
 }

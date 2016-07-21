@@ -8,9 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- *
- */
 public enum SocialNetworkType {
     GOOGLE("Google+", "google", "g", "fa fa-google-plus"),
     VK("VKontakte", "vk", "v", "fa fa-vk"),

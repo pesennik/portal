@@ -1,6 +1,5 @@
 package com.github.pesennik.component.parsley;
 
-import com.github.pesennik.Constants;
 import com.github.pesennik.Scripts;
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;

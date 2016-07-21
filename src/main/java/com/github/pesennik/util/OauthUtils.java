@@ -1,9 +1,9 @@
 package com.github.pesennik.util;
 
 import com.github.pesennik.Mounts;
+import com.github.pesennik.UserSession;
 import com.github.pesennik.model.SocialNetworkType;
 import com.github.pesennik.page.signin.Oauth2CallbackPage;
-import com.github.pesennik.UserSession;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -14,6 +14,7 @@ import java.nio.charset.Charset;
 import java.util.Base64;
 
 public class OauthUtils {
+
     public static final String GOOGLE_CLIENT_ID = "TODO";
     public static final String GOOGLE_CLIENT_SECRET = "TODO";
 
@@ -41,13 +42,13 @@ public class OauthUtils {
                 return "https://accounts.google.com/o/oauth2/auth?" +
                         "redirect_uri=" + getCallbackUrl(SocialNetworkType.GOOGLE) +
                         "&response_type=code&client_id=" + GOOGLE_CLIENT_ID +
-                        "&state=" + UserSession.get().getOauthSecureState() + action +
+                        "&state=" + UserSession.get().oauthSecureState + action +
                         "&scope=openid%20email";
             case VK:
                 return "https://oauth.vk.com/authorize?" +
                         "client_id=" + VK_CLIENT_ID +
                         "&redirect_uri=" + getCallbackUrl(SocialNetworkType.VK) +
-                        "&state=" + UserSession.get().getOauthSecureState() + action +
+                        "&state=" + UserSession.get().oauthSecureState + action +
                         "&response_type=code&scope=email";
             case FACEBOOK:
                 return "https://www.facebook.com/dialog/oauth?" +
@@ -55,23 +56,23 @@ public class OauthUtils {
                         "&redirect_uri=" + getCallbackUrl(SocialNetworkType.FACEBOOK) +
                         "&response_type=code" +
                         "&scope=email" +
-                        "&state=" + UserSession.get().getOauthSecureState() + action;
+                        "&state=" + UserSession.get().oauthSecureState + action;
             case MAIL_RU:
                 return "https://connect.mail.ru/oauth/authorize?" +
                         "client_id=" + MAIL_CLIENT_ID +
                         "&response_type=code" +
                         "&redirect_uri=" + getCallbackUrl(SocialNetworkType.MAIL_RU) +
-                        "&state=" + UserSession.get().getOauthSecureState() + action;
+                        "&state=" + UserSession.get().oauthSecureState + action;
             case YANDEX:
                 return "https://oauth.yandex.ru/authorize?response_type=code" +
                         "&client_id=" + YANDEX_CLIENT_ID +
-                        "&state=" + UserSession.get().getOauthSecureState() + action;
+                        "&state=" + UserSession.get().oauthSecureState + action;
             case ODNOKLASSNIKI:
                 return "http://www.odnoklassniki.ru/oauth/authorize?" +
                         "client_id=" + ODNOKLASSNIKI_CLIENT_ID +
                         "&response_type=code&" +
                         "redirect_uri=" + getCallbackUrl(SocialNetworkType.ODNOKLASSNIKI) +
-                        "&state=" + UserSession.get().getOauthSecureState() + action;
+                        "&state=" + UserSession.get().oauthSecureState + action;
         }
         throw new IllegalArgumentException("SN: " + sn);
     }

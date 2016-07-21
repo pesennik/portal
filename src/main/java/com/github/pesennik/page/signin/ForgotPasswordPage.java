@@ -41,9 +41,9 @@ public class ForgotPasswordPage extends BasePage {
         add(form);
 
         CaptchaField captchaField = new CaptchaField("captcha_value");
-        TextField<String> loginOrEmailField = new TextField<>("login_or_email_field", Model.of(""));
+        TextField<String> emailField = new TextField<>("email_field", Model.of(""));
         form.add(captchaField);
-        form.add(loginOrEmailField);
+        form.add(emailField);
         Image captchaImage = new NonCachingImage("captcha_image", captchaField.getCaptchaImageResource());
         captchaImage.setOutputMarkupId(true);
         form.add(captchaImage);
@@ -59,11 +59,8 @@ public class ForgotPasswordPage extends BasePage {
                     return;
                 }
                 UsersDbi dao = Context.getUsersDbi();
-                String loginOrEmail = loginOrEmailField.getModelObject();
-                User user = dao.getUserByLoginOrEmail(loginOrEmail);
-                if (user == null) {
-                    user = dao.getUserByEmail(loginOrEmail);
-                }
+                String email = emailField.getModelObject();
+                User user = dao.getUserByEmail(email);
                 if (user == null) {
                     feedback.error("Пользователь не найден!");
                     return;
@@ -81,7 +78,7 @@ public class ForgotPasswordPage extends BasePage {
         try {
             MailClient.sendMail(user.email, getString("info_password_reset_email_subject"),
                     getString("info_password_reset_email_body", new MapModel<>(new HashMap<String, String>() {{
-                        put("username", user.login);
+                        put("username", user.email);
                         put("link", Mounts.urlFor(ResetPasswordPage.class) + "?" + ResetPasswordPage.HASH_PARAM + "=" + resetRequest.hash);
                     }})));
         } catch (IOException e) {

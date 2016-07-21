@@ -1,6 +1,5 @@
 package com.github.pesennik.component.parsley;
 
-import com.github.pesennik.Constants;
 import com.github.pesennik.Scripts;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
@@ -11,6 +10,7 @@ import org.apache.wicket.markup.html.form.Form;
 import org.jetbrains.annotations.NotNull;
 
 public class ValidatingJsAjaxSubmitLink extends AjaxSubmitLink {
+
     public ValidatingJsAjaxSubmitLink(String id, @NotNull Form form) {
         super(id);
         form.setOutputMarkupId(true);
