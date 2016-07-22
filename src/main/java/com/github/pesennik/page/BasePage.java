@@ -4,7 +4,6 @@ import com.github.pesennik.Mounts;
 import com.github.pesennik.Scripts;
 import com.github.pesennik.component.SiteFooter;
 import com.github.pesennik.component.SiteHeader;
-import com.github.pesennik.model.TopMenu;
 import com.github.pesennik.util.UserSessionUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -15,7 +14,6 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.request.component.IRequestablePage;
 import org.apache.wicket.request.http.WebResponse;
-import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,10 +37,6 @@ public abstract class BasePage extends WebPage implements IRequestablePage {
     protected final SiteHeader header;
 
     public BasePage() {
-        this(null);
-    }
-
-    public BasePage(@Nullable TopMenu activeMenu) {
         pageInitCallback();
         UserSessionUtils.initializeSession();
         checkCorrectMount();
@@ -50,7 +44,7 @@ public abstract class BasePage extends WebPage implements IRequestablePage {
         add(scrollTop);
         scrollTop.setVisible(false);
 
-        header = new SiteHeader("header", activeMenu);
+        header = new SiteHeader("header");
 
         add(header);
         add(new SiteFooter("footer"));

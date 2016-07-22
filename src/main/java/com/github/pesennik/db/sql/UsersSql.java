@@ -18,12 +18,16 @@ public interface UsersSql {
     User selectUserById(@Bind("id") UserId userId);
 
     @Nullable
+    @Sql("SELECT * FROM users WHERE login = :login")
+    User selectUserByLogin(@Bind("login") String login);
+
+    @Nullable
     @Sql("SELECT * FROM users WHERE email = :email")
     User selectUserByEmail(@Bind("email") String email);
 
     @NotNull
-    @Sql("INSERT INTO users (password_hash, email, uid, registration_date, termination_date, last_login_date, settings, personal_info) " +
-            "VALUES (:passwordHash, :email, :uid, :registrationDate, :terminationDate, :lastLoginDate, :settings, :personalInfo)")
+    @Sql("INSERT INTO users (login, password_hash, email, uid, registration_date, termination_date, last_login_date, settings) " +
+            "VALUES (:login, :passwordHash, :email, :uid, :registrationDate, :terminationDate, :lastLoginDate, :settings)")
     UserId insertUser(@BindBean User user);
 
     @Sql("UPDATE users SET password_hash = :hash WHERE id = :id")

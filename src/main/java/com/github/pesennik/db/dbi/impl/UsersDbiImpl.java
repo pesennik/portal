@@ -5,7 +5,6 @@ import com.github.pesennik.db.dbi.AbstractDbi;
 import com.github.pesennik.db.dbi.UsersDbi;
 import com.github.pesennik.db.sql.UsersSql;
 import com.github.pesennik.db.sql.VerificationRecordSql;
-import com.github.pesennik.model.SocialNetworkType;
 import com.github.pesennik.model.User;
 import com.github.pesennik.model.UserId;
 import com.github.pesennik.model.VerificationRecord;
@@ -19,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
 /**
- * Database access interface for W7 DB
+ * Database access interface for user data
  */
 public final class UsersDbiImpl extends AbstractDbi implements UsersDbi {
 
@@ -62,9 +61,9 @@ public final class UsersDbiImpl extends AbstractDbi implements UsersDbi {
     }
 
     @Override
-    public User getUserBySocialId(@NotNull SocialNetworkType networkType, @NotNull String socialId) {
-        //todo:
-        return null;
+    @Nullable
+    public User getUserByLogin(@Nullable String login) {
+        return TextUtils.isEmpty(login) ? null : usersSql.selectUserByEmail(login);
     }
 
     @Override

@@ -4,6 +4,7 @@ DROP TABLE users;
 CREATE TABLE users (
   id                INTEGER AUTO_INCREMENT PRIMARY KEY,
 
+  login             VARCHAR(30)   NOT NULL UNIQUE,
   uid               CHAR(36)      NOT NULL UNIQUE,
   email             VARCHAR(50)   NOT NULL UNIQUE,
   password_hash     CHAR(32)      NOT NULL,
@@ -13,8 +14,7 @@ CREATE TABLE users (
 
   last_login_date   TIMESTAMP     NOT NULL,
 
-  settings          VARCHAR(2048) NOT NULL,
-  personal_info     VARCHAR(2048) NOT NULL
+  settings          VARCHAR(2048) NOT NULL
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;

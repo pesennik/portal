@@ -57,7 +57,7 @@ public class UserSessionUtils {
     }
 
     public static void login(@NotNull User user) {
-        UserSession.get().setUser(user.id);
+        UserSession.get().setUser(user);
         UserSessionUtils.setUserAutoLoginInfo(user.id.getDbValue() + ID_PASSWORD_SEPARATOR_CHAR + user.passwordHash);
         user.lastLoginDate = UDate.now();
         Context.getUsersDbi().updateLastLoginDate(user);
@@ -67,12 +67,8 @@ public class UserSessionUtils {
     public static void logout() {
         UserSession session = UserSession.get();
         log.debug("Logging out: " + session.getUserEmail());
-        UserId userId = session.getUserId();
         session.cleanOnLogout();
         UserSessionUtils.setUserAutoLoginInfo(null);
-        if (userId != null) {
-            Context.getOnlineStatusManager().removeFromOnline(userId);
-        }
     }
 
     public static boolean checkPassword(String password, String dbHash) {

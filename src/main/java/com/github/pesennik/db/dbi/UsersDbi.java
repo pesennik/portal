@@ -1,6 +1,5 @@
 package com.github.pesennik.db.dbi;
 
-import com.github.pesennik.model.SocialNetworkType;
 import com.github.pesennik.model.User;
 import com.github.pesennik.model.UserId;
 import com.github.pesennik.model.VerificationRecord;
@@ -21,7 +20,7 @@ public interface UsersDbi {
     void updateLastLoginDate(@NotNull User user);
 
     @Nullable
-    User getUserBySocialId(@NotNull SocialNetworkType networkType, @NotNull String socialId);
+    User getUserByLogin(@Nullable String login);
 
     @Nullable
     User getUserByEmail(@Nullable String email);

@@ -1,21 +1,16 @@
 package com.github.pesennik.page;
 
+import com.github.pesennik.UserSession;
 import com.github.pesennik.model.User;
 import com.github.pesennik.page.signin.LoginPage;
 import com.github.pesennik.page.signin.LogoutPage;
 import com.github.pesennik.page.signin.RegistrationPage;
-import com.github.pesennik.model.TopMenu;
-import com.github.pesennik.UserSession;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 
-/**
- *
- */
 public class HomePage extends BasePage {
 
     public HomePage() {
-        super(TopMenu.HOME);
 
         User user = UserSession.get().getUser();
 

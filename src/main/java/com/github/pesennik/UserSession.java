@@ -15,6 +15,9 @@ public class UserSession extends WebSession {
     @Nullable
     private UserId userId;
 
+    @Nullable
+    private String userLogin;
+
     private boolean initialized;
 
     @Nullable
@@ -44,8 +47,9 @@ public class UserSession extends WebSession {
         return userId == null ? null : Context.getUsersDbi().getUserById(userId);
     }
 
-    public void setUser(UserId userId) {
-        this.userId = userId;
+    public void setUser(@NotNull User user) {
+        this.userId = user.id;
+        this.userLogin = user.login;
     }
 
     public boolean isInitialized() {
@@ -58,6 +62,7 @@ public class UserSession extends WebSession {
 
     public void cleanOnLogout() {
         userId = null;
+        userLogin = null;
         setInitialized(false);
         getAttributeNames().forEach(this::removeAttribute);
         clear();
@@ -68,11 +73,16 @@ public class UserSession extends WebSession {
         return userId;
     }
 
+    @Nullable
+    public String getUserLogin() {
+        return userLogin;
+    }
+
     public String toString() {
         String res = "session:" + hashCode();
         User user = getUser();
         if (user != null) {
-            res += "|user:" + user.email;
+            res += "|user:" + user.login;
         }
         res += "|ip:" + ip;
         return res;
@@ -83,9 +93,4 @@ public class UserSession extends WebSession {
         User user = getUser();
         return user == null ? null : user.email;
     }
-
-    public void setUser(User user) {
-        setUser(user == null ? null : user.id);
-    }
-
 }

@@ -3,7 +3,7 @@ package com.github.pesennik.util;
 import com.github.plural4j.Plural;
 import org.jetbrains.annotations.NotNull;
 
-public class Plurals {
+public class PL {
 
     public static final Plural PL = new Plural(Plural.RUSSIAN,
             Plural.parse("секунда,секунды,секунд\n" +

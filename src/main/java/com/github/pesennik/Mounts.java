@@ -7,10 +7,8 @@ import com.github.pesennik.page.PageNotFoundPage;
 import com.github.pesennik.page.signin.ForgotPasswordPage;
 import com.github.pesennik.page.signin.LoginPage;
 import com.github.pesennik.page.signin.LogoutPage;
-import com.github.pesennik.page.signin.Oauth2CallbackPage;
 import com.github.pesennik.page.signin.RegistrationCompletePage;
 import com.github.pesennik.page.signin.RegistrationPage;
-import com.github.pesennik.page.signin.RegistrationViaSocialNetworkPage;
 import com.github.pesennik.page.signin.ResetPasswordPage;
 import com.github.pesennik.page.user.UserProfileSettingsPage;
 import org.apache.wicket.request.component.IRequestablePage;
@@ -29,10 +27,8 @@ public class Mounts {
                 ForgotPasswordPage.class,
                 LoginPage.class,
                 LogoutPage.class,
-                Oauth2CallbackPage.class,
                 RegistrationCompletePage.class,
                 RegistrationPage.class,
-                RegistrationViaSocialNetworkPage.class,
                 ResetPasswordPage.class,
 
                 // User settings

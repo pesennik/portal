@@ -14,6 +14,9 @@ public class User extends Identifiable<UserId> {
      * Authentication.
      */
     @NotNull
+    public String login = "";
+
+    @NotNull
     public String passwordHash = "";
 
     @NotNull
@@ -40,13 +43,11 @@ public class User extends Identifiable<UserId> {
     @NotNull
     public UserSettings settings = new UserSettings("");
 
-    @NotNull
-    public UserPersonalInfo personalInfo = new UserPersonalInfo("");
-
     @Mapper
     public static final DbMapper<User> MAPPER = r -> {
         User res = new User();
         res.id = new UserId(r.getInt("id"));
+        res.login = r.getString("login");
         res.uid = r.getString("uid");
         res.email = r.getString("email");
         res.passwordHash = r.getString("password_hash");
@@ -54,7 +55,6 @@ public class User extends Identifiable<UserId> {
         res.terminationDate = UDate.fromDate(r.getTimestamp("termination_date"));
         res.lastLoginDate = UDate.fromDate(r.getTimestamp("last_login_date"));
         res.settings = new UserSettings(r.getString("settings"));
-        res.personalInfo = new UserPersonalInfo(r.getString("personal_info"));
         return res;
     };
 

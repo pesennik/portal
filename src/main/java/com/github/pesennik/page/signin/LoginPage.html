@@ -15,8 +15,8 @@
                         <td>
                             <table class="pr20_td pb10_td">
                                 <tr>
-                                    <td class="vat"><label for="email">Email</label></td>
-                                    <td><input wicket:id="email_field" id="email" type="text" class="form-control input-sm fsi" onkeypress="$site.Utils.focusOnEnter(event, '#password');"/></td>
+                                    <td class="vat"><label for="email-or-login">Email или имя</label></td>
+                                    <td><input wicket:id="email_or_login_field" id="email-or-login" type="text" class="form-control input-sm fsi" onkeypress="$site.Utils.focusOnEnter(event, '#password');"/></td>
                                 </tr>
                                 <tr>
                                     <td class="vat"><label for="password">Пароль</label></td>
@@ -36,16 +36,13 @@
                                 </tr>
                             </table>
                         </td>
-                        <td class="vat" style="min-width: 100px;">
-                            <wicket:panel wicket:id="socials_panel"/>
-                        </td>
                     </tr>
                 </table>
             </form>
         </div>
     </div>
     <script>
-        $("#email").focus()
+        $("#email-or-login").focus()
     </script>
 </wicket:extend>
 </html>

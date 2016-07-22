@@ -4,9 +4,10 @@ import com.github.pesennik.Context;
 import com.github.pesennik.UserSession;
 import com.github.pesennik.annotation.MountPath;
 import com.github.pesennik.component.Feedback;
+import com.github.pesennik.component.InputField;
 import com.github.pesennik.component.PasswordField;
-import com.github.pesennik.component.SocialLoginPanel;
 import com.github.pesennik.component.parsley.EmailJsValidator;
+import com.github.pesennik.component.parsley.LoginJsValidator;
 import com.github.pesennik.component.parsley.PasswordJsValidator;
 import com.github.pesennik.component.parsley.ValidatingJsAjaxSubmitLink;
 import com.github.pesennik.db.dbi.UsersDbi;
@@ -21,12 +22,10 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.core.request.handler.PageProvider;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.string.StringValue;
-import org.jetbrains.annotations.NotNull;
 
 import static org.apache.wicket.core.request.handler.RenderPageRequestHandler.RedirectPolicy.NEVER_REDIRECT;
 
@@ -49,15 +48,13 @@ public class LoginPage extends BasePage {
         Form form = new Form("login_form");
         add(form);
 
-        form.add(new SocialLoginPanel("socials_panel"));
-
         form.add(feedback);
         form.add(new BookmarkablePageLink<WebPage>("restore_link", ForgotPasswordPage.class));
         form.add(new BookmarkablePageLink<WebPage>("signup_link", RegistrationPage.class));
 
-        TextField<String> emailField = new TextField<>("email_field", Model.of(""));
-        emailField.add(new EmailJsValidator());
-        form.add(emailField);
+        InputField emailOrLoginField = new InputField("email_or_login_field");
+        emailOrLoginField.add(new LoginJsValidator());
+        form.add(emailOrLoginField);
         PasswordField passwordField = new PasswordField("password_field", Model.of(""));
         passwordField.add(new PasswordJsValidator());
         form.add(passwordField);
@@ -67,10 +64,13 @@ public class LoginPage extends BasePage {
                 feedback.reset(target);
 
                 UsersDbi dbi = Context.getUsersDbi();
-                String login = TextUtils.trim(emailField.getModelObject());
-                User user = dbi.getUserByEmail(login);
+                String emailOrLogin = TextUtils.trim(emailOrLoginField.getModelObject());
+                User user = dbi.getUserByLogin(emailOrLogin);
+                if (user == null && emailOrLogin.contains("@")) {
+                    user = dbi.getUserByEmail(emailOrLogin);
+                }
                 if (user == null) {
-                    feedback.error("Пользователь с таким именем не найден!");
+                    feedback.error("Пользователь не найден!");
                     return;
                 }
                 String password = passwordField.getModelObject();
@@ -88,13 +88,5 @@ public class LoginPage extends BasePage {
             }
         });
     }
-
-    @NotNull
-    public static PageParameters errorParams(@NotNull String err) {
-        PageParameters pp = new PageParameters();
-        pp.set(ERROR_PARAM, err);
-        return pp;
-    }
-
 }
 

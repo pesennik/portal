@@ -7,11 +7,10 @@ import com.github.pesennik.annotation.MountPath;
 import com.github.pesennik.component.Feedback;
 import com.github.pesennik.component.InputField;
 import com.github.pesennik.component.PasswordField;
-import com.github.pesennik.component.SocialLoginPanel;
 import com.github.pesennik.component.parsley.EmailJsValidator;
+import com.github.pesennik.component.parsley.LoginJsValidator;
 import com.github.pesennik.component.parsley.PasswordJsValidator;
 import com.github.pesennik.component.parsley.ValidatingJsAjaxSubmitLink;
-import com.github.pesennik.db.dbi.UsersDbi;
 import com.github.pesennik.model.User;
 import com.github.pesennik.page.BasePage;
 import com.github.pesennik.page.HomePage;
@@ -48,10 +47,14 @@ public class RegistrationPage extends BasePage {
         fieldsBlock.setOutputMarkupId(true);
         form.add(fieldsBlock);
 
-        fieldsBlock.add(new SocialLoginPanel("socials_panel"));
 
         Feedback feedback = new Feedback("feedback");
         form.add(feedback);
+
+        InputField loginField = new InputField("login_field");
+        loginField.add(new LoginJsValidator());
+        fieldsBlock.add(loginField);
+
 
         InputField emailField = new InputField("email_field");
         emailField.add(new EmailJsValidator());
@@ -71,13 +74,19 @@ public class RegistrationPage extends BasePage {
                 if (UserSession.get().isSignedIn()) {
                     throw new RestartResponseException(new PageProvider(HomePage.class), NEVER_REDIRECT);
                 }
-                UsersDbi dbi = Context.getUsersDbi();
+
+                String login = emailField.getInputString();
+                if (ValidatorUtils.isValidLogin(login)) {
+                    feedback.error("Некорректный псевдоним");
+                    return;
+                }
+
                 String email = emailField.getInputString();
                 if (TextUtils.isEmpty(email)) {
                     feedback.error("Необходимо указать email!");
                     return;
                 }
-                User user = dbi.getUserByEmail(email);
+                User user = Context.getUsersDbi().getUserByEmail(email);
                 if (user != null) {
                     feedback.error("Пользователь с таким email уже существует!");
                     return;
@@ -86,7 +95,7 @@ public class RegistrationPage extends BasePage {
                     feedback.error("Некорректный формат email!");
                     return;
                 }
-                user = dbi.getUserByEmail(email);
+                user = Context.getUsersDbi().getUserByEmail(email);
                 if (user != null) {
                     feedback.error("Пользователь с таким email уже существует!");
                     return;
@@ -100,11 +109,12 @@ public class RegistrationPage extends BasePage {
                 }
 
                 user = new User();
+                user.login = login;
                 user.lastLoginDate = UDate.now();
                 user.registrationDate = UDate.now();
                 user.email = email;
                 user.passwordHash = UserSessionUtils.password2Hash(password1);
-                dbi.createUser(user);
+                Context.getUsersDbi().createUser(user);
 
                 fieldsBlock.setVisible(false);
                 target.add(fieldsBlock);
