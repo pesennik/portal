@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import static org.apache.wicket.core.request.handler.RenderPageRequestHandler.RedirectPolicy.NEVER_REDIRECT;
 
 /**
- * This page is available only for signed in users;
+ * This page is visible only for signed in users;
  */
 public abstract class BaseUserPage extends BasePage {
 
@@ -21,7 +21,6 @@ public abstract class BaseUserPage extends BasePage {
 
     public BaseUserPage(boolean skipRedirect) {
         if (!UserSession.get().isSignedIn() && !skipRedirect) {
-            HttpUtils.saveLastViewedPage((HttpServletRequest) getRequest().getContainerRequest());
             throw new RestartResponseException(new PageProvider(LoginPage.class), NEVER_REDIRECT);
         }
     }

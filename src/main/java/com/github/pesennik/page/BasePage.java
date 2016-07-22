@@ -4,6 +4,7 @@ import com.github.pesennik.Mounts;
 import com.github.pesennik.Scripts;
 import com.github.pesennik.component.SiteFooter;
 import com.github.pesennik.component.SiteHeader;
+import com.github.pesennik.util.HttpUtils;
 import com.github.pesennik.util.UserSessionUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -37,9 +38,10 @@ public abstract class BasePage extends WebPage implements IRequestablePage {
     protected final SiteHeader header;
 
     public BasePage() {
-        pageInitCallback();
-        UserSessionUtils.initializeSession();
         checkCorrectMount();
+        UserSessionUtils.initializeSession();
+        pageInitCallback();
+        HttpUtils.saveLastViewedPage();
 
         add(scrollTop);
         scrollTop.setVisible(false);

@@ -55,7 +55,6 @@ public class RegistrationPage extends BasePage {
         loginField.add(new LoginJsValidator());
         fieldsBlock.add(loginField);
 
-
         InputField emailField = new InputField("email_field");
         emailField.add(new EmailJsValidator());
         fieldsBlock.add(emailField);
@@ -75,8 +74,8 @@ public class RegistrationPage extends BasePage {
                     throw new RestartResponseException(new PageProvider(HomePage.class), NEVER_REDIRECT);
                 }
 
-                String login = emailField.getInputString();
-                if (ValidatorUtils.isValidLogin(login)) {
+                String login = loginField.getInputString();
+                if (!ValidatorUtils.isValidLogin(login)) {
                     feedback.error("Некорректный псевдоним");
                     return;
                 }

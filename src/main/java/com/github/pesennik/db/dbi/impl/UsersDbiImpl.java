@@ -63,7 +63,7 @@ public final class UsersDbiImpl extends AbstractDbi implements UsersDbi {
     @Override
     @Nullable
     public User getUserByLogin(@Nullable String login) {
-        return TextUtils.isEmpty(login) ? null : usersSql.selectUserByEmail(login);
+        return TextUtils.isEmpty(login) ? null : usersSql.selectUserByLogin(login);
     }
 
     @Override

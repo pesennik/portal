@@ -1,5 +1,6 @@
 package com.github.pesennik.util;
 
+import com.github.pesennik.Context;
 import com.github.pesennik.UserSession;
 import com.github.pesennik.page.HomePage;
 import org.apache.wicket.Component;
@@ -12,7 +13,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 
 public class HttpUtils {
 
@@ -38,16 +38,12 @@ public class HttpUtils {
         new CookieUtils(cookieDefaults).save(key, v);
     }
 
-    public static void saveLastViewedPage(HttpServletRequest r) {
-        String referer = r.getHeader("Referer");
-        if (referer == null) {
-            String query = r.getQueryString();
-            referer = r.getRequestURI() + (TextUtils.isEmpty(query) ? "" : "?" + query);
-        }
-        UserSession.get().lastViewedPage = referer;
+    public static void saveLastViewedPage() {
+        UserSession.get().lastViewedPage = Context.getBaseUrl() + "/" + RequestCycle.get().getRequest().getClientUrl();
     }
 
-    public static void redirectToLastViewedPage(Component component) {
+
+    public static void redirectToLastViewedPage(@NotNull Component component) {
         String referer = UserSession.get().lastViewedPage;
         if (TextUtils.isEmpty(referer)) {
             component.setResponsePage(HomePage.class);

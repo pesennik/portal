@@ -13,23 +13,23 @@
                             <table class="pr10_td pb10_td">
                                 <tr>
                                     <td class="vat"><label for="email">Email</label></td>
-                                    <td><input wicket:id="email_field" id="email" type="text" class="form-control  input-sm fsi"/></td>
+                                    <td><input wicket:id="email_field" id="email" type="text" class="form-control  input-sm fsi" onkeypress="$site.Utils.focusOnEnter(event, '#login');"/></td>
                                 </tr>
                                 <tr>
                                     <td class="vat"><label for="login">Псевдоним</label></td>
-                                    <td><input wicket:id="login_field" id="login" type="text" class="form-control  input-sm fsi"/></td>
+                                    <td><input wicket:id="login_field" id="login" type="text" class="form-control  input-sm fsi" onkeypress="$site.Utils.focusOnEnter(event, '#password1');"/></td>
                                 </tr>
                                 <tr>
                                     <td class="vat"><label for="password1">Пароль</label></td>
-                                    <td><input wicket:id="password1_field" id="password1" type="password" class="form-control  input-sm fsi"/></td>
+                                    <td><input wicket:id="password1_field" id="password1" type="password" class="form-control  input-sm fsi" onkeypress="$site.Utils.focusOnEnter(event, '#password2');"/></td>
                                 </tr>
                                 <tr>
                                     <td class="vat"><label for="password2" class="nw">Пароль (повтор)</label></td>
-                                    <td><input wicket:id="password2_field" id="password2" type="password" class="form-control input-sm fsi"/></td>
+                                    <td><input wicket:id="password2_field" id="password2" type="password" class="form-control input-sm fsi" onkeypress="$site.Utils.clickOnCtrlEnter(event, '#register-button');"/></td>
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td><a wicket:id="submit" class="btn btn-success">Зарегистрироваться</a></td>
+                                    <td><a wicket:id="submit" id="register-button" class="btn btn-success">Зарегистрироваться</a></td>
                                 </tr>
                             </table>
                         </td>
