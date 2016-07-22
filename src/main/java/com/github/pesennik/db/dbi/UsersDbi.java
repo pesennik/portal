@@ -25,8 +25,6 @@ public interface UsersDbi {
     @Nullable
     User getUserByEmail(@Nullable String email);
 
-    void updatePersonalInfo(@NotNull User user);
-
     void updatePassword(@NotNull User user, @Nullable VerificationRecord r);
 
     void createVerificationRecord(@NotNull VerificationRecord r);

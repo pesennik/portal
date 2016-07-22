@@ -4,13 +4,18 @@ import com.github.pesennik.model.User;
 import com.github.pesennik.model.UserId;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.Request;
+import org.apache.wicket.request.cycle.RequestCycle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.math.BigInteger;
-import java.security.SecureRandom;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.lang.reflect.Field;
 
 public class UserSession extends WebSession {
+    private static final Logger log = LoggerFactory.getLogger(UserSession.class);
 
     @Nullable
     private UserId userId;
@@ -22,9 +27,6 @@ public class UserSession extends WebSession {
 
     @Nullable
     public String ip;
-
-    @NotNull
-    public final String oauthSecureState = new BigInteger(130, new SecureRandom()).toString(32); // anti-forgery state token
 
     @Nullable
     public String lastViewedPage; // used to redirect after oauth authorization
@@ -68,11 +70,13 @@ public class UserSession extends WebSession {
         clear();
     }
 
+    @SuppressWarnings("unused")
     @Nullable
     public UserId getUserId() {
         return userId;
     }
 
+    @SuppressWarnings("unused")
     @Nullable
     public String getUserLogin() {
         return userLogin;
@@ -93,4 +97,23 @@ public class UserSession extends WebSession {
         User user = getUser();
         return user == null ? null : user.email;
     }
+
+
+    public void touch() {
+        HttpServletRequest request = ((HttpServletRequest) RequestCycle.get().getRequest().getContainerRequest());
+        HttpSession httpSession = request.getSession();
+        touch(httpSession);
+    }
+
+    private static void touch(HttpSession session) {
+        try {
+            Field f = session.getClass().getDeclaredField("session");
+            f.setAccessible(true);
+            HttpSession realSession = (HttpSession) f.get(session);
+            realSession.getClass().getMethod("access").invoke(realSession);
+        } catch (Exception e) {
+            log.error("", e);
+        }
+    }
+
 }

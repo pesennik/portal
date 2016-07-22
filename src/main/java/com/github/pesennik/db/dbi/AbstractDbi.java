@@ -1,11 +1,11 @@
 package com.github.pesennik.db.dbi;
 
-import com.github.pesennik.util.LazyValue;
 import com.github.mjdbc.Db;
+import com.github.pesennik.util.LazyValue;
 import org.jetbrains.annotations.NotNull;
 
 /**
- *
+ * Base class for all Dbi implementations.
  */
 public class AbstractDbi {
     @NotNull

@@ -1,9 +1,11 @@
 package com.github.pesennik;
 
+import com.github.mjdbc.Db;
+import com.github.pesennik.db.dbi.UserSongsDbi;
 import com.github.pesennik.db.dbi.UsersDbi;
+import com.github.pesennik.db.dbi.impl.UserSongsDbiImpl;
 import com.github.pesennik.db.dbi.impl.UsersDbiImpl;
 import com.github.pesennik.service.OnlineStatusManager;
-import com.github.mjdbc.Db;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.Logger;
@@ -14,10 +16,10 @@ import java.io.Closeable;
 public class Context {
     private static final Logger log = LoggerFactory.getLogger(Context.class);
 
-    //TODO: private static Scheduler scheduler;
     private static HikariDataSource ds;
     private static Db db;
     private static UsersDbi usersDbi;
+    private static UserSongsDbi userSongsDbi;
     private static OnlineStatusManager onlineStatusManager;
 
     public static void init() {
@@ -25,9 +27,8 @@ public class Context {
             ds = new HikariDataSource(new HikariConfig("/hikari.properties"));
             db = Db.newInstance(ds);
             usersDbi = db.attachDbi(new UsersDbiImpl(db), UsersDbi.class);
-            //TODO: scheduler = new Scheduler();
+            userSongsDbi = db.attachDbi(new UserSongsDbiImpl(db), UserSongsDbi.class);
             onlineStatusManager = new OnlineStatusManager();
-
         } catch (Exception e) {
             log.error("", e);
             shutdown();
@@ -36,7 +37,6 @@ public class Context {
     }
 
     public static void shutdown() {
-        //TODO: close(scheduler);
         close(ds);
     }
 
@@ -51,12 +51,12 @@ public class Context {
         return db;
     }
 
-    //TODO: public static Scheduler getScheduler() {
-    //return scheduler;
-    //}
-
     public static UsersDbi getUsersDbi() {
         return usersDbi;
+    }
+
+    public static UserSongsDbi getUserSongsDbi() {
+        return userSongsDbi;
     }
 
     public static OnlineStatusManager getOnlineStatusManager() {

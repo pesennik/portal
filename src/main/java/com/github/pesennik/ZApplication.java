@@ -46,7 +46,7 @@ public class ZApplication extends WebApplication {
         appSettings.setInternalErrorPage(InternalErrorPage.class);
 
         setAjaxRequestTargetProvider(page -> {
-            Context.getOnlineStatusManager().touch();
+            UserSession.get().touch();
             return new AjaxRequestHandler(page);
         });
 
