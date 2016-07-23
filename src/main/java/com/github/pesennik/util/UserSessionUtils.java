@@ -7,16 +7,11 @@ import com.github.pesennik.model.UserId;
 import com.github.pesennik.page.HomePage;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.core.request.handler.PageProvider;
-import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.util.string.StringValue;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.lang.reflect.Field;
 
 import static org.apache.wicket.core.request.handler.RenderPageRequestHandler.RedirectPolicy.NEVER_REDIRECT;
 
@@ -107,4 +102,13 @@ public class UserSessionUtils {
     }
 
 
+    @NotNull
+    public static UserId getUserIdOrRedirectHome() {
+        UserSession us = UserSession.get();
+        UserId userId = us.getUserId();
+        if (userId == null) {
+            throw new RestartResponseException(HomePage.class);
+        }
+        return userId;
+    }
 }

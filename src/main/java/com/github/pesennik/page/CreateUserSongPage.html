@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<wicket:extend>
+    <div><h1>Добавление песни</h1></div>
+    <div wicket:id="feedback"></div>
+    <form wicket:id="form">
+        <div class="form-group">
+            <label for="song-title">Название песни</label>
+            <input wicket:id="title" type="text" class="form-control" id="song-title" placeholder="Название песни">
+        </div>
+
+        <div class="form-group">
+            <label for="song-author">Автор</label>
+            <input wicket:id="author" type="text" class="form-control" id="song-author" placeholder="Автор / исполнитель">
+        </div>
+
+        <div class="form-group">
+            <label for="song-author">Текст</label>
+            <textarea wicket:id="text" class="form-control" id="song-text" placeholder="Текст"></textarea>
+        </div>
+
+        <a wicket:id="create_link" class="btn btn-default">Создать</a>
+
+    </form>
+</wicket:extend>
+</html>

@@ -16,13 +16,18 @@ import java.util.List;
  */
 public interface UserSongsSql {
 
-    @Nullable
-    @Sql("SELECT * FROM user_songs WHERE user_id = :userId ORDER BY creation_date")
-    List<UserSong> selectUserSongs(@Bind("userId") UserId userId);
 
     @NotNull
     @Sql("INSERT INTO user_songs (user_id, title, author, text, creation_date) VALUES (:userId, :title, :author, :text, :creationDate)")
     UserSongId insert(@BindBean UserSong song);
+
+    @NotNull
+    @Sql("SELECT id FROM user_songs WHERE user_id = :userId ORDER BY creation_date")
+    List<UserSongId> selectUserSongs(@Bind("userId") UserId userId);
+
+    @Nullable
+    @Sql("SELECT * FROM user_songs WHERE id = :id")
+    UserSong getSong(@Bind("id") UserSongId songId);
 
     @Sql("UPDATE user_songs SET title = :title, author = :author, text = :text WHERE id = :id")
     void update(@BindBean UserSong userSong);

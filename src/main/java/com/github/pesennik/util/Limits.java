@@ -17,4 +17,8 @@ public final class Limits {
     public static final int FIRST_LAST_NAME_MIN_LENGTH = 2;
     public static final int FIRST_LAST_NAME_MAX_LENGTH = 30;
 
+    public static final int MAX_SONG_TITLE_LENGTH = 32;
+    public static final int MAX_SONG_AUTHOR_LENGTH = 32;
+    public static final int MAX_SONG_TEXT_LENGTH = 4000;
+    public static final int MIN_SONG_TEXT_LENGTH = 10;
 }

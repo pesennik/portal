@@ -1,9 +1,11 @@
 package com.github.pesennik;
 
 import com.github.pesennik.annotation.MountPath;
+import com.github.pesennik.page.CreateUserSongPage;
 import com.github.pesennik.page.HomePageWithMount;
 import com.github.pesennik.page.InternalErrorPage;
 import com.github.pesennik.page.PageNotFoundPage;
+import com.github.pesennik.page.UserHomePage;
 import com.github.pesennik.page.signin.ForgotPasswordPage;
 import com.github.pesennik.page.signin.LoginPage;
 import com.github.pesennik.page.signin.LogoutPage;
@@ -32,6 +34,8 @@ public class Mounts {
                 ResetPasswordPage.class,
 
                 // User settings
+                CreateUserSongPage.class,
+                UserHomePage.class,
                 UserProfileSettingsPage.class
         );
     }

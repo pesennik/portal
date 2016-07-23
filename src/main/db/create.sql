@@ -1,5 +1,5 @@
 DROP TABLE verification_record;
-DROP TABLE user_song;
+DROP TABLE user_songs;
 DROP TABLE users;
 
 # Пользователь сайта
@@ -36,12 +36,13 @@ CREATE TABLE verification_record (
 
 # Пользовательский персональный вариант песни.
 CREATE TABLE user_songs (
-  id            INTEGER AUTO_INCREMENT PRIMARY KEY,
+  id            INTEGER  AUTO_INCREMENT PRIMARY KEY,
   user_id       INTEGER     NOT NULL REFERENCES users (id),
-  title         VARCHAR(64) NOT NULL,
-  author        VARCHAR(64) NOT NULL,
+  title         VARCHAR(32) NOT NULL,
+  author        VARCHAR(32) NOT NULL,
   text          TEXT        NOT NULL,
-  creation_date DATETIME    NOT NULL
+  creation_date DATETIME    NOT NULL,
+  deletion_date DATETIME DEFAULT NULL # дата удаления. Мы храним некоторое время после удаления.
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;

@@ -1,7 +1,6 @@
 package com.github.pesennik.db.dbi.impl;
 
 import com.github.mjdbc.Db;
-import com.github.pesennik.Context;
 import com.github.pesennik.db.dbi.AbstractDbi;
 import com.github.pesennik.db.dbi.UsersDbi;
 import com.github.pesennik.db.sql.UsersSql;
@@ -59,7 +58,7 @@ public final class UsersDbiImpl extends AbstractDbi implements UsersDbi {
     @Override
     public void updateLastLoginDate(@NotNull User user) {
         user.lastLoginDate = UDate.now();
-        Context.getUsersDbi().updateLastLoginDate(user);
+        usersSql.updateLastLoginDate(user);
     }
 
     @Override

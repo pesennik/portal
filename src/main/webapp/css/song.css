@@ -1,0 +1,19 @@
+.song-title {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.song-date {
+    color: #777;
+    font-size: 11px;
+}
+
+.song-author {
+    font-size: 14px;
+}
+
+.song-text {
+    font-size: 14px;
+    white-space: pre;
+}
+

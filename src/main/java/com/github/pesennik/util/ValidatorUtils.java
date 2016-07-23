@@ -104,5 +104,16 @@ public class ValidatorUtils {
         return true;
     }
 
+    public static boolean isValidSongTitle(@Nullable String title) {
+        return isLengthInRange(title, 2, Limits.MAX_SONG_TITLE_LENGTH);
+    }
+
+    public static boolean isValidSongAuthor(@Nullable String author) {
+        return isLengthInRange(author, 0, Limits.MAX_SONG_AUTHOR_LENGTH);
+    }
+
+    public static boolean isValidSongText(@Nullable String text) {
+        return isLengthInRange(text, 0, Limits.MAX_SONG_TEXT_LENGTH);
+    }
 
 }

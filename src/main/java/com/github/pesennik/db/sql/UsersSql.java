@@ -35,4 +35,7 @@ public interface UsersSql {
 
     @Sql("UPDATE users SET settings = :settings WHERE id = :id")
     void updateSettings(@BindBean User user);
+
+    @Sql("UPDATE users SET last_login_date = :lastLoginDate WHERE id = :id")
+    void updateLastLoginDate(@BindBean User user);
 }

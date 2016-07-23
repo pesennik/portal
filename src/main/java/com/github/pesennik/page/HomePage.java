@@ -23,6 +23,7 @@ public class HomePage extends BasePage {
         loggedInBlock.setVisible(user != null);
         add(loggedInBlock);
         if (loggedInBlock.isVisible()) {
+            loggedInBlock.add(new BookmarkablePageLink("user_home_link", UserHomePage.class));
             loggedInBlock.add(new BookmarkablePageLink("logout_link", LogoutPage.class));
         }
     }
