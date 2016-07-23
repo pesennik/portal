@@ -19,7 +19,7 @@ public class RegistrationUtils {
                         "Логин: " + user.email + "\n" +
                         "Пароль: " + password + "\n" +
                         "Вы можете редактировать Ваши данные в персональных настройках " + Mounts.urlFor(UserProfileSettingsPage.class) + "\n\n" +
-                        "Успешных инвестиций!");
+                        "Хороших песен!");
     }
 
     @Nullable
