@@ -61,10 +61,17 @@
                                 <include>**/*</include>
                             </includes>
                             <targetPath>WEB-INF</targetPath>
-                            <filtering>true</filtering>
+                        </webResource>
+                        <webResource>
+                            <directory>${basedir}/backgrounds</directory>
+                            <includes>
+                                <include>landscape/*</include>
+                                <include>portrait/*</include>
+                            </includes>
+                            <targetPath>backgrounds</targetPath>
                         </webResource>
                     </webResources>
-                    <!-- All CSS are minified to style.css, site.js is minified to site.min.js-->
+                    <!-- All CSS are minified to style.css, site.js is minified to site.min.js by the next plugin-->
                     <warSourceExcludes>
                         **/css/*.css,
                         **/js/site.js

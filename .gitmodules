@@ -1,3 +1,6 @@
 [submodule "backgrounds"]
 	path = backgrounds
 	url = https://github.com/pesennik/backgrounds.git
+[submodule "js"]
+	path = js
+	url = https://github.com/pesennik/js.git
