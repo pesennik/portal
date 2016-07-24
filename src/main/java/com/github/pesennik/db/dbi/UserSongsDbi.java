@@ -18,4 +18,6 @@ public interface UserSongsDbi {
 
     @Nullable
     UserSong getSong(@NotNull UserSongId songId);
+
+    void updateSong(@NotNull UserSong song);
 }

@@ -43,4 +43,9 @@ public final class UserSongsDbiImpl extends AbstractDbi implements UserSongsDbi 
     public UserSong getSong(@NotNull UserSongId songId) {
         return songsSql.getSong(songId);
     }
+
+    @Override
+    public void updateSong(@NotNull UserSong song) {
+        songsSql.update(song);
+    }
 }

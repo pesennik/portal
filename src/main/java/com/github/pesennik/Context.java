@@ -5,7 +5,6 @@ import com.github.pesennik.db.dbi.UserSongsDbi;
 import com.github.pesennik.db.dbi.UsersDbi;
 import com.github.pesennik.db.dbi.impl.UserSongsDbiImpl;
 import com.github.pesennik.db.dbi.impl.UsersDbiImpl;
-import com.github.pesennik.service.OnlineStatusManager;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.Logger;
@@ -20,7 +19,6 @@ public class Context {
     private static Db db;
     private static UsersDbi usersDbi;
     private static UserSongsDbi userSongsDbi;
-    private static OnlineStatusManager onlineStatusManager;
 
     public static void init() {
         try {
@@ -28,7 +26,6 @@ public class Context {
             db = Db.newInstance(ds);
             usersDbi = db.attachDbi(new UsersDbiImpl(db), UsersDbi.class);
             userSongsDbi = db.attachDbi(new UserSongsDbiImpl(db), UserSongsDbi.class);
-            onlineStatusManager = new OnlineStatusManager();
         } catch (Exception e) {
             log.error("", e);
             shutdown();
@@ -59,11 +56,12 @@ public class Context {
         return userSongsDbi;
     }
 
-    public static OnlineStatusManager getOnlineStatusManager() {
-        return onlineStatusManager;
+    public static boolean isProduction() {
+        return System.getProperty("online.pesennik.production") != null;
     }
 
     public static String getBaseUrl() {
-        return Constants.BASE_URL;
+        return isProduction() ? "http://pesennik.online" : "http://localhost:8080";
     }
+
 }
