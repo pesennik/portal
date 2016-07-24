@@ -70,11 +70,14 @@
                             </includes>
                             <targetPath>backgrounds</targetPath>
                         </webResource>
+                        <webResource>
+                            <directory>${basedir}/js/package</directory>
+                            <targetPath>js</targetPath>
+                        </webResource>
                     </webResources>
-                    <!-- All CSS are minified to style.css, site.js is minified to site.min.js by the next plugin-->
+                    <!-- All CSS are minified to style.css, site.min.js is copied from js package-->
                     <warSourceExcludes>
-                        **/css/*.css,
-                        **/js/site.js
+                        **/css/*.css
                     </warSourceExcludes>
                 </configuration>
             </plugin>
@@ -92,12 +95,6 @@
                             <cssSourceIncludes>
                                 <cssSourceInclude>**</cssSourceInclude>
                             </cssSourceIncludes>
-                            <jsSourceFiles>
-                                <jsSourceFile>site.js</jsSourceFile>
-                            </jsSourceFiles>
-                            <jsFinalFile>site.min.js</jsFinalFile>
-                            <jsEngine>CLOSURE</jsEngine>
-                            <closureLanguage>ECMASCRIPT5_STRICT</closureLanguage>
                         </configuration>
                         <goals>
                             <goal>minify</goal>

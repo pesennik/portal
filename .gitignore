@@ -1,13 +1,10 @@
+# Local data
+local/
+
+# Maven Artifacts
+target/
+
 # Intellij IDEA project files.
 .idea/
 *.iml
 
-# Local data
-local/
-target/
-
-# generated files
-js/package/js/site.js
-
-# node modules
-js/node_modules
