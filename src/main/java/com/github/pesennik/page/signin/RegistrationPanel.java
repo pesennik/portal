@@ -3,7 +3,6 @@ package com.github.pesennik.page.signin;
 
 import com.github.pesennik.Context;
 import com.github.pesennik.UserSession;
-import com.github.pesennik.annotation.MountPath;
 import com.github.pesennik.component.Feedback;
 import com.github.pesennik.component.InputField;
 import com.github.pesennik.component.PasswordField;
@@ -12,7 +11,6 @@ import com.github.pesennik.component.parsley.LoginJsValidator;
 import com.github.pesennik.component.parsley.PasswordJsValidator;
 import com.github.pesennik.component.parsley.ValidatingJsAjaxSubmitLink;
 import com.github.pesennik.model.User;
-import com.github.pesennik.page.BasePage;
 import com.github.pesennik.page.HomePage;
 import com.github.pesennik.util.RegistrationUtils;
 import com.github.pesennik.util.TextUtils;
@@ -24,19 +22,23 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.core.request.handler.PageProvider;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static org.apache.wicket.core.request.handler.RenderPageRequestHandler.RedirectPolicy.NEVER_REDIRECT;
 
-@MountPath("/registration")
-public class RegistrationPage extends BasePage {
-    private static final Logger log = LoggerFactory.getLogger(RegistrationPage.class);
+public class RegistrationPanel extends Panel {
 
-    public RegistrationPage() {
+    private static final Logger log = LoggerFactory.getLogger(RegistrationPanel.class);
+
+    public RegistrationPanel(String id) {
+        super(id);
+
         if (UserSession.get().isSignedIn()) {
-            throw new RestartResponseException(new PageProvider(HomePage.class), NEVER_REDIRECT);
+            setVisible(false);
+            return;
         }
 
         Form form = new Form("register_form");
@@ -128,5 +130,4 @@ public class RegistrationPage extends BasePage {
             }
         });
     }
-
 }

@@ -2,15 +2,10 @@ package com.github.pesennik;
 
 import com.github.pesennik.annotation.MountPath;
 import com.github.pesennik.page.CreateUserSongPage;
-import com.github.pesennik.page.HomePageWithMount;
 import com.github.pesennik.page.InternalErrorPage;
 import com.github.pesennik.page.PageNotFoundPage;
 import com.github.pesennik.page.UserHomePage;
 import com.github.pesennik.page.signin.ForgotPasswordPage;
-import com.github.pesennik.page.signin.LoginPage;
-import com.github.pesennik.page.signin.LogoutPage;
-import com.github.pesennik.page.signin.RegistrationCompletePage;
-import com.github.pesennik.page.signin.RegistrationPage;
 import com.github.pesennik.page.signin.ResetPasswordPage;
 import com.github.pesennik.page.user.UserProfileSettingsPage;
 import org.apache.wicket.request.component.IRequestablePage;
@@ -21,16 +16,11 @@ public class Mounts {
     static void mountAll(ZApplication app) {
         mountPages(app,
                 // Base pages
-                HomePageWithMount.class,
                 InternalErrorPage.class,
                 PageNotFoundPage.class,
 
-                // Registration & sign in
+                // Reset passwords
                 ForgotPasswordPage.class,
-                LoginPage.class,
-                LogoutPage.class,
-                RegistrationCompletePage.class,
-                RegistrationPage.class,
                 ResetPasswordPage.class,
 
                 // User settings

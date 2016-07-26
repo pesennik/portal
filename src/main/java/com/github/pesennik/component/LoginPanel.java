@@ -8,7 +8,6 @@ import com.github.pesennik.component.parsley.ValidatingJsAjaxSubmitLink;
 import com.github.pesennik.db.dbi.UsersDbi;
 import com.github.pesennik.model.User;
 import com.github.pesennik.page.signin.ForgotPasswordPage;
-import com.github.pesennik.page.signin.RegistrationPage;
 import com.github.pesennik.util.HttpUtils;
 import com.github.pesennik.util.TextUtils;
 import com.github.pesennik.util.UserSessionUtils;
@@ -36,7 +35,6 @@ public class LoginPanel extends Panel {
 
         form.add(feedback);
         form.add(new BookmarkablePageLink<WebPage>("restore_link", ForgotPasswordPage.class));
-        form.add(new BookmarkablePageLink<WebPage>("signup_link", RegistrationPage.class));
 
         InputField emailOrLoginField = new InputField("email_or_login_field");
         emailOrLoginField.add(new LoginJsValidator());

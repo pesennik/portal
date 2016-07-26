@@ -75,7 +75,7 @@ public class ResetPasswordPage extends BasePage {
         }
         newRequestLink.setVisible(false);
 
-        BookmarkablePageLink loginLink = new BookmarkablePageLink("login_link", LoginPage.class);
+        BookmarkablePageLink loginLink = new BookmarkablePageLink("home_link", HomePage.class);
         loginLink.setVisible(false);
         resetBlock.add(loginLink);
 

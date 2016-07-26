@@ -2,21 +2,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 
 <wicket:extend>
-    <div class="center-block mt20" style="max-width: 400px">
-        <div wicket:id="not_logged_in_block">
-            <wicket:panel wicket:id="login_panel"/>
-        </div>
-        <div wicket:id="logged_in_block">
-            <a wicket:id="user_home_link">Песенник</a>
-            <a wicket:id="logout_link">Выход</a>
-        </div>
+
+    <div wicket:id="not_logged_in_block" class="front">
+        <div>О сервисе(TODO)</div>
+        <div class="menu-item"><a wicket:id="login_link">Вход</a></div>
+        <div class="menu-item"><a wicket:id="registration_link">Регистрация</a></div>
     </div>
 
-    <!--TODO: cross browser support-->
-    <script>
-        var $body = $("body");
-        $body.css("background", "url(/backgrounds/landscape/003.jpg) no-repeat center top fixed");
-        $body.css("background-size", "cover");
-    </script>
+    <div wicket:id="logged_in_block" class="front">
+        <div class="menu-item"><a wicket:id="user_home_link">Песенник</a></div>
+        <div class="menu-item"><a href="#">Тюнер</a></div>
+        <div class="menu-item"><a wicket:id="logout_link">Выход</a></div>
+    </div>
+
+    <div wicket:id="modal">
+        <div wicket:id="modal_content"></div>
+    </div>
+
 </wicket:extend>
 </html>

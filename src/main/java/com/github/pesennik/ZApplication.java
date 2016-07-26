@@ -64,7 +64,7 @@ public class ZApplication extends WebApplication {
 
     public void mountPage(Class<? extends Page> cls) {
         MountPath a = cls.getAnnotation(MountPath.class);
-        Objects.requireNonNull(a);
+        Objects.requireNonNull(a, "Page has no @MountPath annotation: " + cls);
         mount(cls, a.alt()); // first map alt paths. The value on the next line will override them.
         mount(cls, a.value());
     }

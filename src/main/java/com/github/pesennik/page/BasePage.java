@@ -3,7 +3,6 @@ package com.github.pesennik.page;
 import com.github.pesennik.Mounts;
 import com.github.pesennik.Scripts;
 import com.github.pesennik.component.SiteFooter;
-import com.github.pesennik.component.SiteHeader;
 import com.github.pesennik.util.HttpUtils;
 import com.github.pesennik.util.UserSessionUtils;
 import org.apache.wicket.AttributeModifier;
@@ -35,8 +34,6 @@ public abstract class BasePage extends WebPage implements IRequestablePage {
 
     protected final WebMarkupContainer scrollTop = new WebMarkupContainer("top_link");
 
-    protected final SiteHeader header;
-
     public BasePage() {
         checkCorrectMount();
         UserSessionUtils.initializeSession();
@@ -46,9 +43,6 @@ public abstract class BasePage extends WebPage implements IRequestablePage {
         add(scrollTop);
         scrollTop.setVisible(false);
 
-        header = new SiteHeader("header");
-
-        add(header);
         add(new SiteFooter("footer"));
 
         keysField = new WebMarkupContainer("meta_keywords");
@@ -115,9 +109,9 @@ public abstract class BasePage extends WebPage implements IRequestablePage {
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
         response.render(new PriorityHeaderItem(JavaScriptHeaderItem.forReference(getApplication().getJavaScriptLibrarySettings().getJQueryReference())));
-        response.render(Scripts.BOOTSTRAP_JS);
-        response.render(Scripts.ES6_PROMISE_JS);
-        response.render(Scripts.SITE_JS);
+        response.render(new PriorityHeaderItem(Scripts.BOOTSTRAP_JS));
+        response.render(new PriorityHeaderItem(Scripts.SITE_JS));
+//        response.render(Scripts.PARSLEY_JS);
     }
 }
 
