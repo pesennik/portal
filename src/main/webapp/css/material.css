@@ -1,0 +1,120 @@
+/* Material Design styles*/
+
+.md-group {
+    position: relative;
+    margin-bottom: 45px;
+}
+
+.md-group input {
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #757575;
+    width: 100%;
+}
+
+.md-group input:focus {
+    outline: none;
+}
+
+/* LABEL ======================================= */
+.md-group label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+/* active state */
+.md-group input:focus ~ label, input:valid ~ label {
+    top: -20px;
+    font-size: 14px;
+    color: #999492;
+}
+
+/* BOTTOM BARS ================================= */
+.md-bar {
+    position: relative;
+    display: block;
+}
+
+.md-bar:before, .md-bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #5a595d;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.md-bar:before {
+    left: 50%;
+}
+
+.md-bar:after {
+    right: 50%;
+}
+
+/* active state */
+.md-group input:focus ~ .md-bar:before, .md-group input:focus ~ .md-bar:after {
+    width: 50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.md-highlight {
+    position: absolute;
+    height: 60%;
+    width: 100%;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* active state */
+.md-group input:focus ~ .md-highlight {
+    -webkit-animation: mdInputHighlighter 0.3s ease;
+    -moz-animation: mdInputHighlighter 0.3s ease;
+    animation: mdInputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes mdInputHighlighter {
+    from {
+        background: #5264AE;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@-moz-keyframes mdInputHighlighter {
+    from {
+        background: #5264AE;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@keyframes mdInputHighlighter {
+    from {
+        background: #5264AE;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}

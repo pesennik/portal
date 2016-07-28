@@ -7,14 +7,19 @@ import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.parser.XmlTag;
 import org.apache.wicket.util.value.AttributeMap;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class RequiredFieldJsValidator extends Behavior {
 
     protected final AttributeMap attributeMap = new AttributeMap();
 
-    public RequiredFieldJsValidator() {
+    public RequiredFieldJsValidator(@Nullable Component errorContainer) {
         attributeMap.put("data-parsley-trigger", "change");
         setRequired(true);
+        if (errorContainer != null) {
+            setErrorContainer(errorContainer);
+        }
     }
 
     @Override
@@ -38,6 +43,14 @@ public class RequiredFieldJsValidator extends Behavior {
         } else {
             attributeMap.remove("data-parsley-required");
         }
+        return this;
+    }
+
+    public RequiredFieldJsValidator setErrorContainer(@NotNull Component c) {
+        c.setOutputMarkupId(true);
+        String markupId = c.getMarkupId();
+        attributeMap.put("data-parsley-errors-container", "#" + markupId);
+        attributeMap.put("onkeydown", "$site.Utils.removeServerSideParsleyError('#" + markupId + "');");
         return this;
     }
 }

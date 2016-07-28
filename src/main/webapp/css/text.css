@@ -53,8 +53,3 @@ a.txt-muted:hover,
 a.txt-muted:focus {
     color: #808080;
 }
-
-/* Semi-muted text (muted-dark)*/
-.txt-muted-d {
-    color: #777;
-}

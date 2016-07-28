@@ -1,31 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <wicket:head>
-    <style>
-        .vertical-alignment-helper {
-            display: table;
-            height: 100%;
-            width: 100%;
-        }
-
-        .vertical-align-center {
-            /* To center vertically */
-            display: table-cell;
-            vertical-align: middle;
-        }
-
-        .modal-content {
-            /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
-            width: inherit;
-            height: inherit;
-            /* To center horizontally */
-            margin: 0 auto;
-        }
-    </style>
+    <script>
+        $(document).on('shown.bs.modal', '.modal', function () {
+            $(this).find('[autofocus]').focus();
+        });
+    </script>
 </wicket:head>
 <body>
 <wicket:panel>
-    <div wicket:id="modal" class="modal fade" tabindex="-1" role="dialog">
+    <div wicket:id="modal" class="modal" tabindex="-1" role="dialog">
         <div class="vertical-alignment-helper">
             <div wicket:id="dialog" class="modal-dialog vertical-align-center">
                 <div class="modal-content">
@@ -33,10 +17,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 wicket:id="title" class="modal-title"></h4>
                     </div>
-                    <div class="modal-body" wicket:id="body">
+                    <div wicket:id="body" class="modal-body">
+                        <button wicket:id="close_button" type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true" style="font-size: 28px; margin-left: -1em;">&times;</span>
+                        </button>
                         <div wicket:id="body_content"></div>
                     </div>
-                    <div class="modal-footer">
+                    <div wicket:id="footer" class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
                     </div>
                 </div>

@@ -3,15 +3,18 @@ package com.github.pesennik.component;
 import com.github.pesennik.Context;
 import com.github.pesennik.UserSession;
 import com.github.pesennik.component.parsley.LoginJsValidator;
+import com.github.pesennik.component.parsley.ParsleyUtils;
 import com.github.pesennik.component.parsley.PasswordJsValidator;
 import com.github.pesennik.component.parsley.ValidatingJsAjaxSubmitLink;
 import com.github.pesennik.db.dbi.UsersDbi;
 import com.github.pesennik.model.User;
+import com.github.pesennik.page.HomePage;
 import com.github.pesennik.page.signin.ForgotPasswordPage;
-import com.github.pesennik.util.HttpUtils;
 import com.github.pesennik.util.TextUtils;
 import com.github.pesennik.util.UserSessionUtils;
+import com.github.pesennik.util.WebUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -19,8 +22,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
 public class LoginPanel extends Panel {
-
-    private final Feedback feedback = new Feedback("feedback");
 
     public LoginPanel(String id) {
         super(id);
@@ -31,22 +32,25 @@ public class LoginPanel extends Panel {
         }
 
         Form form = new Form("login_form");
+        form.setOutputMarkupId(true);
         add(form);
 
-        form.add(feedback);
         form.add(new BookmarkablePageLink<WebPage>("restore_link", ForgotPasswordPage.class));
 
+        WebMarkupContainer loginError = new WebMarkupContainer("login_error");
+        form.add(loginError);
         InputField emailOrLoginField = new InputField("email_or_login_field");
-        emailOrLoginField.add(new LoginJsValidator());
+        emailOrLoginField.add(new LoginJsValidator(loginError));
         form.add(emailOrLoginField);
+
+        WebMarkupContainer passwordError = new WebMarkupContainer("password_error");
+        form.add(passwordError);
         PasswordField passwordField = new PasswordField("password_field", Model.of(""));
-        passwordField.add(new PasswordJsValidator());
+        passwordField.add(new PasswordJsValidator(passwordError));
         form.add(passwordField);
 
-        form.add(new ValidatingJsAjaxSubmitLink("login_link", form) {
+        ValidatingJsAjaxSubmitLink loginButton = new ValidatingJsAjaxSubmitLink("login_link", form) {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                feedback.reset(target);
-
                 UsersDbi dbi = Context.getUsersDbi();
                 String emailOrLogin = TextUtils.trim(emailOrLoginField.getModelObject());
                 User user = dbi.getUserByLogin(emailOrLogin);
@@ -54,22 +58,30 @@ public class LoginPanel extends Panel {
                     user = dbi.getUserByEmail(emailOrLogin);
                 }
                 if (user == null) {
-                    feedback.error("Пользователь не найден!");
+                    ParsleyUtils.addParsleyError(target, loginError.getMarkupId(), "Пользователь не найден!");
+                    WebUtils.focus(target, emailOrLoginField.getMarkupId());
                     return;
                 }
                 String password = passwordField.getModelObject();
                 if (!UserSessionUtils.checkPassword(password, user.passwordHash)) {
-                    feedback.error("Неверный пароль!");
+                    ParsleyUtils.addParsleyError(target, loginError.getMarkupId(), "Неверный пароль!");
+                    WebUtils.focus(target, passwordError.getMarkupId());
                     return;
                 }
                 if (user.terminationDate != null) {
-                    feedback.error("Пользователь заблокирован!");
+                    ParsleyUtils.addParsleyError(target, loginError.getMarkupId(), "Пользователь заблокирован!");
+                    WebUtils.focus(target, emailOrLoginField.getMarkupId());
                     return;
 
                 }
                 UserSessionUtils.login(user);
-                HttpUtils.redirectToLastViewedPage(getPage());
+                setResponsePage(HomePage.class);
             }
-        });
+        };
+        form.add(loginButton);
+
+        WebUtils.addFocusOnEnter(emailOrLoginField, passwordField.getMarkupId());
+        WebUtils.addClickOnEnter(passwordField, loginButton.getMarkupId());
     }
+
 }

@@ -12,6 +12,7 @@ public class InputField extends TextField<String> {
 
     public InputField(@NotNull String id, @Nullable String val) {
         super(id, Model.of(val == null ? "" : val));
+        setOutputMarkupId(true);
     }
 
     @NotNull

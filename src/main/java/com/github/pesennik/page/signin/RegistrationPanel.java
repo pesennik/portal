@@ -54,19 +54,19 @@ public class RegistrationPanel extends Panel {
         form.add(feedback);
 
         InputField loginField = new InputField("login_field");
-        loginField.add(new LoginJsValidator());
+        loginField.add(new LoginJsValidator(null));
         fieldsBlock.add(loginField);
 
         InputField emailField = new InputField("email_field");
-        emailField.add(new EmailJsValidator());
+        emailField.add(new EmailJsValidator(null));
         fieldsBlock.add(emailField);
 
         PasswordField password1Field = new PasswordField("password1_field", Model.of(""));
-        password1Field.add(new PasswordJsValidator());
+        password1Field.add(new PasswordJsValidator(null));
         fieldsBlock.add(password1Field);
 
         PasswordField password2Field = new PasswordField("password2_field", Model.of(""));
-        password2Field.add(new PasswordJsValidator());
+        password2Field.add(new PasswordJsValidator(null));
         fieldsBlock.add(password2Field);
 
         fieldsBlock.add(new ValidatingJsAjaxSubmitLink("submit", form) {
