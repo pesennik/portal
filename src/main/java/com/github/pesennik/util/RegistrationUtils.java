@@ -33,9 +33,20 @@ public class RegistrationUtils {
         if (password1.length() < Limits.PASSWORD_MIN_LENGTH || password1.length() > Limits.PASSWORD_MAX_LENGTH) {
             return password1.length() < Limits.PASSWORD_MIN_LENGTH ? "Пароль слишком короткий: менее " + Limits.PASSWORD_MIN_LENGTH + " символов." : "Пароль слишком длиный: более " + Limits.PASSWORD_MAX_LENGTH + " символов";
         }
-        if (TextUtils.isPrintableAsciiCharacters(password1)) {
+        if (!isPrintableAsciiCharacters(password1)) {
             return "Пароль содержит недопустимые символы";
         }
         return null;
     }
+
+    private static boolean isPrintableAsciiCharacters(@NotNull String text) {
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            if (c <= 32 || c >= 128) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

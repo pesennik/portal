@@ -2,43 +2,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <body>
 <wicket:panel>
-    <div class="container-fluid ml20 mb50">
-        <div class="center-block" style="max-width: 500px;">
-            <form wicket:id="register_form" class="mt50">
-                <h2>Регистрация</h2>
-                <hr>
-                <div wicket:id="feedback"></div>
-                <table class="pr10_td pb10_td top_td" wicket:id="fields_block">
-                    <tr>
-                        <td>
-                            <table class="pr10_td pb10_td">
-                                <tr>
-                                    <td class="vat"><label for="email">Email</label></td>
-                                    <td><input wicket:id="email_field" id="email" type="text" class="form-control  input-sm fsi" onkeypress="$site.Utils.focusOnEnter(event, '#login');" autofocus/></td>
-                                </tr>
-                                <tr>
-                                    <td class="vat"><label for="login">Псевдоним</label></td>
-                                    <td><input wicket:id="login_field" id="login" type="text" class="form-control  input-sm fsi" onkeypress="$site.Utils.focusOnEnter(event, '#password1');"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="vat"><label for="password1">Пароль</label></td>
-                                    <td><input wicket:id="password1_field" id="password1" type="password" class="form-control  input-sm fsi" onkeypress="$site.Utils.focusOnEnter(event, '#password2');"/></td>
-                                </tr>
-                                <tr>
-                                    <td class="vat"><label for="password2" class="nw">Пароль (повтор)</label></td>
-                                    <td><input wicket:id="password2_field" id="password2" type="password" class="form-control input-sm fsi" onkeypress="$site.Utils.clickOnCtrlEnter(event, '#register-button');"/></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td><a wicket:id="submit" id="register-button" class="btn btn-success">Зарегистрироваться</a></td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </form>
+    <form wicket:id="register_form">
+        <h2 class="txtc mt10">Регистрация</h2>
+        <hr class="mb30">
+        <div class="md-group">
+            <input wicket:id="email_field" type="text" required autofocus/>
+            <span class="md-highlight"></span>
+            <span class="md-bar"></span>
+            <label>Email</label>
+            <span wicket:id="email_error"></span>
         </div>
-    </div>
+        <div class="md-group">
+            <input wicket:id="login_field" type="text" required/>
+            <span class="md-highlight"></span>
+            <span class="md-bar"></span>
+            <label>Псевдоним</label>
+            <span wicket:id="login_error"></span>
+        </div>
+        <div class="md-group">
+            <input wicket:id="password1_field" type="password" required/>
+            <span class="md-highlight"></span>
+            <span class="md-bar"></span>
+            <label>Пароль</label>
+            <span wicket:id="password1_error"></span>
+        </div>
+        <div class="md-group">
+            <input wicket:id="password2_field" type="password" required/>
+            <span class="md-highlight"></span>
+            <span class="md-bar"></span>
+            <label>Повтор пароля</label>
+            <span wicket:id="password2_error"></span>
+        </div>
+        <div class="txtc">
+            <a wicket:id="submit" class="btn btn-bw w100">Зарегистрироваться</a>
+        </div>
+    </form>
 </wicket:panel>
 </body>
 </html>

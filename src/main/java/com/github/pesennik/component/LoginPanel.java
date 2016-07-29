@@ -10,7 +10,6 @@ import com.github.pesennik.db.dbi.UsersDbi;
 import com.github.pesennik.model.User;
 import com.github.pesennik.page.HomePage;
 import com.github.pesennik.page.signin.ForgotPasswordPage;
-import com.github.pesennik.util.TextUtils;
 import com.github.pesennik.util.UserSessionUtils;
 import com.github.pesennik.util.WebUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -52,25 +51,25 @@ public class LoginPanel extends Panel {
         ValidatingJsAjaxSubmitLink loginButton = new ValidatingJsAjaxSubmitLink("login_link", form) {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 UsersDbi dbi = Context.getUsersDbi();
-                String emailOrLogin = TextUtils.trim(emailOrLoginField.getModelObject());
+                String emailOrLogin = emailOrLoginField.getInputString().trim();
                 User user = dbi.getUserByLogin(emailOrLogin);
                 if (user == null && emailOrLogin.contains("@")) {
                     user = dbi.getUserByEmail(emailOrLogin);
                 }
                 if (user == null) {
-                    ParsleyUtils.addParsleyError(target, loginError.getMarkupId(), "Пользователь не найден!");
-                    WebUtils.focus(target, emailOrLoginField.getMarkupId());
+                    ParsleyUtils.addParsleyError(target, loginError, "Пользователь не найден!");
+                    WebUtils.focus(target, emailOrLoginField);
                     return;
                 }
                 String password = passwordField.getModelObject();
                 if (!UserSessionUtils.checkPassword(password, user.passwordHash)) {
-                    ParsleyUtils.addParsleyError(target, loginError.getMarkupId(), "Неверный пароль!");
-                    WebUtils.focus(target, passwordError.getMarkupId());
+                    ParsleyUtils.addParsleyError(target, passwordError, "Неверный пароль!");
+                    WebUtils.focus(target, passwordError);
                     return;
                 }
                 if (user.terminationDate != null) {
-                    ParsleyUtils.addParsleyError(target, loginError.getMarkupId(), "Пользователь заблокирован!");
-                    WebUtils.focus(target, emailOrLoginField.getMarkupId());
+                    ParsleyUtils.addParsleyError(target, loginError, "Пользователь заблокирован!");
+                    WebUtils.focus(target, emailOrLoginField);
                     return;
 
                 }
@@ -80,8 +79,8 @@ public class LoginPanel extends Panel {
         };
         form.add(loginButton);
 
-        WebUtils.addFocusOnEnter(emailOrLoginField, passwordField.getMarkupId());
-        WebUtils.addClickOnEnter(passwordField, loginButton.getMarkupId());
+        WebUtils.addFocusOnEnter(emailOrLoginField, passwordField);
+        WebUtils.addClickOnEnter(passwordField, loginButton);
     }
 
 }

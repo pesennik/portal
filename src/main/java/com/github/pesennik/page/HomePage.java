@@ -31,7 +31,7 @@ public class HomePage extends BasePage {
             add(loginModal);
 
             BootstrapModal registrationModal = new BootstrapModal("registration_modal", null, RegistrationPanel::new, true, true);
-            registrationModal.dialog.add(new StyleAppender("padding-left: 30px; padding-right: 30px; width:270px;"));
+            registrationModal.dialog.add(new StyleAppender("padding-left: 30px; padding-right: 30px; width:350px;"));
             add(registrationModal);
 
             notLoggedInBlock.add(new BootstrapModalStaticLink("login_link", loginModal));
