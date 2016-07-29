@@ -46,6 +46,7 @@ public class HomePage extends BasePage {
         add(loggedInBlock);
         if (loggedInBlock.isVisible()) {
             loggedInBlock.add(new BookmarkablePageLink("user_home_link", UserHomePage.class));
+            loggedInBlock.add(new BookmarkablePageLink("add_song_link", CreateUserSongPage.class));
             loggedInBlock.add(new AjaxLink("logout_link") {
                 @Override
                 public void onClick(AjaxRequestTarget ajaxRequestTarget) {
