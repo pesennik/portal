@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
+import java.io.FileInputStream;
+import java.util.Properties;
 
 public class Context {
     private static final Logger log = LoggerFactory.getLogger(Context.class);
@@ -20,8 +22,13 @@ public class Context {
     private static UsersDbi usersDbi;
     private static UserSongsDbi userSongsDbi;
 
+    private static Properties prodConfig = new Properties();
+
     public static void init() {
         try {
+            if (isProduction()) {
+                prodConfig.load(new FileInputStream("/opt/pesennik/service.properties"));
+            }
             ds = new HikariDataSource(new HikariConfig("/hikari.properties"));
             db = Db.newInstance(ds);
             usersDbi = db.attachDbi(new UsersDbiImpl(db), UsersDbi.class);
@@ -64,4 +71,7 @@ public class Context {
         return isProduction() ? "http://pesennik.online" : "http://localhost:8080";
     }
 
+    public static Properties getProdConfig() {
+        return prodConfig;
+    }
 }

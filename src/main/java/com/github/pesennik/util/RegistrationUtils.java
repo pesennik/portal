@@ -7,16 +7,14 @@ import com.github.pesennik.page.user.UserProfileSettingsPage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
-
 public class RegistrationUtils {
 
 
-    public static void sendWelcomeEmail(@NotNull User user, @NotNull String password) throws IOException {
+    public static void sendWelcomeEmail(@NotNull User user, @NotNull String password) throws Exception {
         MailClient.sendMail(user.email, Constants.BRAND_NAME + " - регистрационные данные",
                 "Поздравляем Вас с регистрацией на " + Constants.BRAND_NAME + "!\n" +
                         "Ваши данные: \n" +
-                        "Логин: " + user.email + "\n" +
+                        "Имя пользователя: " + user.email + "\n" +
                         "Пароль: " + password + "\n" +
                         "Вы можете редактировать Ваши данные в персональных настройках " + Mounts.urlFor(UserProfileSettingsPage.class) + "\n\n" +
                         "Хороших песен!");
