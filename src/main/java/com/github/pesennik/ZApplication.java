@@ -1,6 +1,7 @@
 package com.github.pesennik;
 
 import com.github.pesennik.annotation.MountPath;
+import com.github.pesennik.event.dispatcher.PayloadEventDispatcher;
 import com.github.pesennik.page.HomePage;
 import com.github.pesennik.util.NoVersionHomePageMapper;
 import com.github.pesennik.util.NoVersionPageMapper;
@@ -39,6 +40,8 @@ public class ZApplication extends WebApplication {
 
         getMarkupSettings().setStripComments(true);
         getMarkupSettings().setCompressWhitespace(true);
+
+        getFrameworkSettings().add(new PayloadEventDispatcher());
 
         getRootRequestMapperAsCompound().add(new NoVersionHomePageMapper());
         ApplicationSettings appSettings = getApplicationSettings();

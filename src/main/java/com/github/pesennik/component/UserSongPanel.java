@@ -2,12 +2,12 @@ package com.github.pesennik.component;
 
 import com.github.pesennik.Context;
 import com.github.pesennik.event.UserSongModifiedEvent;
+import com.github.pesennik.event.dispatcher.OnPayload;
 import com.github.pesennik.model.UserSong;
 import com.github.pesennik.model.UserSongId;
 import com.github.pesennik.util.Formatters;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
@@ -85,14 +85,10 @@ public class UserSongPanel extends Panel {
         target.add(mainPanel);
     }
 
-    @Override
-    public void onEvent(IEvent<?> event) {
-        Object p = event.getPayload();
-        if (p instanceof UserSongModifiedEvent) {
-            UserSongModifiedEvent e = (UserSongModifiedEvent) p;
-            if (e.songId.equals(songId)) {
-                switchToViewMode(e.target);
-            }
+    @OnPayload
+    public void onUserSongModifiedEvent(UserSongModifiedEvent e) {
+        if (e.songId.equals(songId)) {
+            switchToViewMode(e.target);
         }
     }
 }

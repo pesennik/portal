@@ -9,6 +9,7 @@ import com.github.pesennik.component.parsley.EmailJsValidator;
 import com.github.pesennik.component.parsley.LoginJsValidator;
 import com.github.pesennik.component.parsley.ParsleyUtils;
 import com.github.pesennik.component.parsley.PasswordJsValidator;
+import com.github.pesennik.component.parsley.RequiredFieldJsValidator;
 import com.github.pesennik.component.parsley.ValidatingJsAjaxSubmitLink;
 import com.github.pesennik.model.User;
 import com.github.pesennik.page.HomePage;
@@ -69,7 +70,7 @@ public class RegistrationPanel extends Panel {
         form.add(password1Field);
 
         PasswordField password2Field = new PasswordField("password2_field", Model.of(""));
-        password2Field.add(new PasswordJsValidator(password2Error));
+        password2Field.add(new RequiredFieldJsValidator(password2Error));
         form.add(password2Field);
 
         ValidatingJsAjaxSubmitLink registerButton = new ValidatingJsAjaxSubmitLink("submit", form) {

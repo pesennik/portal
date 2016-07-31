@@ -41,6 +41,7 @@ public class UserSongEditPanel extends Panel {
         form.add(authorField);
 
         InputArea textField = new InputArea("text", s.text);
+        textField.setAutofocus(s.id != null);
         form.add(textField);
 
         form.add(new AjaxSubmitLink("save_link", form) {
