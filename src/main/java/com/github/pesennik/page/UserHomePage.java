@@ -17,8 +17,6 @@ public class UserHomePage extends BaseUserPage {
 
     public UserHomePage() {
 
-        add(new BookmarkablePageLink("add_song_link", CreateUserSongPage.class));
-
         List<UserSongId> userSongs = Context.getUserSongsDbi().getUserSongs(UserSessionUtils.getUserIdOrRedirectHome());
         Collections.reverse(userSongs); // show last first
 

@@ -14,6 +14,7 @@ public class InputArea extends TextArea<String> {
 
     public InputArea(@NotNull String id, @Nullable String val) {
         super(id, Model.of(val == null ? "" : val));
+        setOutputMarkupId(true);
     }
 
     public void setAutofocus(boolean autofocus) {
