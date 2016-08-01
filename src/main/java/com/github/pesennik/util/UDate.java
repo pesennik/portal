@@ -1,6 +1,7 @@
 package com.github.pesennik.util;
 
 import com.github.mjdbc.type.DbTimestamp;
+import com.github.pesennik.Constants;
 import org.apache.wicket.util.io.IClusterable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -70,4 +71,7 @@ public final class UDate implements DbTimestamp, IClusterable {
     }
 
 
+    public int getDayOfYear() {
+        return instant.atZone(Constants.MOSCOW_ZONE).getDayOfYear();
+    }
 }

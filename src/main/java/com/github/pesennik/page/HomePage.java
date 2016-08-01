@@ -7,6 +7,7 @@ import com.github.pesennik.component.BootstrapModalStaticLink;
 import com.github.pesennik.component.LoginPanel;
 import com.github.pesennik.model.User;
 import com.github.pesennik.page.signin.RegistrationPanel;
+import com.github.pesennik.util.UDate;
 import com.github.pesennik.util.UserSessionUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -57,11 +58,15 @@ public class HomePage extends BasePage {
         }
     }
 
+    public static final int MAX_BACKGROUNDS = 2;
+
     @Override
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
-        //todo: roll the whole set of backgrounds
-        response.render(CssHeaderItem.forUrl("/backgrounds/001.css"));
+        int day = UDate.now().getDayOfYear();
+        int bg = 1 + day % MAX_BACKGROUNDS;
+        String style = bg > 100 ? "" + bg : bg > 10 ? "0" + bg : "00" + bg;
+        response.render(CssHeaderItem.forUrl("/backgrounds/" + style + ".css"));
     }
 
 }
