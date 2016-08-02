@@ -12,6 +12,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.util.io.IClusterable;
 import org.jetbrains.annotations.NotNull;
 
 public class UserSongPanel extends Panel {
@@ -73,7 +74,7 @@ public class UserSongPanel extends Panel {
     private void switchToEditMode(AjaxRequestTarget target) {
         viewPanel.setVisible(false);
         mainPanel.remove(editPanel);
-        editPanel = new UserSongEditPanel("edit_panel", songId);
+        editPanel = new UserSongEditPanel("edit_panel", songId, (AjaxCallback & IClusterable) this::switchToViewMode);
         mainPanel.add(editPanel);
         target.add(mainPanel);
     }
@@ -91,4 +92,6 @@ public class UserSongPanel extends Panel {
             switchToViewMode(e.target);
         }
     }
+
+
 }

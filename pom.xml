@@ -67,6 +67,10 @@
                             <targetPath>backgrounds</targetPath>
                         </webResource>
                         <webResource>
+                            <directory>${basedir}/tuner</directory>
+                            <targetPath>tones</targetPath>
+                        </webResource>
+                        <webResource>
                             <directory>${basedir}/js/package</directory>
                             <targetPath>js</targetPath>
                         </webResource>

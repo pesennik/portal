@@ -20,22 +20,16 @@
 
 <body>
 
-<div>
-    <div>
-        <a name="top_marker"></a>
+<a name="top_marker"></a>
 
-        <div id="back-top" wicket:id="top_link" style="display:none; z-index: 100;">
-            <a href="#top_marker">Наверх</a>
-            <script>$site.Utils.enableScrollTop();</script>
-        </div>
-        <wicket:child/>
-    </div>
+<div id="back-top" wicket:id="top_link" style="display:none; z-index: 100;">
+    <a href="#top_marker">Наверх</a>
+    <script>$site.Utils.enableScrollTop();</script>
 </div>
 
-<div>
-    <div class="container-fluid txtc w100">
-        <wicket:panel wicket:id="footer"/>
-    </div>
-</div>
+<wicket:child/>
+
+<div wicket:id="footer" class="container-fluid txtc w100"></div>
+
 </body>
 </html>

@@ -9,6 +9,7 @@ import com.github.pesennik.util.UDate;
 import com.github.pesennik.util.UserSessionUtils;
 import com.github.pesennik.util.ValidatorUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.form.Form;
@@ -17,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class UserSongEditPanel extends Panel {
 
-    public UserSongEditPanel(String id, @Nullable UserSongId songId) {
+    public UserSongEditPanel(String id, @Nullable UserSongId songId, @Nullable AjaxCallback closeCallback) {
         super(id);
 
         Feedback feedback = new Feedback("feedback");
@@ -88,6 +89,15 @@ public class UserSongEditPanel extends Panel {
                 send(getPage(), Broadcast.BREADTH, new UserSongModifiedEvent(target, song.id));
             }
         });
+
+        form.add(new AjaxLink("cancel_link") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                assert closeCallback != null;
+                closeCallback.callback(target);
+            }
+        }.setVisible(closeCallback != null));
+
 
     }
 

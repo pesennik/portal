@@ -4,3 +4,7 @@
 [submodule "js"]
 	path = js
 	url = https://github.com/pesennik/js.git
+	
+[submodule "tuner"]
+	path = tuner
+	url = https://github.com/pesennik/tuner.git

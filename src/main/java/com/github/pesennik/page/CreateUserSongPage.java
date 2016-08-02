@@ -7,6 +7,6 @@ import com.github.pesennik.component.UserSongEditPanel;
 public class CreateUserSongPage extends BaseUserPage {
 
     public CreateUserSongPage() {
-        add(new UserSongEditPanel("create_song_panel", null));
+        add(new UserSongEditPanel("create_song_panel", null, null));
     }
 }
