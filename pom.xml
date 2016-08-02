@@ -67,7 +67,7 @@
                             <targetPath>backgrounds</targetPath>
                         </webResource>
                         <webResource>
-                            <directory>${basedir}/tuner</directory>
+                            <directory>${basedir}/tuner/tones</directory>
                             <targetPath>tones</targetPath>
                         </webResource>
                         <webResource>
