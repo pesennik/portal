@@ -1,37 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<wicket:extend>
 
-В разработке
-<div>
-    1:
-    <audio id="string-1" src="/tones/c1_e.mp3" controls loop></audio>
-</div>
+    <div class="container-fluid">
 
-<div>
-    2:
-    <audio id="string-2" src="/tones/c2_b.mp3" controls loop></audio>
-</div>
+        <div class="center-block" style="max-width: 300px;">
 
-<div>
-    3:
-    <audio id="string-3" src="/tones/c3_g.mp3" controls loop></audio>
-</div>
+            <h3>В разработке</h3>
 
-<div>
-    4:
-    <audio id="string-4" src="/tones/c4_d.mp3" controls loop></audio>
-</div>
+            <div id="tuner">
+                <div>
+                    Тип:
+                    <select class="tuner-tone-type-selector">
+                        <option value="c">Классика</option>
+                        <option value="e">Электро</option>
+                    </select>
+                </div>
 
-<div>
-    5:
-    <audio id="string-5" src="/tones/c5_a.mp3" controls loop></audio>
-</div>
+                <div>
+                    Повтор: <input type="checkbox" class="tuner-repeat-checkbox">
+                </div>
 
-<div>
-    6:
-    <audio id="string-6" src="/tones/c6_e.mp3" controls loop></audio>
-</div>
+                <div>
+                    <a class="btn btn-default tuner-button-s1">1</a>
+                    <a class="btn btn-default tuner-button-s2">2</a>
+                    <a class="btn btn-default tuner-button-s3">3</a>
+                    <a class="btn btn-default tuner-button-s4">4</a>
+                    <a class="btn btn-default tuner-button-s5">5</a>
+                    <a class="btn btn-default tuner-button-s6">6</a>
+                </div>
+            </div>
 
-</body>
+            <script>
+                $site.Tuner.init({selector: "#tuner"})
+            </script>
+        </div>
+    </div>
+</wicket:extend>
 </html>

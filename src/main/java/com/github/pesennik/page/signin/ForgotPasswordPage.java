@@ -59,7 +59,8 @@ public class ForgotPasswordPage extends BasePage {
         form.add(new RefreshCaptchaLink("change_captcha", captchaField, captchaImage));
 
         ValidatingJsAjaxSubmitLink resetLink = new ValidatingJsAjaxSubmitLink("submit", form) {
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target) {
                 feedback.reset(target);
 
                 UsersDbi dao = Context.getUsersDbi();

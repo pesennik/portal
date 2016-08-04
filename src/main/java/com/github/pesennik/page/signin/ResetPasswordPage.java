@@ -104,7 +104,8 @@ public class ResetPasswordPage extends BasePage {
 
         VerificationRecordId recordId = r.id;
         form.add(new AjaxSubmitLink("submit_link", form) {
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target) {
                 feedback.reset(target);
                 VerificationRecord r1 = Context.getUsersDbi().getVerificationRecordById(recordId);
                 if (r1 == null) {

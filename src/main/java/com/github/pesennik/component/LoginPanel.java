@@ -49,7 +49,8 @@ public class LoginPanel extends Panel {
         form.add(passwordField);
 
         ValidatingJsAjaxSubmitLink loginButton = new ValidatingJsAjaxSubmitLink("login_link", form) {
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target) {
                 UsersDbi dbi = Context.getUsersDbi();
                 String emailOrLogin = emailOrLoginField.getInputString().trim();
                 User user = dbi.getUserByLogin(emailOrLogin);

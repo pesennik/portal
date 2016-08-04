@@ -74,7 +74,8 @@ public class RegistrationPanel extends Panel {
         form.add(password2Field);
 
         ValidatingJsAjaxSubmitLink registerButton = new ValidatingJsAjaxSubmitLink("submit", form) {
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target) {
                 if (UserSession.get().isSignedIn()) {
                     throw new RestartResponseException(HomePage.class);
                 }

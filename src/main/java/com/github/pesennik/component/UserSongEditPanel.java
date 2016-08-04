@@ -47,7 +47,7 @@ public class UserSongEditPanel extends Panel {
 
         form.add(new AjaxSubmitLink("save_link", form) {
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            protected void onSubmit(AjaxRequestTarget target) {
                 feedback.reset(target);
 
                 String title = titleField.getInputString();
@@ -90,7 +90,7 @@ public class UserSongEditPanel extends Panel {
             }
         });
 
-        form.add(new AjaxLink("cancel_link") {
+        form.add(new AjaxLink<Void>("cancel_link") {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 assert closeCallback != null;

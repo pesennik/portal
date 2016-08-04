@@ -71,11 +71,11 @@
                             <targetPath>tones</targetPath>
                         </webResource>
                         <webResource>
-                            <directory>${basedir}/js/package</directory>
+                            <directory>${basedir}/js/dist</directory>
                             <targetPath>js</targetPath>
                         </webResource>
                     </webResources>
-                    <!-- All CSS are minified to style.css, site.min.js is copied from js package-->
+                    <!-- All CSS are minified to style.css, site.min.js is copied from js module's 'dist' folder -->
                     <warSourceExcludes>
                         **/css/*.css
                     </warSourceExcludes>
@@ -145,13 +145,14 @@
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-extensions</artifactId>
-            <version>7.4.0</version>
+            <version>8.0.0-M1</version>
             <scope>compile</scope>
         </dependency>
+
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
 
