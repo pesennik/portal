@@ -6,22 +6,31 @@
 
         <div class="center-block" style="max-width: 300px;">
 
-            <h3>В разработке</h3>
+            <h2>Тюнер для гитары</h2>
 
             <div id="tuner">
-                <div>
-                    Тип:
-                    <select class="tuner-tone-type-selector">
-                        <option value="c">Классика</option>
-                        <option value="e">Электро</option>
-                    </select>
-                </div>
-
-                <div>
-                    Повтор: <input type="checkbox" class="tuner-repeat-checkbox">
-                </div>
-
-                <div>
+                <table class="pr10_td pt10_td">
+                    <tr>
+                        <td>
+                            Тон:
+                        </td>
+                        <td>
+                            <select class="tuner-tone-type-selector">
+                                <option value="c">Классика</option>
+                                <option value="e">Электро</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Повтор:
+                        </td>
+                        <td>
+                            <input type="checkbox" class="tuner-repeat-checkbox">
+                        </td>
+                    </tr>
+                </table>
+                <div class="mt20">
                     <a class="btn btn-default tuner-button-s1">1</a>
                     <a class="btn btn-default tuner-button-s2">2</a>
                     <a class="btn btn-default tuner-button-s3">3</a>
@@ -30,10 +39,38 @@
                     <a class="btn btn-default tuner-button-s6">6</a>
                 </div>
             </div>
-
             <script>
                 $site.Tuner.init({selector: "#tuner"})
             </script>
+        </div>
+
+        <div class="center-block" style="max-width: 425px;">
+            <div class="well mt50">
+                <h3>Горячие клавиши</h3>
+                <table class="pr10_td pb10_td table-nw table-vat">
+                    <tr>
+                        <td><b>1</b>, <b>2</b>, <b>3</b>, <b>4</b>, <b>5</b>, <b>6</b></td>
+                        <td>соотвествующая струна</td>
+                    </tr>
+                    <tr>
+                        <td><b>Space</b></td>
+                        <td>пауза/старт</td>
+                    </tr>
+                    <tr>
+                        <td><b>A</b> и <b>S</b></td>
+                        <td>предыдущая или следующая струна</td>
+                    </tr>
+                    <tr>
+                        <td><b>X</b></td>
+                        <td style="white-space: nowrap">следующий набор тонов (Классика/Электро)</td>
+                    </tr>
+                    <tr>
+                        <td><b>Z</b></td>
+                        <td>включить/выключить повтор</td>
+                    </tr>
+
+                </table>
+            </div>
         </div>
     </div>
 </wicket:extend>

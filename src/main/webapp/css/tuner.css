@@ -4,3 +4,11 @@
 .tuner-button-on {
     background-color: red;
 }
+
+.table-nw td {
+    white-space: nowrap;
+}
+
+.table-vat td {
+    vertical-align: top;
+}

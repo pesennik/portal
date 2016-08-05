@@ -37,6 +37,7 @@ public class HomePage extends BasePage {
 
             notLoggedInBlock.add(new BootstrapModalStaticLink("login_link", loginModal));
             notLoggedInBlock.add(new BootstrapModalStaticLink("registration_link", registrationModal));
+            notLoggedInBlock.add(new BookmarkablePageLink("tuner_link", TunerPage.class));
         } else {
             add(new EmptyPanel("login_modal"));
             add(new EmptyPanel("registration_modal"));
@@ -49,7 +50,7 @@ public class HomePage extends BasePage {
             loggedInBlock.add(new BookmarkablePageLink("user_home_link", UserHomePage.class));
             loggedInBlock.add(new BookmarkablePageLink("add_song_link", CreateUserSongPage.class));
             loggedInBlock.add(new BookmarkablePageLink("tuner_link", TunerPage.class));
-            loggedInBlock.add(new AjaxLink("logout_link") {
+            loggedInBlock.add(new AjaxLink<Void>("logout_link") {
                 @Override
                 public void onClick(AjaxRequestTarget ajaxRequestTarget) {
                     UserSessionUtils.logout();
