@@ -1,7 +1,7 @@
 package com.github.pesennik.component;
 
 import com.github.pesennik.Context;
-import com.github.pesennik.event.UserSongModifiedEvent;
+import com.github.pesennik.event.UserSongChangedEvent;
 import com.github.pesennik.event.dispatcher.OnPayload;
 import com.github.pesennik.model.UserSong;
 import com.github.pesennik.model.UserSongId;
@@ -59,7 +59,7 @@ public class UserSongPanel extends Panel {
         viewPanel.add(new Label("date", Formatters.SONG_DATE_FORMAT.format(song.creationDate)));
 
 
-        AjaxLink editLink = new AjaxLink("edit_link") {
+        AjaxLink editLink = new AjaxLink<Void>("edit_link") {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 switchToEditMode(target);
@@ -87,11 +87,10 @@ public class UserSongPanel extends Panel {
     }
 
     @OnPayload
-    public void onUserSongModifiedEvent(UserSongModifiedEvent e) {
-        if (e.songId.equals(songId)) {
+    public void onUserSongModifiedEvent(UserSongChangedEvent e) {
+        if (e.songId.equals(songId) && e.changeType != UserSongChangedEvent.ChangeType.Deleted) {
             switchToViewMode(e.target);
         }
     }
-
 
 }

@@ -1,7 +1,8 @@
 package com.github.pesennik.component;
 
 import com.github.pesennik.Context;
-import com.github.pesennik.event.UserSongModifiedEvent;
+import com.github.pesennik.event.UserSongChangedEvent;
+import com.github.pesennik.event.UserSongChangedEvent.ChangeType;
 import com.github.pesennik.model.UserSong;
 import com.github.pesennik.model.UserSongId;
 import com.github.pesennik.util.Limits;
@@ -86,7 +87,7 @@ public class UserSongEditPanel extends Panel {
                     Context.getUserSongsDbi().updateSong(song);
                     feedback.success("Изменения сохранены");
                 }
-                send(getPage(), Broadcast.BREADTH, new UserSongModifiedEvent(target, song.id));
+                send(getPage(), Broadcast.BREADTH, new UserSongChangedEvent(target, song.id, songId == null ? ChangeType.Created : ChangeType.Updated));
             }
         });
 
@@ -98,6 +99,16 @@ public class UserSongEditPanel extends Panel {
             }
         }.setVisible(closeCallback != null));
 
+        form.add(new AjaxLink<Void>("delete_link") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                assert closeCallback != null;
+                assert songId != null;
+                Context.getUserSongsDbi().delete(songId);
+                closeCallback.callback(target);
+                send(getPage(), Broadcast.BREADTH, new UserSongChangedEvent(target, songId, ChangeType.Deleted));
+            }
+        }.setVisible(closeCallback != null && songId != null));
 
     }
 

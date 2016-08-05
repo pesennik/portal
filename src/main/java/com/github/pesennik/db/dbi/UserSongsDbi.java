@@ -20,4 +20,6 @@ public interface UserSongsDbi {
     UserSong getSong(@NotNull UserSongId songId);
 
     void updateSong(@NotNull UserSong song);
+
+    void delete(@NotNull UserSongId songId);
 }
