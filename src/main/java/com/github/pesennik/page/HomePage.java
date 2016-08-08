@@ -60,7 +60,7 @@ public class HomePage extends BasePage {
         }
     }
 
-    public static final int MAX_BACKGROUNDS = 2;
+    public static final int MAX_BACKGROUNDS = 3;
 
     @Override
     public void renderHead(IHeaderResponse response) {
