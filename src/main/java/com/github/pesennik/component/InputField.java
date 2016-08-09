@@ -1,5 +1,6 @@
 package com.github.pesennik.component;
 
+import com.github.pesennik.util.TextUtils;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 import org.jetbrains.annotations.NotNull;
@@ -17,6 +18,6 @@ public class InputField extends TextField<String> {
 
     @NotNull
     public String getInputString() {
-        return getDefaultModelObjectAsString();
+        return TextUtils.notNull(getModelObject(), "");
     }
 }

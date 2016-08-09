@@ -1,6 +1,7 @@
 package com.github.pesennik.component;
 
 import com.github.pesennik.Scripts;
+import com.github.pesennik.util.TextUtils;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.form.TextArea;
@@ -23,7 +24,7 @@ public class InputArea extends TextArea<String> {
 
     @NotNull
     public String getInputString() {
-        return getDefaultModelObjectAsString();
+        return TextUtils.notNull(getModelObject(), "");
     }
 
     public void renderHead(IHeaderResponse response) {

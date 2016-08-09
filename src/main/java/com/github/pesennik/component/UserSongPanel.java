@@ -17,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class UserSongPanel extends Panel {
 
-
     @NotNull
     private final UserSongId songId;
 
@@ -55,7 +54,7 @@ public class UserSongPanel extends Panel {
         }
         viewPanel.removeAll();
         viewPanel.add(new Label("author", song.author));
-        viewPanel.add(new Label("text", song.text));
+        viewPanel.add(new UserSongTextView("text_view", songId));
         viewPanel.add(new Label("date", Formatters.SONG_DATE_FORMAT.format(song.creationDate)));
 
 

@@ -49,4 +49,8 @@ public class TextUtils {
         return val != null && val.length() >= minLength && val.length() <= maxLength;
     }
 
+    @Contract("_,null->null")
+    public static String notNull(@Nullable String text, @Nullable String defaultValue) {
+        return text == null ? defaultValue : text;
+    }
 }
