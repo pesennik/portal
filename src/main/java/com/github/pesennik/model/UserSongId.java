@@ -4,6 +4,7 @@ import com.github.mjdbc.DbMapper;
 import com.github.mjdbc.Mapper;
 
 public class UserSongId extends AbstractId {
+
     public UserSongId(int value) {
         super(value);
     }

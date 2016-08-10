@@ -54,9 +54,9 @@ public class UserSongPanel extends Panel {
         }
         viewPanel.removeAll();
         viewPanel.add(new Label("author", song.author));
+        viewPanel.add(new Label("title", song.title));
         viewPanel.add(new UserSongTextView("text_view", songId));
         viewPanel.add(new Label("date", Formatters.SONG_DATE_FORMAT.format(song.creationDate)));
-
 
         AjaxLink editLink = new AjaxLink<Void>("edit_link") {
             @Override
@@ -67,7 +67,6 @@ public class UserSongPanel extends Panel {
 
         };
         viewPanel.add(editLink);
-        editLink.add(new Label("title", song.title));
     }
 
     private void switchToEditMode(AjaxRequestTarget target) {

@@ -5,11 +5,25 @@
 
     <div wicket:id="panel">
         <div wicket:id="song" class="song-block">
+
+
             <div wicket:id="date" class="song-date"></div>
 
-            <a wicket:id="edit_link" class="btn btn-default btn-xs btn-flat">
-                <div wicket:id="title" class="song-title"></div>
-            </a>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span wicket:id="title" class="song-title"></span>&nbsp;&nbsp;<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a wicket:id="edit_link" href="#">Редактировать</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header">Аккорды</li>
+                    <li><a href="#TODO">Встроены в текст</a></li>
+                    <li><a href="#TODO">Над текстом</a></li>
+                    <li><a href="#TODO">Справа от текста</a></li>
+                    <li><a href="#TODO">Не показывать</a></li>
+                </ul>
+            </div>
+
 
             <div wicket:id="author" class="song-author"></div>
             <div wicket:id="text_view"></div>

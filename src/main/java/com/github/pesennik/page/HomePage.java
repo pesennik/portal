@@ -47,7 +47,7 @@ public class HomePage extends BasePage {
         loggedInBlock.setVisible(user != null);
         add(loggedInBlock);
         if (loggedInBlock.isVisible()) {
-            loggedInBlock.add(new BookmarkablePageLink("user_home_link", UserHomePage.class));
+            loggedInBlock.add(new BookmarkablePageLink("user_home_link", UserSongsListPage.class));
             loggedInBlock.add(new BookmarkablePageLink("add_song_link", CreateUserSongPage.class));
             loggedInBlock.add(new BookmarkablePageLink("tuner_link", TunerPage.class));
             loggedInBlock.add(new AjaxLink<Void>("logout_link") {

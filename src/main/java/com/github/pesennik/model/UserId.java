@@ -3,9 +3,6 @@ package com.github.pesennik.model;
 import com.github.mjdbc.DbMapper;
 import com.github.mjdbc.Mapper;
 
-/**
- *
- */
 public final class UserId extends AbstractId {
     public static final UserId INVALID_ID = new UserId(-1);
 

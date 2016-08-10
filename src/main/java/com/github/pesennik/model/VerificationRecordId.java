@@ -3,9 +3,6 @@ package com.github.pesennik.model;
 import com.github.mjdbc.DbMapper;
 import com.github.mjdbc.Mapper;
 
-/**
- *
- */
 public final class VerificationRecordId extends AbstractId {
 
     public VerificationRecordId(int id) {

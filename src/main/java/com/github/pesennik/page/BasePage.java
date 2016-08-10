@@ -2,7 +2,6 @@ package com.github.pesennik.page;
 
 import com.github.pesennik.Mounts;
 import com.github.pesennik.Scripts;
-import com.github.pesennik.component.SiteFooter;
 import com.github.pesennik.util.HttpUtils;
 import com.github.pesennik.util.UserSessionUtils;
 import org.apache.wicket.AttributeModifier;
@@ -24,8 +23,8 @@ public abstract class BasePage extends WebPage implements IRequestablePage {
 
     private static final Logger log = LoggerFactory.getLogger(BasePage.class);
 
-    public static final String DEFAULT_KEYWORDS = "TODO";
-    public static final String DEFAULT_DESCRIPTION = "TODO";
+    public static final String DEFAULT_KEYWORDS = "Песенник, персональный песенник";
+    public static final String DEFAULT_DESCRIPTION = "Персональный песенник";
 
     protected Label title = new Label("title", "Песенник");
 
@@ -34,16 +33,22 @@ public abstract class BasePage extends WebPage implements IRequestablePage {
 
     protected final WebMarkupContainer scrollTop = new WebMarkupContainer("top_link");
 
+    protected WebMarkupContainer header = new WebMarkupContainer("header");
+    protected WebMarkupContainer footer = new WebMarkupContainer("footer");
+
     public BasePage() {
         checkCorrectMount();
         UserSessionUtils.initializeSession();
         pageInitCallback();
         HttpUtils.saveLastViewedPage();
 
+
+        add(header);
+        add(footer);
+
         add(scrollTop);
         scrollTop.setVisible(false);
 
-        add(new SiteFooter("footer"));
 
         keysField = new WebMarkupContainer("meta_keywords");
         setPageKeywords(DEFAULT_KEYWORDS);

@@ -5,7 +5,7 @@ import com.github.pesennik.page.CreateUserSongPage;
 import com.github.pesennik.page.InternalErrorPage;
 import com.github.pesennik.page.PageNotFoundPage;
 import com.github.pesennik.page.TunerPage;
-import com.github.pesennik.page.UserHomePage;
+import com.github.pesennik.page.UserSongsListPage;
 import com.github.pesennik.page.signin.ForgotPasswordPage;
 import com.github.pesennik.page.signin.ResetPasswordPage;
 import com.github.pesennik.page.user.UserProfileSettingsPage;
@@ -26,7 +26,7 @@ public class Mounts {
 
                 // User pages
                 CreateUserSongPage.class,
-                UserHomePage.class,
+                UserSongsListPage.class,
                 UserProfileSettingsPage.class,
 
                 // Public resources

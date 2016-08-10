@@ -4,11 +4,14 @@ import com.github.pesennik.Context;
 import com.github.pesennik.annotation.MountPath;
 import com.github.pesennik.component.ContainerWithId;
 import com.github.pesennik.component.UserSongPanel;
+import com.github.pesennik.component.UserSongsListPageHeader;
 import com.github.pesennik.event.UserSongChangedEvent;
 import com.github.pesennik.event.UserSongChangedEvent.ChangeType;
 import com.github.pesennik.event.dispatcher.OnPayload;
 import com.github.pesennik.model.UserSongId;
 import com.github.pesennik.util.UserSessionUtils;
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 
@@ -16,11 +19,13 @@ import java.util.Collections;
 import java.util.List;
 
 @MountPath("/home")
-public class UserHomePage extends BaseUserPage {
+public class UserSongsListPage extends BaseUserPage {
 
     private final ContainerWithId songsList = new ContainerWithId("songs_list");
 
-    public UserHomePage() {
+    public UserSongsListPage() {
+        //noinspection WicketForgeJavaIdInspection
+        replace(new UserSongsListPageHeader("footer"));
 
         add(songsList);
 
@@ -48,5 +53,11 @@ public class UserHomePage extends BaseUserPage {
             updateSongsList();
             e.target.add(songsList);
         }
+    }
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        response.render(CssHeaderItem.forCSS("body {padding-bottom:70px;}", "body-header.css"));
     }
 }
