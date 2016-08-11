@@ -4,7 +4,7 @@ import com.github.pesennik.Context;
 import com.github.pesennik.annotation.MountPath;
 import com.github.pesennik.component.ContainerWithId;
 import com.github.pesennik.component.UserSongPanel;
-import com.github.pesennik.component.UserSongsListPageHeader;
+import com.github.pesennik.component.UserSongsListPageToolbar;
 import com.github.pesennik.event.UserSongChangedEvent;
 import com.github.pesennik.event.UserSongChangedEvent.ChangeType;
 import com.github.pesennik.event.dispatcher.OnPayload;
@@ -25,7 +25,7 @@ public class UserSongsListPage extends BaseUserPage {
 
     public UserSongsListPage() {
         //noinspection WicketForgeJavaIdInspection
-        replace(new UserSongsListPageHeader("footer"));
+        replace(new UserSongsListPageToolbar("footer"));
 
         add(songsList);
 

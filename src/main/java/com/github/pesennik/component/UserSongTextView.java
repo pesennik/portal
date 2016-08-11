@@ -27,7 +27,8 @@ public class UserSongTextView extends Panel {
         JSONObject options = new JSONObject();
         options.put("text", song == null ? "не найдена" : song.text);
         options.put("targetSelector", "#" + songView.getMarkupId());
+        options.put("chordsMode", "Inlined");
 
-        response.render(OnDomReadyHeaderItem.forScript("$site.Utils.renderSong(" + options + ");"));
+        response.render(OnDomReadyHeaderItem.forScript("$site.SongView.renderSong(" + options + ");"));
     }
 }
