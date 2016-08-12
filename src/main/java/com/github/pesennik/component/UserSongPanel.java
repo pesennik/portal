@@ -3,6 +3,7 @@ package com.github.pesennik.component;
 import com.github.pesennik.Context;
 import com.github.pesennik.event.UserSongChangedEvent;
 import com.github.pesennik.event.dispatcher.OnPayload;
+import com.github.pesennik.model.ChordsViewMode;
 import com.github.pesennik.model.UserSong;
 import com.github.pesennik.model.UserSongId;
 import com.github.pesennik.util.Formatters;
@@ -58,15 +59,15 @@ public class UserSongPanel extends Panel {
         viewPanel.add(new UserSongTextView("text_view", songId));
         viewPanel.add(new Label("date", Formatters.SONG_DATE_FORMAT.format(song.creationDate)));
 
-        AjaxLink editLink = new AjaxLink<Void>("edit_link") {
+        viewPanel.add(new AjaxLink<Void>("edit_link") {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 switchToEditMode(target);
             }
+        });
 
-
-        };
-        viewPanel.add(editLink);
+        viewPanel.add(new ChangeSongViewModeLink("chords_view_inlined_link", song, ChordsViewMode.Inlined));
+        viewPanel.add(new ChangeSongViewModeLink("chords_view_hidden_link", song, ChordsViewMode.Hidden));
     }
 
     private void switchToEditMode(AjaxRequestTarget target) {
@@ -91,4 +92,27 @@ public class UserSongPanel extends Panel {
         }
     }
 
+    private class ChangeSongViewModeLink extends AjaxLink<Void> {
+
+        @NotNull
+        private final ChordsViewMode mode;
+
+        public ChangeSongViewModeLink(@NotNull String id, @NotNull UserSong song, @NotNull ChordsViewMode mode) {
+            super(id);
+            this.mode = mode;
+            setVisible(song.extra.chordsViewMode != mode);
+        }
+
+        @Override
+        public void onClick(AjaxRequestTarget target) {
+            UserSong song = Context.getUserSongsDbi().getSong(songId);
+            if (song == null) {
+                return;
+            }
+            song.extra.chordsViewMode = mode;
+            Context.getUserSongsDbi().updateSong(song);
+            updateSongView();
+            target.add(mainPanel);
+        }
+    }
 }

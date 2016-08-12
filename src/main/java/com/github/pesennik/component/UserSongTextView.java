@@ -23,11 +23,18 @@ public class UserSongTextView extends Panel {
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
         UserSong song = Context.getUserSongsDbi().getSong(songId);
+        if (song == null) {
+            JSONObject options = new JSONObject();
+            options.put("text", "не найдена");
+            options.put("targetSelector", "#" + songView.getMarkupId());
+            response.render(OnDomReadyHeaderItem.forScript("$site.SongView.renderSong(" + options + ");"));
+            return;
+        }
 
         JSONObject options = new JSONObject();
-        options.put("text", song == null ? "не найдена" : song.text);
+        options.put("text", song.text);
         options.put("targetSelector", "#" + songView.getMarkupId());
-        options.put("chordsMode", "Inlined");
+        options.put("chordsMode", song.extra.chordsViewMode.getJsValue());
 
         response.render(OnDomReadyHeaderItem.forScript("$site.SongView.renderSong(" + options + ");"));
     }

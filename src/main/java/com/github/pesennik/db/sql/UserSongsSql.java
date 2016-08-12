@@ -18,7 +18,7 @@ public interface UserSongsSql {
 
 
     @NotNull
-    @Sql("INSERT INTO user_songs (user_id, title, author, text, creation_date) VALUES (:userId, :title, :author, :text, :creationDate)")
+    @Sql("INSERT INTO user_songs (user_id, title, author, text, creation_date, :extra) VALUES (:userId, :title, :author, :text, :creationDate, :extra)")
     UserSongId insert(@BindBean UserSong song);
 
     @NotNull
@@ -29,7 +29,7 @@ public interface UserSongsSql {
     @Sql("SELECT * FROM user_songs WHERE id = :id")
     UserSong getSong(@Bind("id") UserSongId songId);
 
-    @Sql("UPDATE user_songs SET title = :title, author = :author, text = :text WHERE id = :id")
+    @Sql("UPDATE user_songs SET title = :title, author = :author, text = :text, extra = :extra WHERE id = :id")
     void update(@BindBean UserSong userSong);
 
     @Sql("DELETE FROM user_songs WHERE id = :id")

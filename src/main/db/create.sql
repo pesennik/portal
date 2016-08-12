@@ -42,7 +42,8 @@ CREATE TABLE user_songs (
   author        VARCHAR(32) NOT NULL,
   text          TEXT        NOT NULL,
   creation_date DATETIME    NOT NULL,
-  deletion_date DATETIME DEFAULT NULL # дата удаления. Мы храним некоторое время после удаления.
+  deletion_date DATETIME DEFAULT NULL, # дата удаления. Мы храним некоторое время после удаления.
+  extra         TEXT                   # дополнительная не-индексируемая информация. Хранится в JSON форме
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;

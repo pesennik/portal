@@ -1,0 +1,35 @@
+package com.github.pesennik.model;
+
+import com.github.mjdbc.type.DbString;
+import com.github.pesennik.util.JsonUtils;
+import com.github.pesennik.util.TextUtils;
+import org.apache.wicket.ajax.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+public class UserSongExtra implements DbString {
+
+    @NotNull
+    public ChordsViewMode chordsViewMode = ChordsViewMode.Inlined;
+
+    @NotNull
+    public static UserSongExtra parse(@Nullable String val) {
+        UserSongExtra res = new UserSongExtra();
+        if (TextUtils.isEmpty(val)) {
+            return res;
+        }
+        JSONObject json = new JSONObject(val);
+
+        res.chordsViewMode = ChordsViewMode.fromDbValue(json.optString("chords"), ChordsViewMode.Inlined);
+
+        return res;
+    }
+
+    @Override
+    @NotNull
+    public String getDbValue() {
+        JSONObject json = new JSONObject();
+        JsonUtils.putOpt(json, chordsViewMode != ChordsViewMode.Inlined, "chords", chordsViewMode.getDbValue());
+        return json.toString();
+    }
+}

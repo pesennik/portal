@@ -31,6 +31,9 @@ public class UserSong extends Identifiable<UserSongId> {
     @Nullable
     public UDate deletionDate = null;
 
+    @NotNull
+    public UserSongExtra extra = new UserSongExtra();
+
     @Mapper
     public static final DbMapper<UserSong> MAPPER = r -> {
         UserSong res = new UserSong();
@@ -41,6 +44,7 @@ public class UserSong extends Identifiable<UserSongId> {
         res.text = r.getString("text");
         res.creationDate = UDate.fromDate(requireNonNull(r.getTimestamp("creation_date")));
         res.deletionDate = UDate.fromDate(r.getTimestamp("deletion_date"));
+        res.extra = UserSongExtra.parse(r.getString("extra"));
         return res;
     };
 
