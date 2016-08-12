@@ -5,6 +5,8 @@ import org.apache.wicket.model.IModel;
 import org.jetbrains.annotations.NotNull;
 
 public final class ClassModifier extends AttributeModifier {
+
+    @SuppressWarnings("unused")
     public ClassModifier(@NotNull String val) {
         super("class", val);
     }

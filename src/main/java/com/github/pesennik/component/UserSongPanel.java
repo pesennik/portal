@@ -1,6 +1,7 @@
 package com.github.pesennik.component;
 
 import com.github.pesennik.Context;
+import com.github.pesennik.behavior.ToggleDisplayBehavior;
 import com.github.pesennik.event.UserSongChangedEvent;
 import com.github.pesennik.event.dispatcher.OnPayload;
 import com.github.pesennik.model.ChordsViewMode;
@@ -54,20 +55,27 @@ public class UserSongPanel extends Panel {
             return;
         }
         viewPanel.removeAll();
+
+        WebMarkupContainer titleLink = new WebMarkupContainer("title_link");
+        viewPanel.add(titleLink);
+        titleLink.add(new Label("title", song.title));
+
         viewPanel.add(new Label("author", song.author));
-        viewPanel.add(new Label("title", song.title));
         viewPanel.add(new UserSongTextView("text_view", songId));
         viewPanel.add(new Label("date", Formatters.SONG_DATE_FORMAT.format(song.creationDate)));
 
-        viewPanel.add(new AjaxLink<Void>("edit_link") {
+        ContainerWithId toolbar = new ContainerWithId("toolbar");
+        viewPanel.add(toolbar);
+
+        toolbar.add(new AjaxLink<Void>("edit_link") {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 switchToEditMode(target);
             }
         });
-
-        viewPanel.add(new ChangeSongViewModeLink("chords_view_inlined_link", song, ChordsViewMode.Inlined));
-        viewPanel.add(new ChangeSongViewModeLink("chords_view_hidden_link", song, ChordsViewMode.Hidden));
+        titleLink.add(new ToggleDisplayBehavior(toolbar, "none"));
+        toolbar.add(new ChangeSongViewModeLink("chords_view_inlined_link", song, ChordsViewMode.Inlined));
+        toolbar.add(new ChangeSongViewModeLink("chords_view_hidden_link", song, ChordsViewMode.Hidden));
     }
 
     private void switchToEditMode(AjaxRequestTarget target) {

@@ -53,3 +53,11 @@ a.txt-muted:hover,
 a.txt-muted:focus {
     color: #808080;
 }
+
+.txt-muted-7 {
+    color: #777;
+}
+
+.nowrap {
+    white-space: nowrap;
+}

@@ -3,7 +3,6 @@ package com.github.pesennik.component.parsley;
 import com.github.pesennik.util.Limits;
 import com.github.pesennik.util.PL;
 import org.apache.wicket.Component;
-import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.jetbrains.annotations.Nullable;
 
 public class LoginJsValidator extends RequiredFieldJsValidator {

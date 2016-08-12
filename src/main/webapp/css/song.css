@@ -17,3 +17,9 @@
     white-space: pre;
 }
 
+.song-toolbar {
+    margin-top: 5px;
+    padding: 5px 10px;
+    background-color: #F8F8F8;
+    border: 1px solid #D8D8D8;
+}

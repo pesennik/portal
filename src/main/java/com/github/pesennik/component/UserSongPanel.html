@@ -9,17 +9,28 @@
 
             <div wicket:id="date" class="song-date"></div>
 
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span wicket:id="title" class="song-title"></span>&nbsp;&nbsp;<span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a wicket:id="edit_link" href="#">Редактировать</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li class="dropdown-header">Аккорды</li>
-                    <li><a wicket:id="chords_view_inlined_link">Встроены в текст</a></li>
-                    <li><a wicket:id="chords_view_hidden_link">Не показывать</a></li>
-                </ul>
+            <a wicket:id="title_link" class="btn btn-default">
+                <span wicket:id="title" class="song-title"></span>
+            </a>
+            <div wicket:id="toolbar" class="song-toolbar">
+                <a href="#" class="f18px txt-muted bld" style="float: right;" title="Скрыть тулбар" onclick="$(this).parents('.song-toolbar').toggle();">&times;</a>
+                <table class="pr15_td">
+                    <tr>
+                        <td>
+                            <a wicket:id="edit_link" class="btn btn-default btn-xs">Редактировать</a>
+                        </td>
+                        <td class="nowrap">
+                            <b class="txt-muted-7">Аккорды: </b>
+                            <a wicket:id="chords_view_inlined_link" class="btn btn-default btn-xs">Показать</a>
+                            <a wicket:id="chords_view_hidden_link" class="btn btn-default btn-xs">Скрыть</a>
+                        </td>
+                        <td class="nowrap">
+                            <b class="txt-muted-7">Тональность: </b>
+                            <a href="#todo" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                            <a href="#todo" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                        </td>
+                    </tr>
+                </table>
             </div>
 
 
