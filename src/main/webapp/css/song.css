@@ -23,3 +23,11 @@
     background-color: #F8F8F8;
     border: 1px solid #D8D8D8;
 }
+
+.song-toolbar-close {
+    font-size: 18px;
+    color: #999;
+    font-weight: bold;
+    float: right;
+    cursor: pointer;
+}

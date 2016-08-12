@@ -13,7 +13,7 @@
                 <span wicket:id="title" class="song-title"></span>
             </a>
             <div wicket:id="toolbar" class="song-toolbar">
-                <a href="#" class="f18px txt-muted bld" style="float: right;" title="Скрыть тулбар" onclick="$(this).parents('.song-toolbar').toggle();">&times;</a>
+                <a class="song-toolbar-close" title="Скрыть тулбар" onclick="$(this).parent('.song-toolbar').toggle(); return false;">&times;</a>
                 <table class="pr15_td">
                     <tr>
                         <td>

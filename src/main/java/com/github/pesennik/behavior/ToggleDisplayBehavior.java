@@ -19,6 +19,6 @@ public class ToggleDisplayBehavior extends Behavior {
 
     public void onComponentTag(Component component, ComponentTag tag) {
         super.onComponentTag(component, tag);
-        tag.getAttributes().put("onclick", "$('#" + blockToShowHide.getMarkupId() + "').toggle();");
+        tag.getAttributes().put("onclick", "$('#" + blockToShowHide.getMarkupId() + "').toggle(); return false;");
     }
 }
