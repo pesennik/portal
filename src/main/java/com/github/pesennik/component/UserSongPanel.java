@@ -28,6 +28,8 @@ public class UserSongPanel extends Panel {
     @NotNull
     private final WebMarkupContainer viewPanel;
 
+    private UserSongTextView songView;
+
     @NotNull
     private Panel editPanel;
 
@@ -61,8 +63,10 @@ public class UserSongPanel extends Panel {
         titleLink.add(new Label("title", song.title));
 
         viewPanel.add(new Label("author", song.author));
-        viewPanel.add(new UserSongTextView("text_view", songId));
         viewPanel.add(new Label("date", Formatters.SONG_DATE_FORMAT.format(song.creationDate)));
+
+        songView = new UserSongTextView("text_view", songId);
+        viewPanel.add(songView);
 
         ContainerWithId toolbar = new ContainerWithId("toolbar");
         viewPanel.add(toolbar);
@@ -76,6 +80,8 @@ public class UserSongPanel extends Panel {
         titleLink.add(new ToggleDisplayBehavior(toolbar, "none"));
         toolbar.add(new ChangeSongViewModeLink("chords_view_inlined_link", song, ChordsViewMode.Inlined));
         toolbar.add(new ChangeSongViewModeLink("chords_view_hidden_link", song, ChordsViewMode.Hidden));
+        toolbar.add(new TransposeAjaxLink("tone_down_link", songId, -1));
+        toolbar.add(new TransposeAjaxLink("tone_up_link", songId, +1));
     }
 
     private void switchToEditMode(AjaxRequestTarget target) {
@@ -95,9 +101,14 @@ public class UserSongPanel extends Panel {
 
     @OnPayload
     public void onUserSongModifiedEvent(UserSongChangedEvent e) {
-        if (e.songId.equals(songId) && e.changeType != UserSongChangedEvent.ChangeType.Deleted) {
-            switchToViewMode(e.target);
+        if (!e.songId.equals(songId) || e.changeType == UserSongChangedEvent.ChangeType.Deleted) {
+            return;
         }
+        if (e.changeType == UserSongChangedEvent.ChangeType.Transposed) {
+            e.target.add(songView);
+            return;
+        }
+        switchToViewMode(e.target);
     }
 
     private class ChangeSongViewModeLink extends AjaxLink<Void> {

@@ -9,6 +9,7 @@ public class UserSongChangedEvent extends AjaxEvent {
     public enum ChangeType {
         Created,
         Updated,
+        Transposed,
         Deleted
     }
 

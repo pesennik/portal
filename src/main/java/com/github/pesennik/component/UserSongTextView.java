@@ -17,6 +17,8 @@ public class UserSongTextView extends Panel {
     public UserSongTextView(@NotNull String id, @NotNull UserSongId songId) {
         super(id);
         this.songId = songId;
+        setOutputMarkupId(true);
+
         add(songView);
     }
 
