@@ -34,6 +34,6 @@ public class TransposeAjaxLink extends AjaxLink<Void> {
         }
         song.text = newText;
         Context.getUserSongsDbi().updateSong(song);
-        send(getPage(), Broadcast.BREADTH, new UserSongChangedEvent(target, songId, UserSongChangedEvent.ChangeType.Transposed));
+        send(getPage(), Broadcast.BREADTH, new UserSongChangedEvent(target, songId, UserSongChangedEvent.ChangeType.ChordsChanged));
     }
 }

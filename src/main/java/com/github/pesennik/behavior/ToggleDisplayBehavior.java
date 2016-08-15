@@ -9,12 +9,17 @@ import org.jetbrains.annotations.NotNull;
 public class ToggleDisplayBehavior extends Behavior {
 
     @NotNull
-    private final Component blockToShowHide;
+    public final Component blockToShowHide;
 
     public ToggleDisplayBehavior(@NotNull Component blockToShowHide, @NotNull String initialState) {
         this.blockToShowHide = blockToShowHide;
         blockToShowHide.setOutputMarkupId(true);
-        blockToShowHide.add(new AttributeAppender("style", "display:" + initialState + ";"));
+        blockToShowHide.add(new AttributeAppender("style", "display:" + initialState + ";") {
+            @Override
+            public boolean isTemporary(Component component) {
+                return true;
+            }
+        });
     }
 
     public void onComponentTag(Component component, ComponentTag tag) {

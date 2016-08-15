@@ -8,6 +8,7 @@ import com.github.pesennik.model.ChordsViewMode;
 import com.github.pesennik.model.UserSong;
 import com.github.pesennik.model.UserSongId;
 import com.github.pesennik.util.Formatters;
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -78,10 +79,17 @@ public class UserSongPanel extends Panel {
             }
         });
         titleLink.add(new ToggleDisplayBehavior(toolbar, "none"));
-        toolbar.add(new ChangeSongViewModeLink("chords_view_inlined_link", song, ChordsViewMode.Inlined));
-        toolbar.add(new ChangeSongViewModeLink("chords_view_hidden_link", song, ChordsViewMode.Hidden));
+        toolbar.add(new ChangeSongViewChordsModeLink("chords_view_inlined_link", ChordsViewMode.Inlined));
+        toolbar.add(new ChangeSongViewChordsModeLink("chords_view_hidden_link", ChordsViewMode.Hidden));
         toolbar.add(new TransposeAjaxLink("tone_down_link", songId, -1));
         toolbar.add(new TransposeAjaxLink("tone_up_link", songId, +1));
+
+        updateSongViewChordsMode(toolbar, song);
+    }
+
+    private void updateSongViewChordsMode(@NotNull Component toolbar, @NotNull UserSong song) {
+        toolbar.get("chords_view_inlined_link").setVisible(song.extra.chordsViewMode != ChordsViewMode.Inlined);
+        toolbar.get("chords_view_hidden_link").setVisible(song.extra.chordsViewMode != ChordsViewMode.Hidden);
     }
 
     private void switchToEditMode(AjaxRequestTarget target) {
@@ -104,22 +112,21 @@ public class UserSongPanel extends Panel {
         if (!e.songId.equals(songId) || e.changeType == UserSongChangedEvent.ChangeType.Deleted) {
             return;
         }
-        if (e.changeType == UserSongChangedEvent.ChangeType.Transposed) {
+        if (e.changeType == UserSongChangedEvent.ChangeType.ChordsChanged) {
             e.target.add(songView);
             return;
         }
         switchToViewMode(e.target);
     }
 
-    private class ChangeSongViewModeLink extends AjaxLink<Void> {
+    private class ChangeSongViewChordsModeLink extends AjaxLink<Void> {
 
         @NotNull
         private final ChordsViewMode mode;
 
-        public ChangeSongViewModeLink(@NotNull String id, @NotNull UserSong song, @NotNull ChordsViewMode mode) {
+        public ChangeSongViewChordsModeLink(@NotNull String id, @NotNull ChordsViewMode mode) {
             super(id);
             this.mode = mode;
-            setVisible(song.extra.chordsViewMode != mode);
         }
 
         @Override
@@ -129,9 +136,14 @@ public class UserSongPanel extends Panel {
                 return;
             }
             song.extra.chordsViewMode = mode;
+
             Context.getUserSongsDbi().updateSong(song);
-            updateSongView();
-            target.add(mainPanel);
+
+            Component toolbar = viewPanel.get("toolbar");
+            updateSongViewChordsMode(toolbar, song);
+            target.add(toolbar);
+
+            target.add(songView);
         }
     }
 }

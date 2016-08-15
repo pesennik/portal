@@ -9,7 +9,7 @@ public class TransposeUtils {
 
     private static final Pattern BRACE_PATTERN = Pattern.compile("\\([^\\(]*\\)");
 
-    private static final String[] NOTES = {"A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"};
+    private static final String[] NOTES = {"A", "A#", "H", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"};
 
     private static final int N_NOTES = NOTES.length;
 
@@ -33,22 +33,18 @@ public class TransposeUtils {
         if (oldNoteIdx < 0) {
             return chord;
         }
-        boolean isLower = note.toLowerCase().equals(note);
-        boolean isH = note.toUpperCase().equals("H");
-
+        boolean isLower = Character.isLowerCase(note.charAt(0));
         String suffix = chord.substring(note.length());
         int newNoteIdx = (oldNoteIdx + n + N_NOTES) % N_NOTES;
         String newNote = NOTES[newNoteIdx];
-        if (isH) {
-            newNote = "H" + newNote.substring(1);
-        }
         if (isLower) {
             newNote = newNote.substring(0, 1).toLowerCase() + newNote.substring(1);
         }
         return newNote + suffix;
     }
 
-    private static String getNote(String chord) {
+    @NotNull
+    private static String getNote(@NotNull String chord) {
         if (chord.length() < 2) {
             return chord;
         }
@@ -59,9 +55,12 @@ public class TransposeUtils {
     }
 
     private static int getNoteIdx(@NotNull String note) {
-        String n = note.toUpperCase();
+        String ucNote = note.toUpperCase();
+        if (ucNote.equals("B")) {
+            ucNote = "H";
+        }
         for (int i = 0; i < NOTES.length; i++) {
-            if (NOTES[i].equals(n)) {
+            if (NOTES[i].equals(ucNote)) {
                 return i;
             }
         }
