@@ -18,6 +18,9 @@
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li><a wicket:id="tuner_link">Тюнер</a></li>
+                    <li><a href="#" onclick="$site.SongView.zoom({delta:-5});return false;">Уменьшить</a></li>
+                    <li><a href="#" onclick="$site.SongView.zoom({delta:+5}); return false;">Увеличить</a></li>
+                    <li><a href="#" onclick="$site.SongView.zoom({value:100}); return false;">Сбросить</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" onclick="$site.Utils.scrollToRandomSong();">Случайная</a></li>
