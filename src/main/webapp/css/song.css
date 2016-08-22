@@ -17,6 +17,12 @@
     white-space: pre;
 }
 
+@media only screen and (min-width: 650px) {
+    .song-text-2-cols {
+        column-count: 2;
+    }
+}
+
 .song-toolbar {
     margin-top: 5px;
     padding: 5px 10px;
