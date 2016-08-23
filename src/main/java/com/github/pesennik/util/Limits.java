@@ -21,4 +21,8 @@ public final class Limits {
     public static final int MAX_SONG_AUTHOR_LENGTH = 64;
     public static final int MAX_SONG_TEXT_LENGTH = 4000;
     public static final int MIN_SONG_TEXT_LENGTH = 10;
+
+    public static final int MAX_URLS_TEXT_LENGTH = 1000;
+
+
 }

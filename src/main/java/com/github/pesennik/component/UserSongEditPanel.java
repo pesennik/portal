@@ -46,6 +46,9 @@ public class UserSongEditPanel extends Panel {
         textField.setAutofocus(s.id != null);
         form.add(textField);
 
+        InputArea linksField = new InputArea("links", s.extra.links);
+        form.add(linksField);
+
         form.add(new AjaxSubmitLink("save_link", form) {
             @Override
             protected void onSubmit(AjaxRequestTarget target) {
@@ -73,6 +76,12 @@ public class UserSongEditPanel extends Panel {
                     return;
                 }
 
+                String links = linksField.getInputString();
+                if (links.length() > Limits.MAX_URLS_TEXT_LENGTH) {
+                    feedback.error("Слишком большая длина ссылок!");
+                    return;
+                }
+
                 UserSong song = new UserSong();
                 song.id = songId;
                 song.userId = UserSessionUtils.getUserIdOrRedirectHome();
@@ -80,6 +89,7 @@ public class UserSongEditPanel extends Panel {
                 song.author = author;
                 song.text = text;
                 song.creationDate = UDate.now();
+                song.extra.links = links;
                 if (songId == null) {
                     Context.getUserSongsDbi().createSong(song);
                     feedback.success("Песня добавлена!");

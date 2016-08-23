@@ -13,6 +13,8 @@ public class Scripts {
 
     public static final HeaderItem PARSLEY_JS = forUrl("https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.4.3/parsley.min.js", "parsley.js");
 
+    public static final JavaScriptUrlReferenceHeaderItem AUTOLINKER_JS = forUrl("https://cdnjs.cloudflare.com/ajax/libs/autolinker/0.27.0/Autolinker.js", "Autolinker.js");
+
     public static final JavaScriptUrlReferenceHeaderItem AUTOSIZE_JS = forUrl("https://cdnjs.cloudflare.com/ajax/libs/autosize.js/3.0.17/autosize.min.js", "autosize.js");
 
 }

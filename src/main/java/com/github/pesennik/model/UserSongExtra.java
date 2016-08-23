@@ -13,6 +13,9 @@ public class UserSongExtra implements DbString {
     public ChordsViewMode chordsViewMode = ChordsViewMode.Inlined;
 
     @NotNull
+    public String links = "";
+
+    @NotNull
     public static UserSongExtra parse(@Nullable String val) {
         UserSongExtra res = new UserSongExtra();
         if (TextUtils.isEmpty(val)) {
@@ -21,7 +24,7 @@ public class UserSongExtra implements DbString {
         JSONObject json = new JSONObject(val);
 
         res.chordsViewMode = ChordsViewMode.fromDbValue(json.optString("chords"), ChordsViewMode.Inlined);
-
+        res.links = json.optString("links", "");
         return res;
     }
 
@@ -30,6 +33,7 @@ public class UserSongExtra implements DbString {
     public String getDbValue() {
         JSONObject json = new JSONObject();
         JsonUtils.putOpt(json, chordsViewMode != ChordsViewMode.Inlined, "chords", chordsViewMode.getDbValue());
+        JsonUtils.putOpt(json, !links.isEmpty(), "links", links);
         return json.toString();
     }
 }

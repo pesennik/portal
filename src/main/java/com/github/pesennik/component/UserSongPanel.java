@@ -65,6 +65,7 @@ public class UserSongPanel extends Panel {
 
         viewPanel.add(new Label("author", song.author));
         viewPanel.add(new Label("date", Formatters.SONG_DATE_FORMAT.format(song.creationDate)));
+        viewPanel.add(new SongLinksPanel("links", song.extra.links));
 
         songView = new UserSongTextView("text_view", songId);
         viewPanel.add(songView);
