@@ -10,7 +10,7 @@ public class SongLinksPanel extends Panel {
     public SongLinksPanel(@NotNull String id, @NotNull String links) {
         super(id);
 
-        Label linksLabel = new Label("links", links);
+        Label linksLabel = new Label("links", links.replace("\n", "<br>"));
         linksLabel.setEscapeModelStrings(false);
         linksLabel.add(new LinkifyBehavior(linksLabel));
         add(linksLabel);
