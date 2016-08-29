@@ -4,7 +4,7 @@ import com.github.pesennik.Context;
 import com.github.pesennik.UserSession;
 import com.github.pesennik.model.User;
 import com.github.pesennik.model.UserId;
-import com.github.pesennik.page.HomePage;
+import com.github.pesennik.component.HomePage;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.core.request.handler.PageProvider;
 import org.apache.wicket.util.string.StringValue;

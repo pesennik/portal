@@ -2,7 +2,7 @@ package com.github.pesennik.util;
 
 import com.github.pesennik.Context;
 import com.github.pesennik.UserSession;
-import com.github.pesennik.page.HomePage;
+import com.github.pesennik.component.HomePage;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.pages.RedirectPage;
 import org.apache.wicket.request.cycle.RequestCycle;

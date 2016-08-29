@@ -1,14 +1,14 @@
 package com.github.pesennik;
 
 import com.github.pesennik.annotation.MountPath;
-import com.github.pesennik.page.CreateUserSongPage;
-import com.github.pesennik.page.InternalErrorPage;
-import com.github.pesennik.page.PageNotFoundPage;
-import com.github.pesennik.page.TunerPage;
-import com.github.pesennik.page.UserSongsListPage;
-import com.github.pesennik.page.signin.ForgotPasswordPage;
-import com.github.pesennik.page.signin.ResetPasswordPage;
-import com.github.pesennik.page.user.UserProfileSettingsPage;
+import com.github.pesennik.component.song.CreateUserSongPage;
+import com.github.pesennik.component.InternalErrorPage;
+import com.github.pesennik.component.PageNotFoundPage;
+import com.github.pesennik.component.tuner.TunerPage;
+import com.github.pesennik.component.song.UserSongsListPage;
+import com.github.pesennik.component.signin.ForgotPasswordPage;
+import com.github.pesennik.component.signin.ResetPasswordPage;
+import com.github.pesennik.component.user.UserProfileSettingsPage;
 import org.apache.wicket.request.component.IRequestablePage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

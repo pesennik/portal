@@ -3,7 +3,7 @@ package com.github.pesennik.util;
 import com.github.pesennik.Constants;
 import com.github.pesennik.Mounts;
 import com.github.pesennik.model.User;
-import com.github.pesennik.page.user.UserProfileSettingsPage;
+import com.github.pesennik.component.user.UserProfileSettingsPage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

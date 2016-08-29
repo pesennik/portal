@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<body>
+<wicket:panel>
+    <div class="center-block" style="max-width: 300px;">
+
+        <h2>Тюнер для гитары</h2>
+
+        <div id="tuner">
+            <table class="pr10_td pt10_td">
+                <tr>
+                    <td class="bld">
+                        Тон:
+                    </td>
+                    <td>
+                        <select class="tuner-tone-type-selector">
+                            <option value="c">Классика</option>
+                            <option value="e">Электро</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bld">
+                        Повтор:
+                    </td>
+                    <td>
+                        <input type="checkbox" class="tuner-repeat-checkbox">
+                    </td>
+                </tr>
+            </table>
+            <div class="mt20">
+                <a class="btn btn-default tuner-button-s1">1</a>
+                <a class="btn btn-default tuner-button-s2">2</a>
+                <a class="btn btn-default tuner-button-s3">3</a>
+                <a class="btn btn-default tuner-button-s4">4</a>
+                <a class="btn btn-default tuner-button-s5">5</a>
+                <a class="btn btn-default tuner-button-s6">6</a>
+            </div>
+        </div>
+        <script>
+            $site.Tuner.init({selector: "#tuner"})
+        </script>
+    </div>
+
+    <div class="center-block" style="max-width: 425px; min-width: 330px;">
+        <div class="well mt50">
+            <h3 class="txtc mt10">Горячие клавиши</h3>
+            <table class="mt20 pr10_td pb10_td table-nw table-vat">
+                <tr>
+                    <td><b>1</b>, <b>2</b>, <b>3</b>, <b>4</b>, <b>5</b>, <b>6</b></td>
+                    <td>соотвествующая струна</td>
+                </tr>
+                <tr>
+                    <td><b>Space</b></td>
+                    <td>пауза/старт</td>
+                </tr>
+                <tr>
+                    <td><b>⇦</b> и <b>⇨</b></td>
+                    <td>выбор струны: пред./след.</td>
+                </tr>
+                <tr>
+                    <td><b>⇧</b> и <b>⇩</b></td>
+                    <td style="white-space: nowrap">выбор тона: Классика/Электро</td>
+                </tr>
+                <tr>
+                    <td><b>0</b></td>
+                    <td>режим повтора: вкл./выкл.</td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</wicket:panel>
+</body>
+</html>

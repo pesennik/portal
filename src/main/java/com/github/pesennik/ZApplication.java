@@ -2,8 +2,8 @@ package com.github.pesennik;
 
 import com.github.pesennik.annotation.MountPath;
 import com.github.pesennik.event.dispatcher.PayloadEventDispatcher;
-import com.github.pesennik.page.HomePage;
-import com.github.pesennik.page.InternalErrorPage;
+import com.github.pesennik.component.HomePage;
+import com.github.pesennik.component.InternalErrorPage;
 import com.github.pesennik.util.NoVersionHomePageMapper;
 import com.github.pesennik.util.NoVersionPageMapper;
 import com.github.pesennik.util.TextUtils;
