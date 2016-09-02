@@ -6,7 +6,8 @@ import com.github.pesennik.component.util.AjaxCallback;
 import com.github.pesennik.component.util.ContainerWithId;
 import com.github.pesennik.event.UserSongChangedEvent;
 import com.github.pesennik.event.dispatcher.OnPayload;
-import com.github.pesennik.model.ChordsViewMode;
+import com.github.pesennik.model.SongChordsViewMode;
+import com.github.pesennik.model.SongTextViewMode;
 import com.github.pesennik.model.UserSong;
 import com.github.pesennik.model.UserSongId;
 import com.github.pesennik.util.Formatters;
@@ -82,17 +83,27 @@ public class UserSongPanel extends Panel {
             }
         });
         titleLink.add(new ToggleDisplayBehavior(toolbar, "none"));
-        toolbar.add(new ChangeSongViewChordsModeLink("chords_view_inlined_link", ChordsViewMode.Inlined));
-        toolbar.add(new ChangeSongViewChordsModeLink("chords_view_hidden_link", ChordsViewMode.Hidden));
+
+        toolbar.add(new ChangeSongTextViewModeLink("text_view_visible_link", SongTextViewMode.Visible));
+        toolbar.add(new ChangeSongTextViewModeLink("text_view_hidden_link", SongTextViewMode.Hidden));
+        updateSongTextModeControls(toolbar, song);
+
+        toolbar.add(new ChangeSongChordsViewModeLink("chords_view_inlined_link", SongChordsViewMode.Inlined));
+        toolbar.add(new ChangeSongChordsViewModeLink("chords_view_hidden_link", SongChordsViewMode.Hidden));
+        updateSongChordsModeControls(toolbar, song);
+
         toolbar.add(new TransposeAjaxLink("tone_down_link", songId, -1));
         toolbar.add(new TransposeAjaxLink("tone_up_link", songId, +1));
-
-        updateSongViewChordsMode(toolbar, song);
     }
 
-    private void updateSongViewChordsMode(@NotNull Component toolbar, @NotNull UserSong song) {
-        toolbar.get("chords_view_inlined_link").setVisible(song.extra.chordsViewMode != ChordsViewMode.Inlined);
-        toolbar.get("chords_view_hidden_link").setVisible(song.extra.chordsViewMode != ChordsViewMode.Hidden);
+    private void updateSongTextModeControls(@NotNull Component toolbar, @NotNull UserSong song) {
+        toolbar.get("text_view_visible_link").setVisible(song.extra.textViewMode != SongTextViewMode.Visible);
+        toolbar.get("text_view_hidden_link").setVisible(song.extra.textViewMode != SongTextViewMode.Hidden);
+    }
+
+    private void updateSongChordsModeControls(@NotNull Component toolbar, @NotNull UserSong song) {
+        toolbar.get("chords_view_inlined_link").setVisible(song.extra.chordsViewMode != SongChordsViewMode.Inlined);
+        toolbar.get("chords_view_hidden_link").setVisible(song.extra.chordsViewMode != SongChordsViewMode.Hidden);
     }
 
     private void switchToEditMode(AjaxRequestTarget target) {
@@ -122,12 +133,12 @@ public class UserSongPanel extends Panel {
         switchToViewMode(e.target);
     }
 
-    private class ChangeSongViewChordsModeLink extends AjaxLink<Void> {
+    private class ChangeSongChordsViewModeLink extends AjaxLink<Void> {
 
         @NotNull
-        private final ChordsViewMode mode;
+        private final SongChordsViewMode mode;
 
-        public ChangeSongViewChordsModeLink(@NotNull String id, @NotNull ChordsViewMode mode) {
+        public ChangeSongChordsViewModeLink(@NotNull String id, @NotNull SongChordsViewMode mode) {
             super(id);
             this.mode = mode;
         }
@@ -139,14 +150,41 @@ public class UserSongPanel extends Panel {
                 return;
             }
             song.extra.chordsViewMode = mode;
-
             Context.getUserSongsDbi().updateSong(song);
 
             Component toolbar = viewPanel.get("toolbar");
-            updateSongViewChordsMode(toolbar, song);
+            updateSongChordsModeControls(toolbar, song);
             target.add(toolbar);
 
             target.add(songView);
         }
     }
+
+    private class ChangeSongTextViewModeLink extends AjaxLink<Void> {
+
+        @NotNull
+        private final SongTextViewMode mode;
+
+        public ChangeSongTextViewModeLink(@NotNull String id, @NotNull SongTextViewMode mode) {
+            super(id);
+            this.mode = mode;
+        }
+
+        @Override
+        public void onClick(AjaxRequestTarget target) {
+            UserSong song = Context.getUserSongsDbi().getSong(songId);
+            if (song == null) {
+                return;
+            }
+            song.extra.textViewMode = mode;
+            Context.getUserSongsDbi().updateSong(song);
+
+            Component toolbar = viewPanel.get("toolbar");
+            updateSongTextModeControls(toolbar, song);
+            target.add(toolbar);
+
+            target.add(songView);
+        }
+    }
+
 }

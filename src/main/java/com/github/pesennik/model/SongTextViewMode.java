@@ -8,20 +8,20 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum ChordsViewMode implements DbString {
-    Inlined("Inlined"),
+public enum SongTextViewMode implements DbString {
+    Visible("Visible"),
     Hidden("Hidden");
 
     @NotNull
     private final String dbValue;
 
-    private static final Map<String, ChordsViewMode> BY_DB_VALUE = new HashMap<>();
+    private static final Map<String, SongTextViewMode> BY_DB_VALUE = new HashMap<>();
 
     static {
         Arrays.stream(values()).forEach(v -> BY_DB_VALUE.put(v.dbValue, v));
     }
 
-    ChordsViewMode(@NotNull String dbValue) {
+    SongTextViewMode(@NotNull String dbValue) {
         this.dbValue = dbValue;
     }
 
@@ -37,7 +37,7 @@ public enum ChordsViewMode implements DbString {
     }
 
     @NotNull
-    public static ChordsViewMode fromDbValue(@Nullable String val, @NotNull ChordsViewMode defaultValue) {
+    public static SongTextViewMode fromDbValue(@Nullable String val, @NotNull SongTextViewMode defaultValue) {
         return BY_DB_VALUE.getOrDefault(val, defaultValue);
     }
 }
