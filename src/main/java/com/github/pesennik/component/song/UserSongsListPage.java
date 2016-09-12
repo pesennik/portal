@@ -2,6 +2,9 @@ package com.github.pesennik.component.song;
 
 import com.github.pesennik.Context;
 import com.github.pesennik.annotation.MountPath;
+import com.github.pesennik.component.bootstrap.BootstrapLazyModalLink;
+import com.github.pesennik.component.bootstrap.BootstrapModal;
+import com.github.pesennik.component.tuner.TunerPanel;
 import com.github.pesennik.component.user.BaseUserPage;
 import com.github.pesennik.component.util.ContainerWithId;
 import com.github.pesennik.event.UserSongChangedEvent;
@@ -11,6 +14,7 @@ import com.github.pesennik.model.UserSongId;
 import com.github.pesennik.util.UserSessionUtils;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 
@@ -23,10 +27,15 @@ public class UserSongsListPage extends BaseUserPage {
     private final ContainerWithId songsList = new ContainerWithId("songs_list");
 
     public UserSongsListPage() {
-        //noinspection WicketForgeJavaIdInspection
-        replace(new UserSongsListPageToolbar("footer"));
-
         add(songsList);
+
+        BootstrapModal tunerPopup = new BootstrapModal("tuner_popup", null, TunerPanel::new, BootstrapModal.BodyMode.Lazy, BootstrapModal.FooterMode.Show);
+        add(tunerPopup);
+
+        //TODO: replace with AJAX popup!
+        add(new BookmarkablePageLink<>("add_song_link", CreateUserSongPage.class));
+
+        add(new BootstrapLazyModalLink("tuner_link", tunerPopup));
 
         updateSongsList();
     }
