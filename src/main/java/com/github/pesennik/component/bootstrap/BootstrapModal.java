@@ -70,6 +70,10 @@ public class BootstrapModal extends Panel {
         target.add(body);
     }
 
+    public void hide(AjaxRequestTarget target) {
+        target.appendJavaScript("$('#" + modal.getMarkupId() + "').modal('hide');");
+    }
+
     @SuppressWarnings("unused")
     public void setOnCloseJavascript(AjaxRequestTarget target, String js) {
         target.appendJavaScript("$('#" + modal.getMarkupId() + "').on('hidden.bs.modal', function(){" + js + "})");

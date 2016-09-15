@@ -8,7 +8,6 @@ import com.github.pesennik.component.bootstrap.BootstrapModal.FooterMode;
 import com.github.pesennik.component.bootstrap.BootstrapStaticModalLink;
 import com.github.pesennik.component.signin.LoginPanel;
 import com.github.pesennik.component.signin.RegistrationPanel;
-import com.github.pesennik.component.song.CreateUserSongPage;
 import com.github.pesennik.component.song.UserSongsListPage;
 import com.github.pesennik.component.tuner.TunerPage;
 import com.github.pesennik.model.User;
@@ -53,7 +52,6 @@ public class HomePage extends BasePage {
         add(loggedInBlock);
         if (loggedInBlock.isVisible()) {
             loggedInBlock.add(new BookmarkablePageLink("user_home_link", UserSongsListPage.class));
-            loggedInBlock.add(new BookmarkablePageLink("add_song_link", CreateUserSongPage.class));
             loggedInBlock.add(new BookmarkablePageLink("tuner_link", TunerPage.class));
             loggedInBlock.add(new AjaxLink<Void>("logout_link") {
                 @Override

@@ -1,7 +1,6 @@
 package com.github.pesennik;
 
 import com.github.pesennik.annotation.MountPath;
-import com.github.pesennik.component.song.CreateUserSongPage;
 import com.github.pesennik.component.InternalErrorPage;
 import com.github.pesennik.component.PageNotFoundPage;
 import com.github.pesennik.component.tuner.TunerPage;
@@ -25,7 +24,6 @@ public class Mounts {
                 ResetPasswordPage.class,
 
                 // User pages
-                CreateUserSongPage.class,
                 UserSongsListPage.class,
                 UserProfileSettingsPage.class,
 
