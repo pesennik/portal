@@ -30,7 +30,7 @@ public class UserSongPanel extends Panel {
     private final WebMarkupContainer mainPanel;
 
     @NotNull
-    private final WebMarkupContainer viewPanel;
+    private final WebMarkupContainer songBlock;
 
     private UserSongTextView songView;
 
@@ -45,9 +45,10 @@ public class UserSongPanel extends Panel {
         mainPanel.setOutputMarkupId(true);
         add(mainPanel);
 
-        viewPanel = new WebMarkupContainer("song");
-        viewPanel.setOutputMarkupId(true);
-        mainPanel.add(viewPanel);
+        songBlock = new WebMarkupContainer("song");
+        songBlock.setOutputMarkupId(true);
+        songBlock.setMarkupId("song-block-" + songId.getDbValue());
+        mainPanel.add(songBlock);
         updateSongView();
 
         editPanel = new EmptyPanel("edit_panel");
@@ -57,24 +58,24 @@ public class UserSongPanel extends Panel {
     private void updateSongView() {
         UserSong song = Context.getUserSongsDbi().getSong(songId);
         if (song == null) {
-            viewPanel.setVisible(false);
+            songBlock.setVisible(false);
             return;
         }
-        viewPanel.removeAll();
+        songBlock.removeAll();
 
         WebMarkupContainer titleLink = new WebMarkupContainer("title_link");
-        viewPanel.add(titleLink);
+        songBlock.add(titleLink);
         titleLink.add(new Label("title", song.title));
 
-        viewPanel.add(new Label("author", song.author));
-        viewPanel.add(new Label("date", Formatters.SONG_DATE_FORMAT.format(song.creationDate)));
-        viewPanel.add(new SongLinksPanel("links", song.extra.links));
+        songBlock.add(new Label("author", song.author));
+        songBlock.add(new Label("date", Formatters.SONG_DATE_FORMAT.format(song.creationDate)));
+        songBlock.add(new SongLinksPanel("links", song.extra.links));
 
         songView = new UserSongTextView("text_view", songId);
-        viewPanel.add(songView);
+        songBlock.add(songView);
 
         ContainerWithId toolbar = new ContainerWithId("toolbar");
-        viewPanel.add(toolbar);
+        songBlock.add(toolbar);
 
         toolbar.add(new AjaxLink<Void>("edit_link") {
             @Override
@@ -107,7 +108,7 @@ public class UserSongPanel extends Panel {
     }
 
     private void switchToEditMode(AjaxRequestTarget target) {
-        viewPanel.setVisible(false);
+        songBlock.setVisible(false);
         mainPanel.remove(editPanel);
         editPanel = new UserSongEditPanel("edit_panel", songId, (AjaxCallback & IClusterable) this::switchToViewMode);
         mainPanel.add(editPanel);
@@ -115,7 +116,7 @@ public class UserSongPanel extends Panel {
     }
 
     private void switchToViewMode(AjaxRequestTarget target) {
-        viewPanel.setVisible(true);
+        songBlock.setVisible(true);
         editPanel.setVisible(false);
         updateSongView();
         target.add(mainPanel);
@@ -152,7 +153,7 @@ public class UserSongPanel extends Panel {
             song.extra.chordsViewMode = mode;
             Context.getUserSongsDbi().updateSong(song);
 
-            Component toolbar = viewPanel.get("toolbar");
+            Component toolbar = songBlock.get("toolbar");
             updateSongChordsModeControls(toolbar, song);
             target.add(toolbar);
 
@@ -179,7 +180,7 @@ public class UserSongPanel extends Panel {
             song.extra.textViewMode = mode;
             Context.getUserSongsDbi().updateSong(song);
 
-            Component toolbar = viewPanel.get("toolbar");
+            Component toolbar = songBlock.get("toolbar");
             updateSongTextModeControls(toolbar, song);
             target.add(toolbar);
 

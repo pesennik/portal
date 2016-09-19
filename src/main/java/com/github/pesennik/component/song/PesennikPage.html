@@ -31,6 +31,7 @@
             padding: 10px 0;
             font-size: 12px;
             text-align: center;
+            overflow-x: hidden;
         }
 
         .sidebar-nav a {
@@ -97,6 +98,7 @@
                 <li style="margin-top: 50px;"></li>
                 <li><a href="#" onclick="$site.Utils.scrollToRandomSong();" title="Перейти к случайной песне"><img src="/img/random_song.png">случайная</a></li>
                 <li><a wicket:id="add_song_link"><img src="/img/add_song.png" style="margin-left: 3px;" title="Добавить новую песню">добавить</a></li>
+                <li><a wicket:id="list_link"><img src="/img/song_list.png" title="Показать список песен">список</a></li>
             </ul>
         </div>
 
@@ -114,6 +116,7 @@
 
                 <div wicket:id="tuner_popup"></div>
                 <div wicket:id="create_popup"></div>
+                <div wicket:id="list_popup"></div>
 
             </div>
         </div>

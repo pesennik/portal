@@ -4,6 +4,7 @@ import com.github.pesennik.Context;
 import com.github.pesennik.annotation.MountPath;
 import com.github.pesennik.component.bootstrap.BootstrapLazyModalLink;
 import com.github.pesennik.component.bootstrap.BootstrapModal;
+import com.github.pesennik.component.bootstrap.BootstrapStaticModalLink;
 import com.github.pesennik.component.tuner.TunerPanel;
 import com.github.pesennik.component.user.BaseUserPage;
 import com.github.pesennik.component.util.ComponentFactory;
@@ -22,26 +23,29 @@ import java.util.Collections;
 import java.util.List;
 
 @MountPath("/home")
-public class UserSongsListPage extends BaseUserPage {
+public class PesennikPage extends BaseUserPage {
 
     private final ContainerWithId songsList = new ContainerWithId("songs_list");
     private final BootstrapModal createPopup;
 
-    public UserSongsListPage() {
+    public PesennikPage() {
         add(songsList);
 
         BootstrapModal tunerPopup = new BootstrapModal("tuner_popup", null, TunerPanel::new, BootstrapModal.BodyMode.Lazy, BootstrapModal.FooterMode.Show);
         add(tunerPopup);
+        add(new BootstrapLazyModalLink("tuner_link", tunerPopup));
 
         createPopup = new BootstrapModal("create_popup", "Добавление новой песни",
                 (ComponentFactory) id -> new UserSongEditPanel(id, null, null),
                 BootstrapModal.BodyMode.Lazy, BootstrapModal.FooterMode.Show);
 
         add(createPopup);
-
         add(new BootstrapLazyModalLink("add_song_link", createPopup));
 
-        add(new BootstrapLazyModalLink("tuner_link", tunerPopup));
+
+        BootstrapModal listPopup = new BootstrapModal("list_popup", null, SongListModalPanel::new, BootstrapModal.BodyMode.Static, BootstrapModal.FooterMode.Hide);
+        add(listPopup);
+        add(new BootstrapStaticModalLink("list_link", listPopup));
 
         updateSongsList();
     }
@@ -72,7 +76,6 @@ public class UserSongsListPage extends BaseUserPage {
             createPopup.hide(e.target);
             e.target.appendJavaScript("$('body,html').animate({scrollTop: 0}, 500)");
         }
-
     }
 
     @Override
