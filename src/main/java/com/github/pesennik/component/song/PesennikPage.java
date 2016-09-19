@@ -32,6 +32,7 @@ public class PesennikPage extends BaseUserPage {
         add(songsList);
 
         BootstrapModal tunerPopup = new BootstrapModal("tuner_popup", null, TunerPanel::new, BootstrapModal.BodyMode.Lazy, BootstrapModal.FooterMode.Show);
+        tunerPopup.inBodyCloseButton.setVisible(false);
         add(tunerPopup);
         add(new BootstrapLazyModalLink("tuner_link", tunerPopup));
 
@@ -43,7 +44,7 @@ public class PesennikPage extends BaseUserPage {
         add(new BootstrapLazyModalLink("add_song_link", createPopup));
 
 
-        BootstrapModal listPopup = new BootstrapModal("list_popup", null, SongListModalPanel::new, BootstrapModal.BodyMode.Static, BootstrapModal.FooterMode.Hide);
+        BootstrapModal listPopup = new BootstrapModal("list_popup", "Список песен", SongListModalPanel::new, BootstrapModal.BodyMode.Static, BootstrapModal.FooterMode.Show);
         add(listPopup);
         add(new BootstrapStaticModalLink("list_link", listPopup));
 

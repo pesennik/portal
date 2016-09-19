@@ -6,6 +6,7 @@ import com.github.pesennik.event.UserSongChangedEvent;
 import com.github.pesennik.event.dispatcher.OnPayload;
 import com.github.pesennik.model.UserSong;
 import com.github.pesennik.model.UserSongId;
+import com.github.pesennik.util.TextUtils;
 import com.github.pesennik.util.UserSessionUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -43,8 +44,19 @@ public class SongListModalPanel extends Panel {
                 }
                 WebMarkupContainer link = new WebMarkupContainer("song_link");
                 link.add(new AttributeModifier("onclick", "$site.Utils.scrollToBlock('#song-block-" + songId.getDbValue() + "');"));
-                link.add(new Label("song_title", song.title));
                 item.add(link);
+
+                Label title = new Label("song_title", song.title);
+                title.add(new AttributeModifier("title", getTitleText(song)));
+                link.add(title);
+            }
+
+            private String getTitleText(UserSong song) {
+                String res = song.title;
+                if (!TextUtils.isEmpty(song.author)) {
+                    res += "\nАвтор: " + song.author;
+                }
+                return res;
             }
         });
     }

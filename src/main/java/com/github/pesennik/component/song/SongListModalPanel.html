@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+    <style>
+        .a-song-list:link, .a-song-list:visited, .a-song-list:hover, .a-song-list:active {
+            color: #5a595d;
+            line-height: 1.5em;
+            text-decoration: none;
+        }
+    </style>
+</wicket:head>
 <body>
 <wicket:panel>
     <div wicket:id="songs_list">
         <div wicket:id="song">
-            <a wicket:id="song_link" href="#" data-dismiss="modal"><span wicket:id="song_title"></span></a>
+            <a wicket:id="song_link" href="#" data-dismiss="modal" class="a-song-list"><span wicket:id="song_title"></span></a>
         </div>
     </div>
 </wicket:panel>

@@ -8,5 +8,4 @@ public class TunerPanel extends Panel {
         super(id);
     }
 
-
 }

@@ -26,6 +26,8 @@ public class BootstrapModal extends Panel {
     public final WebMarkupContainer dialog = new WebMarkupContainer("dialog");
     public final WebMarkupContainer header = new WebMarkupContainer("header");
     public final WebMarkupContainer footer = new WebMarkupContainer("footer");
+    public final WebMarkupContainer inBodyCloseButton = new WebMarkupContainer("close_button");
+
 
     @NotNull
     private final ComponentFactory bodyFactory;
@@ -57,9 +59,8 @@ public class BootstrapModal extends Panel {
         footer.setVisible(footerMode == FooterMode.Show);
         dialog.add(footer);
 
-        WebMarkupContainer closeButton = new WebMarkupContainer("close_button");
-        closeButton.setVisible(!footer.isVisible());
-        body.add(closeButton);
+        inBodyCloseButton.setVisible(!header.isVisible());
+        body.add(inBodyCloseButton);
     }
 
     public void show(AjaxRequestTarget target) {
