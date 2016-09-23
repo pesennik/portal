@@ -5,8 +5,8 @@
     overflow: hidden;
     transition: all 200ms ease-out;
     cursor: pointer;
-    width: 320px;
-    height: 180px;
+    width: 350px; /* minimum size to have functional volume control */
+    height: 197px;
     background-size: 100%;
 }
 
