@@ -10,12 +10,12 @@ import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.jetbrains.annotations.NotNull;
 
-public class UserSongTextView extends Panel {
+public class SongTextView extends Panel {
     @NotNull
     private final UserSongId songId;
     ContainerWithId songView = new ContainerWithId("song_text");
 
-    public UserSongTextView(@NotNull String id, @NotNull UserSongId songId) {
+    public SongTextView(@NotNull String id, @NotNull UserSongId songId) {
         super(id);
         this.songId = songId;
         setOutputMarkupId(true);

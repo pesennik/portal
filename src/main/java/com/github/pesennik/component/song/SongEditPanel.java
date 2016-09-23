@@ -21,9 +21,9 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.jetbrains.annotations.Nullable;
 
-public class UserSongEditPanel extends Panel {
+public class SongEditPanel extends Panel {
 
-    public UserSongEditPanel(String id, @Nullable UserSongId songId, @Nullable AjaxCallback closeCallback) {
+    public SongEditPanel(String id, @Nullable UserSongId songId, @Nullable AjaxCallback closeCallback) {
         super(id);
 
         Feedback feedback = new Feedback("feedback");

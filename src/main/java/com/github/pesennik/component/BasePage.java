@@ -2,7 +2,6 @@ package com.github.pesennik.component;
 
 import com.github.pesennik.Mounts;
 import com.github.pesennik.Scripts;
-import com.github.pesennik.util.HttpUtils;
 import com.github.pesennik.util.UserSessionUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -40,8 +39,6 @@ public abstract class BasePage extends WebPage implements IRequestablePage {
         checkCorrectMount();
         UserSessionUtils.initializeSession();
         pageInitCallback();
-        HttpUtils.saveLastViewedPage();
-
 
         add(header);
         add(footer);

@@ -28,9 +28,6 @@ public class UserSession extends WebSession {
     @Nullable
     public String ip;
 
-    @Nullable
-    public String lastViewedPage; // used to redirect after oauth authorization
-
     public UserSession(Request request) {
         super(request);
         setLocale(Constants.RUSSIAN_LOCALE);

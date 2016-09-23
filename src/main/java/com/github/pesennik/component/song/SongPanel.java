@@ -11,6 +11,7 @@ import com.github.pesennik.model.SongTextViewMode;
 import com.github.pesennik.model.UserSong;
 import com.github.pesennik.model.UserSongId;
 import com.github.pesennik.util.Formatters;
+import com.github.pesennik.util.TextUtils;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -21,7 +22,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.io.IClusterable;
 import org.jetbrains.annotations.NotNull;
 
-public class UserSongPanel extends Panel {
+public class SongPanel extends Panel {
 
     @NotNull
     private final UserSongId songId;
@@ -32,12 +33,12 @@ public class UserSongPanel extends Panel {
     @NotNull
     private final WebMarkupContainer songBlock;
 
-    private UserSongTextView songView;
+    private SongTextView songView;
 
     @NotNull
     private Panel editPanel;
 
-    public UserSongPanel(String id, @NotNull UserSongId songId) {
+    public SongPanel(String id, @NotNull UserSongId songId) {
         super(id);
         this.songId = songId;
 
@@ -67,11 +68,11 @@ public class UserSongPanel extends Panel {
         songBlock.add(titleLink);
         titleLink.add(new Label("title", song.title));
 
-        songBlock.add(new Label("author", song.author));
+        songBlock.add(new Label("author", song.author).setVisible(!TextUtils.isEmpty(song.author)));
         songBlock.add(new Label("date", Formatters.SONG_DATE_FORMAT.format(song.creationDate)));
         songBlock.add(new SongLinksPanel("links", song.extra.links));
 
-        songView = new UserSongTextView("text_view", songId);
+        songView = new SongTextView("text_view", songId);
         songBlock.add(songView);
 
         ContainerWithId toolbar = new ContainerWithId("toolbar");
@@ -110,7 +111,7 @@ public class UserSongPanel extends Panel {
     private void switchToEditMode(AjaxRequestTarget target) {
         songBlock.setVisible(false);
         mainPanel.remove(editPanel);
-        editPanel = new UserSongEditPanel("edit_panel", songId, (AjaxCallback & IClusterable) this::switchToViewMode);
+        editPanel = new SongEditPanel("edit_panel", songId, (AjaxCallback & IClusterable) this::switchToViewMode);
         mainPanel.add(editPanel);
         target.add(mainPanel);
     }

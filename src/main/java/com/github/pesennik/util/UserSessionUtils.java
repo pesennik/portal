@@ -2,9 +2,9 @@ package com.github.pesennik.util;
 
 import com.github.pesennik.Context;
 import com.github.pesennik.UserSession;
+import com.github.pesennik.component.HomePage;
 import com.github.pesennik.model.User;
 import com.github.pesennik.model.UserId;
-import com.github.pesennik.component.HomePage;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.core.request.handler.PageProvider;
 import org.apache.wicket.util.string.StringValue;
@@ -90,7 +90,7 @@ public class UserSessionUtils {
      * Sets user auth data to cookies. It will be reused to automatically sign in user on next visit.
      */
     public static void setUserAutoLoginInfo(@Nullable String authData) {
-        HttpUtils.setCookieValue(UserSessionUtils.USER_AUTH_TOKEN, authData, HttpUtils.MONTH_1_COOKIE_DEFAULTS);
+        Cookies.setCookieValue(UserSessionUtils.USER_AUTH_TOKEN, authData, Cookies.MONTH_1_COOKIE_DEFAULTS);
     }
 
     /**
@@ -98,7 +98,7 @@ public class UserSessionUtils {
      */
     @Nullable
     public static String getUserAutoLoginInfo() {
-        return HttpUtils.getCookieValue(UserSessionUtils.USER_AUTH_TOKEN);
+        return Cookies.getCookieValue(UserSessionUtils.USER_AUTH_TOKEN);
     }
 
 

@@ -37,7 +37,7 @@ public class PesennikPage extends BaseUserPage {
         add(new BootstrapLazyModalLink("tuner_link", tunerPopup));
 
         createPopup = new BootstrapModal("create_popup", "Добавление новой песни",
-                (ComponentFactory) id -> new UserSongEditPanel(id, null, null),
+                (ComponentFactory) id -> new SongEditPanel(id, null, null),
                 BootstrapModal.BodyMode.Lazy, BootstrapModal.FooterMode.Show);
 
         add(createPopup);
@@ -61,7 +61,7 @@ public class PesennikPage extends BaseUserPage {
             @Override
             protected void populateItem(ListItem<UserSongId> item) {
                 UserSongId songId = item.getModelObject();
-                item.add(new UserSongPanel("song_panel", songId));
+                item.add(new SongPanel("song_panel", songId));
             }
         });
     }
