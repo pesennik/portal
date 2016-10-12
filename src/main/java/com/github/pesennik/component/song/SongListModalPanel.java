@@ -29,6 +29,8 @@ public class SongListModalPanel extends Panel {
     }
 
     public void updateSongsList() {
+        songsList.removeAll();
+
         List<UserSongId> userSongs = Context.getUserSongsDbi().getUserSongs(UserSessionUtils.getUserIdOrRedirectHome());
         Collections.reverse(userSongs); // show last first
 
