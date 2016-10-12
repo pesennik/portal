@@ -26,9 +26,12 @@
             <textarea wicket:id="links" class="form-control" placeholder="Внешние ссылки: Youtube, MP3..." style="max-width: 900px;"></textarea>
         </div>
 
-        <a wicket:id="cancel_link" class="btn btn-default mr10">Отменить</a>
-        <a wicket:id="delete_link" class="btn btn-danger mr10">Удалить</a>
-        <a wicket:id="save_link" class="btn btn-success">Сохранить</a>
+        <div style="max-width: 900px"> <!--max-width must be in sync with textarea size -->
+            <a wicket:id="cancel_link" class="btn btn-default mr10">Отменить</a>
+            <a wicket:id="delete_link" class="btn btn-danger mr10">Удалить</a>
+            <a wicket:id="save_link" class="btn btn-success">Сохранить</a>
+            <a wicket:id="about_link" class="txt-muted " style="float:right" target="_blank">О формате записи</a>
+        </div>
     </form>
 
 </wicket:panel>

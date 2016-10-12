@@ -156,13 +156,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Geo location-->
-        <dependency>
-            <groupId>com.github.sypexgeo</groupId>
-            <artifactId>sypexgeo</artifactId>
-            <version>1.0.1</version>
-        </dependency>
-
         <!--Word plural forms-->
         <dependency>
             <groupId>com.github.plural4j</groupId>

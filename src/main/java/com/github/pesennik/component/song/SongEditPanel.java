@@ -4,7 +4,9 @@ import com.github.pesennik.Context;
 import com.github.pesennik.component.form.Feedback;
 import com.github.pesennik.component.form.InputArea;
 import com.github.pesennik.component.form.InputField;
+import com.github.pesennik.component.help.AboutPage;
 import com.github.pesennik.component.util.AjaxCallback;
+import com.github.pesennik.component.util.AnchoredBookmarkablePageLink;
 import com.github.pesennik.event.UserSongChangedEvent;
 import com.github.pesennik.event.UserSongChangedEvent.ChangeType;
 import com.github.pesennik.model.UserSong;
@@ -124,6 +126,7 @@ public class SongEditPanel extends Panel {
             }
         }.setVisible(closeCallback != null && songId != null));
 
+        form.add(new AnchoredBookmarkablePageLink("about_link", AboutPage.class, AboutPage.FORMAT_ANCHOR));
     }
 
 
