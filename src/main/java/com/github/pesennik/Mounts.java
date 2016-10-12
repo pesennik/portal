@@ -3,6 +3,7 @@ package com.github.pesennik;
 import com.github.pesennik.annotation.MountPath;
 import com.github.pesennik.component.InternalErrorPage;
 import com.github.pesennik.component.PageNotFoundPage;
+import com.github.pesennik.component.help.AboutPage;
 import com.github.pesennik.component.tuner.TunerPage;
 import com.github.pesennik.component.song.PesennikPage;
 import com.github.pesennik.component.signin.ForgotPasswordPage;
@@ -28,7 +29,8 @@ public class Mounts {
                 UserProfileSettingsPage.class,
 
                 // Public resources
-                TunerPage.class
+                TunerPage.class,
+                AboutPage.class
         );
     }
 

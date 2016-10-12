@@ -46,7 +46,6 @@ public abstract class BasePage extends WebPage implements IRequestablePage {
         add(scrollTop);
         scrollTop.setVisible(false);
 
-
         keysField = new WebMarkupContainer("meta_keywords");
         setPageKeywords(DEFAULT_KEYWORDS);
         add(keysField);
