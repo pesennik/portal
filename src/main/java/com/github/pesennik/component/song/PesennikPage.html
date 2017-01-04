@@ -1,92 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
-<wicket:head>
-    <style>
-        #wrapper {
-            padding-left: 80px;
-            transition: all 0.4s ease 0s;
-        }
-
-        #sidebar-wrapper {
-            margin-left: -80px;
-            left: 80px;
-            width: 80px;
-            position: fixed;
-            height: 100%;
-            overflow-y: auto;
-            z-index: 1000;
-            transition: all 0.4s ease 0s;
-        }
-
-        #page-content-wrapper {
-            width: 100%;
-        }
-
-        .sidebar-nav {
-            position: absolute;
-            top: 0;
-            width: 80px;
-            list-style: none;
-            margin: 0;
-            padding: 10px 0;
-            font-size: 12px;
-            text-align: center;
-            overflow-x: hidden;
-        }
-
-        .sidebar-nav a {
-            margin-bottom: 5px;
-            color: #555;
-            text-decoration: none;
-        }
-
-        .sidebar-nav a:after {
-            content: '';
-            display: block;
-            margin: auto;
-            height: 3px;
-            width: 0;
-            background: transparent;
-            transition: width .3s ease, background-color .3s ease;
-        }
-
-        .sidebar-nav a:hover:after {
-            width: 60px;
-            background: #ddd7d5;
-        }
-
-        .sidebar-nav img {
-            width: 50px;
-            height: 50px;
-        }
-
-        @media (max-width: 767px) {
-            #wrapper {
-                padding-left: 0;
-            }
-
-            #sidebar-wrapper {
-                left: 0;
-            }
-
-            /*noinspection CssUnusedSymbol*/
-            #wrapper.active {
-                position: relative;
-                left: 80px;
-            }
-
-            #wrapper.active #sidebar-wrapper {
-                left: 80px;
-                width: 80px;
-                transition: all 0.4s ease 0s;
-            }
-        }
-
-    </style>
-</wicket:head>
 
 <wicket:extend>
-
     <div id="wrapper">
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
@@ -122,5 +37,8 @@
             </div>
         </div>
     </div>
+    <script>
+      $site.Utils.initSidebar();
+    </script>
 </wicket:extend>
 </html>
