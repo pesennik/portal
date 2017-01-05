@@ -56,6 +56,10 @@
     height: 50px;
 }
 
+.sidebar-spacer {
+    margin-top: 50px;
+}
+
 @media (max-width: 767px) {
     #wrapper {
         padding-left: 0;
