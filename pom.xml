@@ -75,7 +75,7 @@
                             <targetPath>js</targetPath>
                         </webResource>
                     </webResources>
-                    <!-- All CSS are minified to style.css, site.min.js is copied from js module's 'dist' folder -->
+                    <!-- All CSS are minified to style.css, site.js is copied from js module's 'dist' folder -->
                     <warSourceExcludes>
                         **/css/*.css
                     </warSourceExcludes>
