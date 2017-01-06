@@ -7,7 +7,7 @@ import static org.apache.wicket.markup.head.JavaScriptHeaderItem.forUrl;
 
 public class Scripts {
 
-    public static final HeaderItem SITE_JS = forUrl("/js/site.min.js?" + System.currentTimeMillis(), "site.min.js");
+    public static final HeaderItem SITE_JS = forUrl("/js/site.js?" + System.currentTimeMillis(), "site.js");
 
     public static final HeaderItem BOOTSTRAP_JS = forUrl("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", "bootstrap.js");
 

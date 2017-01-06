@@ -2,81 +2,75 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 
 <wicket:extend>
-    <div id="wrapper">
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li>
-                    <a wicket:id="tuner_link" title="Тюнер для настройки гитары">
-                        <img src="/img/tuner.png">
-                        <div class="sidebar-menu-text">тюнер</div>
-                    </a>
-                </li>
+    <div id="sidebar">
+        <ul class="sidebar-nav">
+            <li>
+                <a wicket:id="tuner_link" title="Тюнер для настройки гитары">
+                    <img src="/img/tuner.png">
+                    <div class="sidebar-menu-text">тюнер</div>
+                </a>
+            </li>
 
-                <li class="sidebar-spacer"></li>
+            <li class="sidebar-spacer"></li>
 
-                <li>
-                    <a href="#" onclick="$site.SongView.zoom({delta:-5});return false;" title="Уменьшить размер шрифта">
-                        <img src="/img/zoom_out.png">
-                        <div class="sidebar-menu-text">уменьшить</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" onclick="$site.SongView.zoom({delta:+5}); return false;" title="Увеличить размер шрифта">
-                        <img src="/img/zoom_in.png">
-                        <div class="sidebar-menu-text">увеличить</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" onclick="$site.SongView.zoom({value:100}); return false;" title="Изменить размер на изначальный">
-                        <img src="/img/zoom_reset.png">
-                        <div class="sidebar-menu-text">сбросить</div>
-                    </a>
-                </li>
+            <li>
+                <a href="#" onclick="$site.SongView.zoom({delta:-5});return false;" title="Уменьшить размер шрифта">
+                    <img src="/img/zoom_out.png">
+                    <div class="sidebar-menu-text">уменьшить</div>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="$site.SongView.zoom({delta:+5}); return false;" title="Увеличить размер шрифта">
+                    <img src="/img/zoom_in.png">
+                    <div class="sidebar-menu-text">увеличить</div>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="$site.SongView.zoom({value:100}); return false;" title="Изменить размер на изначальный">
+                    <img src="/img/zoom_reset.png">
+                    <div class="sidebar-menu-text">сбросить</div>
+                </a>
+            </li>
 
-                <li class="sidebar-spacer"></li>
+            <li class="sidebar-spacer"></li>
 
-                <li>
-                    <a href="#" onclick="$site.Utils.scrollToRandomSong();" title="Перейти к случайной песне">
-                        <img src="/img/random_song.png">
-                        <div class="sidebar-menu-text">случайная</div>
-                    </a>
-                </li>
-                <li>
-                    <a wicket:id="list_link" title="Показать список песен">
-                        <img src="/img/song_list.png">
-                        <div class="sidebar-menu-text">список</div>
-                    </a>
-                </li>
+            <li>
+                <a href="#" onclick="$site.Utils.scrollToRandomSong();" title="Перейти к случайной песне">
+                    <img src="/img/random_song.png">
+                    <div class="sidebar-menu-text">случайная</div>
+                </a>
+            </li>
+            <li>
+                <a wicket:id="list_link" title="Показать список песен">
+                    <img src="/img/song_list.png">
+                    <div class="sidebar-menu-text">список</div>
+                </a>
+            </li>
 
-                <li class="sidebar-spacer"></li>
+            <li class="sidebar-spacer"></li>
 
-                <li>
-                    <a wicket:id="add_song_link" title="Добавить новую песню">
-                        <img src="/img/add_song.png" style="margin-left: 3px;">
-                        <div class="sidebar-menu-text">добавить</div>
-                    </a>
-                </li>
-            </ul>
-        </div>
+            <li>
+                <a wicket:id="add_song_link" title="Добавить новую песню">
+                    <img src="/img/add_song.png" style="margin-left: 3px;">
+                    <div class="sidebar-menu-text">добавить</div>
+                </a>
+            </li>
+        </ul>
+    </div>
 
-        <div id="page-content-wrapper">
-            <div class="page-content">
+    <div id="content-block">
+        <div class="container-fluid">
 
-                <div class="container-fluid">
-
-                    <div wicket:id="songs_list" class="center-block" style="max-width: 1200px;">
-                        <div wicket:id="song">
-                            <div wicket:id="song_panel" class="mt15"></div>
-                        </div>
-                    </div>
+            <div wicket:id="songs_list" class="center-block" style="max-width: 1200px;">
+                <div wicket:id="song">
+                    <div wicket:id="song_panel" class="mt15"></div>
                 </div>
-
-                <div wicket:id="tuner_popup"></div>
-                <div wicket:id="create_popup"></div>
-                <div wicket:id="list_popup"></div>
-
             </div>
         </div>
+
+        <div wicket:id="tuner_popup"></div>
+        <div wicket:id="create_popup"></div>
+        <div wicket:id="list_popup"></div>
     </div>
     <script>
         $site.Utils.initSidebar();
