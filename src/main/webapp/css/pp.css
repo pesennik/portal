@@ -7,6 +7,17 @@
     background-color: white;
 }
 
+#sidebar-toggle {
+    position: fixed;
+    top: 24px;
+    right: 16px;
+    font-size: 32px;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    height: 37px;
+}
+
 #content-block {
     width: 100%;
     padding-left: 80px;
