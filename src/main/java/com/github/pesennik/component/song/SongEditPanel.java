@@ -11,7 +11,6 @@ import com.github.pesennik.event.UserSongChangedEvent;
 import com.github.pesennik.event.UserSongChangedEvent.ChangeType;
 import com.github.pesennik.model.UserSong;
 import com.github.pesennik.model.UserSongId;
-import com.github.pesennik.util.Limits;
 import com.github.pesennik.util.UDate;
 import com.github.pesennik.util.UserSessionUtils;
 import com.github.pesennik.util.ValidatorUtils;
@@ -73,7 +72,7 @@ public class SongEditPanel extends Panel {
                 }
 
                 String text = textField.getInputString();
-                if (text.length() < Limits.MIN_SONG_TEXT_LENGTH) {
+                if (text.length() < UserSong.MIN_SONG_TEXT_LENGTH) {
                     feedback.error("Слишком короткий текст песни!");
                     return;
                 }
@@ -83,7 +82,7 @@ public class SongEditPanel extends Panel {
                 }
 
                 String links = linksField.getInputString();
-                if (links.length() > Limits.MAX_URLS_TEXT_LENGTH) {
+                if (links.length() > UserSong.MAX_URLS_TEXT_LENGTH) {
                     feedback.error("Слишком большая длина ссылок!");
                     return;
                 }

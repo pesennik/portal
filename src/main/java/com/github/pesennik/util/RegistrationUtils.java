@@ -28,8 +28,8 @@ public class RegistrationUtils {
         if (password1 == null || !password1.equals(password2)) {
             return "Пароли не совпадают";
         }
-        if (password1.length() < Limits.PASSWORD_MIN_LENGTH || password1.length() > Limits.PASSWORD_MAX_LENGTH) {
-            return password1.length() < Limits.PASSWORD_MIN_LENGTH ? "Пароль слишком короткий: менее " + Limits.PASSWORD_MIN_LENGTH + " символов." : "Пароль слишком длиный: более " + Limits.PASSWORD_MAX_LENGTH + " символов";
+        if (password1.length() < User.PASSWORD_MIN_LENGTH || password1.length() > User.PASSWORD_MAX_LENGTH) {
+            return password1.length() < User.PASSWORD_MIN_LENGTH ? "Пароль слишком короткий: менее " + User.PASSWORD_MIN_LENGTH + " символов." : "Пароль слишком длиный: более " + User.PASSWORD_MAX_LENGTH + " символов";
         }
         if (!isPrintableAsciiCharacters(password1)) {
             return "Пароль содержит недопустимые символы";

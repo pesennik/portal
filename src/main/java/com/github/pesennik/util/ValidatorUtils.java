@@ -1,5 +1,7 @@
 package com.github.pesennik.util;
 
+import com.github.pesennik.model.User;
+import com.github.pesennik.model.UserSong;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,7 +29,7 @@ public class ValidatorUtils {
      * @return true if {@code password} is a valid user password. Otherwise returns false.
      */
     public static boolean isValidPassword(@Nullable String password) {
-        return TextUtils.isLengthInRange(password, Limits.PASSWORD_MIN_LENGTH, Limits.PASSWORD_MAX_LENGTH);
+        return TextUtils.isLengthInRange(password, User.PASSWORD_MIN_LENGTH, User.PASSWORD_MAX_LENGTH);
     }
 
     /**
@@ -37,7 +39,7 @@ public class ValidatorUtils {
      * @return true if {@code email} is a valid email address. Otherwise returns false.
      */
     public static boolean isValidEmail(@Nullable String email) {
-        return TextUtils.isLengthInRange(email, Limits.EMAIL_MIN_LENGTH, Limits.EMAIL_MAX_LENGTH) && EMAIL_PATTERN.matcher(email).matches();
+        return TextUtils.isLengthInRange(email, User.EMAIL_MIN_LENGTH, User.EMAIL_MAX_LENGTH) && EMAIL_PATTERN.matcher(email).matches();
     }
 
 
@@ -48,7 +50,7 @@ public class ValidatorUtils {
      * @return true if {@code name} is a valid first or last name. Otherwise returns false.
      */
     public static boolean isValidFirstOrLastName(@Nullable String name) {
-        if (!TextUtils.isLengthInRange(name, Limits.FIRST_LAST_NAME_MIN_LENGTH, Limits.FIRST_LAST_NAME_MAX_LENGTH)) {
+        if (!TextUtils.isLengthInRange(name, User.FIRST_LAST_NAME_MIN_LENGTH, User.FIRST_LAST_NAME_MAX_LENGTH)) {
             return false;
         }
         char[] chars = name.toCharArray();
@@ -89,7 +91,7 @@ public class ValidatorUtils {
      * @return true if {@code login} is a valid user login. Otherwise returns false.
      */
     public static boolean isValidLogin(@Nullable String login) {
-        if (!isLengthInRange(login, Limits.LOGIN_MIN_LENGTH, Limits.LOGIN_MAX_LENGTH)) {
+        if (!isLengthInRange(login, User.LOGIN_MIN_LENGTH, User.LOGIN_MAX_LENGTH)) {
             return false;
         }
         char[] chars = login.toCharArray();
@@ -105,15 +107,15 @@ public class ValidatorUtils {
     }
 
     public static boolean isValidSongTitle(@Nullable String title) {
-        return isLengthInRange(title, 2, Limits.MAX_SONG_TITLE_LENGTH);
+        return isLengthInRange(title, 2, UserSong.MAX_SONG_TITLE_LENGTH);
     }
 
     public static boolean isValidSongAuthor(@Nullable String author) {
-        return isLengthInRange(author, 0, Limits.MAX_SONG_AUTHOR_LENGTH);
+        return isLengthInRange(author, 0, UserSong.MAX_SONG_AUTHOR_LENGTH);
     }
 
     public static boolean isValidSongText(@Nullable String text) {
-        return isLengthInRange(text, 0, Limits.MAX_SONG_TEXT_LENGTH);
+        return isLengthInRange(text, 0, UserSong.MAX_SONG_TEXT_LENGTH);
     }
 
 }
