@@ -55,8 +55,8 @@ public class SongListModalPanel extends Panel {
 
             private String getTitleText(UserSong song) {
                 String res = song.title;
-                if (!TextUtils.isEmpty(song.author)) {
-                    res += "\nАвтор: " + song.author;
+                if (!TextUtils.isEmpty(song.textAuthor)) {
+                    res += "\nАвтор: " + song.textAuthor;
                 }
                 return res;
             }

@@ -11,7 +11,6 @@ import com.github.pesennik.model.SongTextViewMode;
 import com.github.pesennik.model.UserSong;
 import com.github.pesennik.model.UserSongId;
 import com.github.pesennik.util.Formatters;
-import com.github.pesennik.util.TextUtils;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -21,6 +20,8 @@ import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.io.IClusterable;
 import org.jetbrains.annotations.NotNull;
+
+import static com.github.pesennik.util.TextUtils.isEmpty;
 
 public class SongPanel extends Panel {
 
@@ -68,7 +69,10 @@ public class SongPanel extends Panel {
         songBlock.add(titleLink);
         titleLink.add(new Label("title", song.title));
 
-        songBlock.add(new Label("author", song.author).setVisible(!TextUtils.isEmpty(song.author)));
+        songBlock.add(new Label("text_author", "сл. " + song.textAuthor).setVisible(!isEmpty(song.textAuthor)));
+        songBlock.add(new Label("music_author", "муз. " + song.musicAuthor).setVisible(!isEmpty(song.musicAuthor)));
+        songBlock.add(new Label("singer", "исп. " + song.textAuthor).setVisible(!isEmpty(song.singer)));
+        songBlock.add(new Label("band", "«" + song.textAuthor + "»").setVisible(!isEmpty(song.band)));
         songBlock.add(new Label("date", Formatters.SONG_DATE_FORMAT.format(song.creationDate)));
         songBlock.add(new SongLinksPanel("links", song.extra.links));
 

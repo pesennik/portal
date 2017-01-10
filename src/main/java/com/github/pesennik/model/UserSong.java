@@ -26,7 +26,16 @@ public class UserSong extends Identifiable<UserSongId> {
     public String title = "";
 
     @NotNull
-    public String author = "";
+    public String textAuthor = "";
+
+    @NotNull
+    public String musicAuthor = "";
+
+    @NotNull
+    public String singer = "";
+
+    @NotNull
+    public String band = "";
 
     @NotNull
     public String text = "";
@@ -46,7 +55,10 @@ public class UserSong extends Identifiable<UserSongId> {
         res.id = new UserSongId(r.getInt("id"));
         res.userId = new UserId(r.getInt("user_id"));
         res.title = r.getString("title");
-        res.author = r.getString("author");
+        res.textAuthor = r.getString("text_author");
+        res.musicAuthor = r.getString("music_author");
+        res.singer = r.getString("singer");
+        res.band = r.getString("band");
         res.text = r.getString("text");
         res.creationDate = UDate.fromDate(requireNonNull(r.getTimestamp("creation_date")));
         res.deletionDate = UDate.fromDate(r.getTimestamp("deletion_date"));

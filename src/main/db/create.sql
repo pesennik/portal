@@ -39,7 +39,10 @@ CREATE TABLE user_songs (
   id            INTEGER  AUTO_INCREMENT PRIMARY KEY,
   user_id       INTEGER     NOT NULL REFERENCES users (id),
   title         VARCHAR(64) NOT NULL,
-  author        VARCHAR(64) NOT NULL,
+  text_author   VARCHAR(64) NOT NULL,
+  music_author  VARCHAR(64) NOT NULL,
+  singer        VARCHAR(64) NOT NULL,
+  band          VARCHAR(64) NOT NULL,
   text          TEXT        NOT NULL,
   creation_date DATETIME    NOT NULL,
   deletion_date DATETIME DEFAULT NULL, # дата удаления. Мы храним некоторое время после удаления.

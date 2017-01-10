@@ -44,8 +44,17 @@ public class SongEditPanel extends Panel {
         InputField titleField = new InputField("title", s.title);
         form.add(titleField);
 
-        InputField authorField = new InputField("author", s.author);
-        form.add(authorField);
+        InputField textAuthorField = new InputField("text_author", s.textAuthor);
+        form.add(textAuthorField);
+
+        InputField musicAuthorField = new InputField("music_author", s.musicAuthor);
+        form.add(musicAuthorField);
+
+        InputField singerField = new InputField("singer", s.singer);
+        form.add(singerField);
+
+        InputField bandField = new InputField("band", s.band);
+        form.add(bandField);
 
         InputArea textField = new InputArea("text", s.text);
         textField.setAutofocus(s.id != null);
@@ -65,9 +74,24 @@ public class SongEditPanel extends Panel {
                     return;
                 }
 
-                String author = authorField.getInputString();
-                if (!ValidatorUtils.isValidSongAuthor(author)) {
-                    feedback.error("Недопустимое имя автора песни!");
+                String textAuthor = textAuthorField.getInputString();
+                if (!ValidatorUtils.isValidSongAuthor(textAuthor)) {
+                    feedback.error("Недопустимое имя автора слов!");
+                    return;
+                }
+                String musicAuthor = musicAuthorField.getInputString();
+                if (!ValidatorUtils.isValidSongAuthor(musicAuthor)) {
+                    feedback.error("Недопустимое имя автора музыки!");
+                    return;
+                }
+                String singer = singerField.getInputString();
+                if (!ValidatorUtils.isValidSongAuthor(singer)) {
+                    feedback.error("Недопустимое имя исполнителя!");
+                    return;
+                }
+                String band = bandField.getInputString();
+                if (!ValidatorUtils.isValidSongAuthor(band)) {
+                    feedback.error("Недопустимое имя группы!");
                     return;
                 }
 
@@ -91,16 +115,19 @@ public class SongEditPanel extends Panel {
                 song.id = songId;
                 song.userId = UserSessionUtils.getUserIdOrRedirectHome();
                 song.title = title;
-                song.author = author;
+                song.textAuthor = textAuthor;
+                song.musicAuthor = musicAuthor;
+                song.singer = singer;
+                song.band = band;
                 song.text = text;
                 song.creationDate = UDate.now();
                 song.extra.links = links;
                 if (songId == null) {
                     Context.getUserSongsDbi().createSong(song);
-                    feedback.success("Песня добавлена!");
+                    feedback.success("Песня добавлена.");
                 } else {
                     Context.getUserSongsDbi().updateSong(song);
-                    feedback.success("Изменения сохранены");
+                    feedback.success("Изменения сохранены.");
                 }
                 send(getPage(), Broadcast.BREADTH, new UserSongChangedEvent(target, song.id, songId == null ? ChangeType.Created : ChangeType.Updated));
             }

@@ -17,7 +17,8 @@ import java.util.List;
 public interface UserSongsSql {
 
     @NotNull
-    @Sql("INSERT INTO user_songs (user_id, title, author, text, creation_date, extra) VALUES (:userId, :title, :author, :text, :creationDate, :extra)")
+    @Sql("INSERT INTO user_songs (user_id, title, author, text_author, music_author, singer, band, creation_date, extra) " +
+            "VALUES (:userId, :title, :textAuthor, :musicAuthor, :singer, :band, :text, :creationDate, :extra)")
     UserSongId insert(@BindBean UserSong song);
 
     @NotNull
@@ -28,7 +29,8 @@ public interface UserSongsSql {
     @Sql("SELECT * FROM user_songs WHERE id = :id")
     UserSong getSong(@Bind("id") UserSongId songId);
 
-    @Sql("UPDATE user_songs SET title = :title, author = :author, text = :text, extra = :extra WHERE id = :id")
+    @Sql("UPDATE user_songs SET title = :title, text_author = :textAuthor, music_author = :musicAuthor, singer = :singer, band = :band, " +
+            "text = :text, extra = :extra WHERE id = :id")
     void update(@BindBean UserSong userSong);
 
     @Sql("DELETE FROM user_songs WHERE id = :id")
