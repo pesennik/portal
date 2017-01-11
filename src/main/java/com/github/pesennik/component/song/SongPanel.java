@@ -43,7 +43,7 @@ public class SongPanel extends Panel {
         super(id);
         this.songId = songId;
 
-        mainPanel = new WebMarkupContainer("panel");
+        mainPanel = new WebMarkupContainer("main_panel");
         mainPanel.setOutputMarkupId(true);
         add(mainPanel);
 
@@ -71,8 +71,8 @@ public class SongPanel extends Panel {
 
         songBlock.add(new Label("text_author", "сл. " + song.textAuthor).setVisible(!isEmpty(song.textAuthor)));
         songBlock.add(new Label("music_author", "муз. " + song.musicAuthor).setVisible(!isEmpty(song.musicAuthor)));
-        songBlock.add(new Label("singer", "исп. " + song.textAuthor).setVisible(!isEmpty(song.singer)));
-        songBlock.add(new Label("band", "«" + song.textAuthor + "»").setVisible(!isEmpty(song.band)));
+        songBlock.add(new Label("singer", "исп. " + song.singer).setVisible(!isEmpty(song.singer)));
+        songBlock.add(new Label("band", "«" + song.band + "»").setVisible(!isEmpty(song.band)));
         songBlock.add(new Label("date", Formatters.SONG_DATE_FORMAT.format(song.creationDate)));
         songBlock.add(new SongLinksPanel("links", song.extra.links));
 
@@ -125,6 +125,7 @@ public class SongPanel extends Panel {
         editPanel.setVisible(false);
         updateSongView();
         target.add(mainPanel);
+        target.appendJavaScript("$site.Utils.scrollToBlock('#"+mainPanel.getMarkupId()+"')");
     }
 
     @OnPayload

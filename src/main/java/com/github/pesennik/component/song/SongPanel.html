@@ -3,16 +3,16 @@
 <body>
 <wicket:panel>
 
-    <div wicket:id="panel">
+    <div wicket:id="main_panel">
         <div wicket:id="song" class="song-block">
 
             <!--Date & Author-->
             <div>
+                <span wicket:id="music_author" class="song-author" title="Композитор"></span>
+                <span wicket:id="text_author" class="song-author" title="Автор текста"></span>
+                <span wicket:id="singer" class="song-author" title="Исполнитель"></span>
+                <span wicket:id="band" class="song-author" title="Группа"></span>
                 <span wicket:id="date" class="song-date"></span>
-                <span wicket:id="music_author" class="song-author"></span>
-                <span wicket:id="text_author" class="song-author"></span>
-                <span wicket:id="singer" class="song-author"></span>
-                <span wicket:id="band" class="song-author"></span>
             </div>
 
             <!--Title-->
@@ -42,11 +42,14 @@
                             </td>
                             <td class="nowrap">
                                 <b class="txt-muted-7">Тональность: </b>
-                                <a wicket:id="tone_down_link" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-chevron-down"></i></a>
-                                <a wicket:id="tone_up_link" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                <a wicket:id="tone_down_link" class="btn btn-default btn-xs"><i
+                                        class="glyphicon glyphicon-chevron-down"></i></a>
+                                <a wicket:id="tone_up_link" class="btn btn-default btn-xs"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
                             </td>
                             <td style="padding-right: 0;">
-                                <a class="song-toolbar-close" title="Скрыть тулбар" onclick="$(this).closest('.song-toolbar').toggle(); return false;">&times;</a>
+                                <a class="song-toolbar-close" title="Скрыть тулбар"
+                                   onclick="$(this).closest('.song-toolbar').toggle(); return false;">&times;</a>
                             </td>
                         </tr>
                     </table>

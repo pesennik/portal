@@ -6,6 +6,7 @@
 .song-date {
     color: #777;
     font-size: 11px;
+    float: right;
 }
 
 .song-author {
