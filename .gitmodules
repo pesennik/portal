@@ -1,10 +1,15 @@
 [submodule "backgrounds"]
 	path = backgrounds
 	url = https://github.com/pesennik/backgrounds.git
+    branch = master
+    
 [submodule "js"]
 	path = js
 	url = https://github.com/pesennik/js.git
+	branch = master
 	
 [submodule "tuner"]
 	path = tuner
 	url = https://github.com/pesennik/tuner.git
+    branch = master
+    
