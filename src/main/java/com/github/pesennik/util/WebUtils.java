@@ -1,11 +1,10 @@
 package com.github.pesennik.util;
 
-import com.github.pesennik.Context;
-import com.github.pesennik.UserSession;
+import org.apache.commons.io.IOUtils;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.AttributeAppender;
-import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.protocol.http.WebApplication;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,4 +52,10 @@ public class WebUtils {
     public static void addClickOnEnter(@NotNull Component keypressComponent, @NotNull String clickedId) {
         keypressComponent.add(new AttributeAppender("onkeypress", "$site.Utils.clickOnEnter(event, '#" + clickedId + "');"));
     }
+
+    @NotNull
+    public static byte[] getWebInfResource(@NotNull String path) throws Exception {
+        return IOUtils.toByteArray(WebApplication.get().getServletContext().getResource(path));
+    }
+
 }

@@ -2,7 +2,9 @@ package com.github.pesennik.component;
 
 import com.github.pesennik.Mounts;
 import com.github.pesennik.Scripts;
+import com.github.pesennik.util.DigestUtils;
 import com.github.pesennik.util.UserSessionUtils;
+import com.github.pesennik.util.WebUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -12,6 +14,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.request.component.IRequestablePage;
 import org.apache.wicket.request.http.WebResponse;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,13 +30,13 @@ public abstract class BasePage extends WebPage implements IRequestablePage {
 
     protected Label title = new Label("title", "Песенник");
 
-    private final WebMarkupContainer keysField;
-    private final WebMarkupContainer descField;
+    private final WebMarkupContainer keysField = new WebMarkupContainer("meta_keywords");
+    private final WebMarkupContainer descField = new WebMarkupContainer("meta_description");
 
     protected final WebMarkupContainer scrollTop = new WebMarkupContainer("top_link");
 
-    protected WebMarkupContainer header = new WebMarkupContainer("header");
-    protected WebMarkupContainer footer = new WebMarkupContainer("footer");
+    protected final WebMarkupContainer header = new WebMarkupContainer("header");
+    protected final WebMarkupContainer footer = new WebMarkupContainer("footer");
 
     public BasePage() {
         checkCorrectMount();
@@ -43,14 +46,16 @@ public abstract class BasePage extends WebPage implements IRequestablePage {
         add(header);
         add(footer);
 
+        WebMarkupContainer styleCssLink = new WebMarkupContainer("style_css_link");
+        styleCssLink.add(new AttributeModifier("href", getStyleCssHref()));
+        add(styleCssLink);
+        
         add(scrollTop);
         scrollTop.setVisible(false);
 
-        keysField = new WebMarkupContainer("meta_keywords");
         setPageKeywords(DEFAULT_KEYWORDS);
         add(keysField);
 
-        descField = new WebMarkupContainer("meta_description");
         setPageDescription(DEFAULT_DESCRIPTION);
         add(descField);
 
@@ -114,6 +119,22 @@ public abstract class BasePage extends WebPage implements IRequestablePage {
         response.render(new PriorityHeaderItem(Scripts.PARSLEY_JS));
         response.render(new PriorityHeaderItem(Scripts.AUTOLINKER_JS));
         response.render(new PriorityHeaderItem(Scripts.SITE_JS));
+    }
+
+    private static String STYLE_CSS_HREF;
+
+    @NotNull
+    private static String getStyleCssHref() {
+        if (STYLE_CSS_HREF == null) {
+            try {
+                byte[] css = WebUtils.getWebInfResource("css/style.css");
+                STYLE_CSS_HREF = "/css/style.css?" + DigestUtils.md5DigestAsHex(css);
+            } catch (Exception e) {
+                log.error("Error accessing style.css", e);
+                STYLE_CSS_HREF = "/css/style.css?" + System.currentTimeMillis();
+            }
+        }
+        return STYLE_CSS_HREF;
     }
 }
 
