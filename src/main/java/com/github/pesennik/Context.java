@@ -7,6 +7,7 @@ import com.github.pesennik.db.dbi.impl.UserSongsDbiImpl;
 import com.github.pesennik.db.dbi.impl.UsersDbiImpl;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +30,7 @@ public class Context {
             if (isProduction()) {
                 prodConfig.load(new FileInputStream("/opt/pesennik/service.properties"));
             }
-            ds = new HikariDataSource(new HikariConfig("/hikari.properties"));
+            ds = new HikariDataSource(prepareDbConfig("/hikari.properties"));
             db = Db.newInstance(ds);
             usersDbi = db.attachDbi(new UsersDbiImpl(db), UsersDbi.class);
             userSongsDbi = db.attachDbi(new UserSongsDbiImpl(db), UserSongsDbi.class);
@@ -74,4 +75,15 @@ public class Context {
     public static Properties getProdConfig() {
         return prodConfig;
     }
+
+    @NotNull
+    private static HikariConfig prepareDbConfig(@NotNull String resource) {
+        HikariConfig dbConfig = new HikariConfig(resource);
+        dbConfig.addDataSourceProperty("cachePrepStmts", "true");
+        dbConfig.addDataSourceProperty("prepStmtCacheSize", "250");
+        dbConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        dbConfig.addDataSourceProperty("useServerPrepStmts", "true");
+        return dbConfig;
+    }
+
 }
