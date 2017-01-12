@@ -53,4 +53,10 @@ public class TextUtils {
     public static String notNull(@Nullable String text, @Nullable String defaultValue) {
         return text == null ? defaultValue : text;
     }
+
+    public static void addSeparator(@NotNull StringBuilder res, @NotNull String separator) {
+        if (res.length() != 0) {
+            res.append(separator);
+        }
+    }
 }

@@ -21,6 +21,9 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.io.IClusterable;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
+import static com.github.pesennik.util.TextUtils.addSeparator;
 import static com.github.pesennik.util.TextUtils.isEmpty;
 
 public class SongPanel extends Panel {
@@ -69,10 +72,7 @@ public class SongPanel extends Panel {
         songBlock.add(titleLink);
         titleLink.add(new Label("title", song.title));
 
-        songBlock.add(new Label("text_author", "сл. " + song.textAuthor).setVisible(!isEmpty(song.textAuthor)));
-        songBlock.add(new Label("music_author", "муз. " + song.musicAuthor).setVisible(!isEmpty(song.musicAuthor)));
-        songBlock.add(new Label("singer", "исп. " + song.singer).setVisible(!isEmpty(song.singer)));
-        songBlock.add(new Label("band", "«" + song.band + "»").setVisible(!isEmpty(song.band)));
+        songBlock.add(new Label("author_info", prepareAuthorInfo(song)));
         songBlock.add(new Label("date", Formatters.SONG_DATE_FORMAT.format(song.creationDate)));
         songBlock.add(new SongLinksPanel("links", song.extra.links));
 
@@ -102,6 +102,34 @@ public class SongPanel extends Panel {
         toolbar.add(new TransposeAjaxLink("tone_up_link", songId, +1));
     }
 
+    @NotNull
+    private String prepareAuthorInfo(@NotNull UserSong song) {
+        StringBuilder res = new StringBuilder();
+        //try shorten text if lyrics & music & signer are the same
+        if (!isEmpty(song.textAuthor) && Objects.equals(song.textAuthor, song.musicAuthor) && Objects.equals(song.textAuthor, song.singer)) {
+            res.append(song.textAuthor);
+        } else if (!isEmpty(song.textAuthor) && Objects.equals(song.textAuthor, song.musicAuthor)) {
+            res.append("сл. и муз. ").append(song.textAuthor);
+        } else {
+            if (!isEmpty(song.textAuthor)) {
+                res.append("сл. ").append(song.textAuthor);
+            }
+            if (!isEmpty(song.musicAuthor)) {
+                addSeparator(res, " ");
+                res.append("муз. ").append(song.musicAuthor);
+            }
+            if (!isEmpty(song.singer)) {
+                addSeparator(res, " ");
+                res.append(song.singer);
+            }
+        }
+        if (!isEmpty(song.band)) {
+            addSeparator(res, ", ");
+            res.append("«").append(song.band).append("»");
+        }
+        return res.toString();
+    }
+
     private void updateSongTextModeControls(@NotNull Component toolbar, @NotNull UserSong song) {
         toolbar.get("text_view_visible_link").setVisible(song.extra.textViewMode != SongTextViewMode.Visible);
         toolbar.get("text_view_hidden_link").setVisible(song.extra.textViewMode != SongTextViewMode.Hidden);
@@ -125,7 +153,7 @@ public class SongPanel extends Panel {
         editPanel.setVisible(false);
         updateSongView();
         target.add(mainPanel);
-        target.appendJavaScript("$site.Utils.scrollToBlock('#"+mainPanel.getMarkupId()+"')");
+        target.appendJavaScript("$site.Utils.scrollToBlock('#" + mainPanel.getMarkupId() + "')");
     }
 
     @OnPayload
