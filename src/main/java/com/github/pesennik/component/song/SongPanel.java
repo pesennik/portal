@@ -115,11 +115,11 @@ public class SongPanel extends Panel {
                 res.append("сл. ").append(song.textAuthor);
             }
             if (!isEmpty(song.musicAuthor)) {
-                addSeparator(res, " ");
+                addSeparator(res, ", ");
                 res.append("муз. ").append(song.musicAuthor);
             }
             if (!isEmpty(song.singer)) {
-                addSeparator(res, " ");
+                addSeparator(res, ", ");
                 res.append(song.singer);
             }
         }
