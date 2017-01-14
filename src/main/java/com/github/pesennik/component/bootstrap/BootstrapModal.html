@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <wicket:head>
+    <style>
+        .modal-body {
+            max-width: calc(100vw - 10px);
+            overflow-x: auto;
+            max-height: calc(100vh - 10px);
+            overflow-y: auto;
+        }
+    </style>
     <script>
         $(document).on('shown.bs.modal', '.modal', function () {
             $(this).find('[autofocus]').focus();
@@ -19,7 +27,7 @@
                     </div>
                     <div wicket:id="body" class="modal-body">
                         <button wicket:id="close_button" type="button" class="close" data-dismiss="modal">
-                            <span aria-hidden="true" style="font-size: 28px; margin-left: -1em;">&times;</span>
+                            <span aria-hidden="true" style="font-size: 28px;">&times;</span>
                         </button>
                         <div wicket:id="body_content"></div>
                     </div>
