@@ -18,15 +18,18 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.event.Broadcast;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SongEditPanel extends Panel {
 
-    public SongEditPanel(String id, @Nullable UserSongId songId, @Nullable AjaxCallback closeCallback) {
+    public SongEditPanel(String id, @Nullable UserSongId songId, @NotNull AjaxCallback closeCallback) {
         super(id);
 
+        add(new WebMarkupContainer("new_song_header").setVisible(songId == null));
         Feedback feedback = new Feedback("feedback");
         add(feedback);
 
@@ -130,30 +133,27 @@ public class SongEditPanel extends Panel {
                     feedback.success("Изменения сохранены.");
                 }
                 send(getPage(), Broadcast.BREADTH, new UserSongChangedEvent(target, song.id, songId == null ? ChangeType.Created : ChangeType.Updated));
+                closeCallback.callback(target);
             }
         });
 
         form.add(new AjaxLink<Void>("cancel_link") {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                assert closeCallback != null;
                 closeCallback.callback(target);
             }
-        }.setVisible(closeCallback != null));
+        });
 
         form.add(new AjaxLink<Void>("delete_link") {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                assert closeCallback != null;
                 assert songId != null;
                 Context.getUserSongsDbi().delete(songId);
                 closeCallback.callback(target);
                 send(getPage(), Broadcast.BREADTH, new UserSongChangedEvent(target, songId, ChangeType.Deleted));
             }
-        }.setVisible(closeCallback != null && songId != null));
+        }.setVisible(songId != null));
 
         form.add(new AnchoredBookmarkablePageLink("about_link", AboutPage.class, AboutPage.FORMAT_ANCHOR));
     }
-
-
 }

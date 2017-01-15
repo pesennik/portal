@@ -58,4 +58,8 @@ public class WebUtils {
         return IOUtils.toByteArray(WebApplication.get().getServletContext().getResource(path));
     }
 
+    public static void scrollTo(@NotNull Component c, @NotNull AjaxRequestTarget target) {
+        target.appendJavaScript("$site.Utils.scrollToBlock('#" + c.getMarkupId() + "');");
+    }
+
 }

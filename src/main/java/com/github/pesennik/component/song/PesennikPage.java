@@ -7,26 +7,34 @@ import com.github.pesennik.component.bootstrap.BootstrapModal;
 import com.github.pesennik.component.bootstrap.BootstrapStaticModalLink;
 import com.github.pesennik.component.tuner.TunerPanel;
 import com.github.pesennik.component.user.BaseUserPage;
-import com.github.pesennik.component.util.ComponentFactory;
+import com.github.pesennik.component.util.AjaxCallback;
 import com.github.pesennik.component.util.ContainerWithId;
 import com.github.pesennik.event.UserSongChangedEvent;
 import com.github.pesennik.event.UserSongChangedEvent.ChangeType;
 import com.github.pesennik.event.dispatcher.OnPayload;
 import com.github.pesennik.model.UserSongId;
+import com.github.pesennik.util.AbstractListProvider;
 import com.github.pesennik.util.UserSessionUtils;
+import org.apache.wicket.Component;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.repeater.Item;
+import org.apache.wicket.markup.repeater.data.DataView;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 
 import java.util.Collections;
 import java.util.List;
+
+import static com.github.pesennik.util.WebUtils.scrollTo;
 
 @MountPath("/home")
 public class PesennikPage extends BaseUserPage {
 
     private final ContainerWithId songsList = new ContainerWithId("songs_list");
-    private final BootstrapModal createPopup;
 
     public PesennikPage() {
         add(songsList);
@@ -35,32 +43,36 @@ public class PesennikPage extends BaseUserPage {
         add(tunerPopup);
         add(new BootstrapLazyModalLink("tuner_link", tunerPopup));
 
-        createPopup = new BootstrapModal("create_popup", "Добавление новой песни",
-                (ComponentFactory) id -> new SongEditPanel(id, null, null),
-                BootstrapModal.BodyMode.Lazy, BootstrapModal.FooterMode.Show);
-
-        add(createPopup);
-        add(new BootstrapLazyModalLink("add_song_link", createPopup));
-
+        WebMarkupContainer newSongBlock = new ContainerWithId("new_song_block");
+        newSongBlock.add(new WebMarkupContainer("new_song_panel"));
+        songsList.add(newSongBlock);
+        add(new AjaxLink<Void>("add_song_link") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                Component c = newSongBlock.get("new_song_panel");
+                if (c instanceof SongEditPanel) {
+                    scrollTo(c, target);
+                    return;
+                }
+                SongEditPanel p = new SongEditPanel("new_song_panel", null, (AjaxCallback) t -> {
+                    newSongBlock.addOrReplace(new WebMarkupContainer("new_song_panel"));
+                    t.add(newSongBlock);
+                });
+                p.setOutputMarkupId(true);
+                newSongBlock.addOrReplace(p);
+                scrollTo(c, target);
+                target.add(newSongBlock);
+            }
+        });
 
         BootstrapModal listPopup = new BootstrapModal("list_popup", "Список песен", SongListModalPanel::new, BootstrapModal.BodyMode.Static, BootstrapModal.FooterMode.Show);
         add(listPopup);
         add(new BootstrapStaticModalLink("list_link", listPopup));
 
-        updateSongsList();
-    }
-
-    private void updateSongsList() {
-        songsList.removeAll();
-
-        List<UserSongId> userSongs = Context.getUserSongsDbi().getUserSongs(UserSessionUtils.getUserIdOrRedirectHome());
-        Collections.reverse(userSongs); // show last first
-
-        songsList.add(new ListView<UserSongId>("song", userSongs) {
+        songsList.add(new DataView<UserSongId>("song", new SongListProvider()) {
             @Override
-            protected void populateItem(ListItem<UserSongId> item) {
-                UserSongId songId = item.getModelObject();
-                item.add(new SongPanel("song_panel", songId));
+            protected void populateItem(Item<UserSongId> item) {
+                item.add(new SongPanel("song_panel", item.getModelObject()));
             }
         });
     }
@@ -68,12 +80,11 @@ public class PesennikPage extends BaseUserPage {
     @OnPayload
     public void onUserSongModifiedEvent(UserSongChangedEvent e) {
         if (e.changeType == ChangeType.Deleted) {
-            updateSongsList();
+            songsList.detach();
             e.target.add(songsList);
         } else if (e.changeType == ChangeType.Created) {
-            updateSongsList();
+            songsList.detach();
             e.target.add(songsList);
-            createPopup.hide(e.target);
             e.target.appendJavaScript("$('body,html').animate({scrollTop: 0}, 500)");
         }
     }
@@ -82,5 +93,19 @@ public class PesennikPage extends BaseUserPage {
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
         response.render(CssHeaderItem.forCSS("body {padding-bottom:70px;}", "body-header.css"));
+    }
+
+    private class SongListProvider extends AbstractListProvider<UserSongId> {
+        @Override
+        public List<UserSongId> getList() {
+            List<UserSongId> userSongs = Context.getUserSongsDbi().getUserSongs(UserSessionUtils.getUserIdOrRedirectHome());
+            Collections.reverse(userSongs); // show last first
+            return userSongs;
+        }
+
+        @Override
+        public IModel<UserSongId> model(UserSongId songId) {
+            return Model.of(songId);
+        }
     }
 }
