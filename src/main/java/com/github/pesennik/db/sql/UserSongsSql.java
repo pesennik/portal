@@ -17,7 +17,7 @@ import java.util.List;
 public interface UserSongsSql {
 
     @NotNull
-    @Sql("INSERT INTO user_songs (user_id, title, author, text_author, music_author, singer, band, creation_date, extra) " +
+    @Sql("INSERT INTO user_songs (user_id, title, text_author, music_author, singer, band, text, creation_date, extra) " +
             "VALUES (:userId, :title, :textAuthor, :musicAuthor, :singer, :band, :text, :creationDate, :extra)")
     UserSongId insert(@BindBean UserSong song);
 
