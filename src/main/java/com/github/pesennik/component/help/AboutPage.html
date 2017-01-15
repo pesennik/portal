@@ -1,12 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 <wicket:extend>
-    <a name="#site"></a>
-    <h2>О сайте</h2>
+    <div class="container-fluid center-block" style="max-width: 820px">
+        <a name="#site"></a>
+        <h1 class="itl page-header">PESENNIK.ONLINE</h1>
+        <p class="lead">Ваш персональный песенник</p>
 
-    TODO
-    <a name="#format"></a>
-    <h2>Формат записи песен</h2>
-    TODO
+        <a name="#format"></a>
+        <h2 class="page-header">Формат записи песен</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <p><b>Пример записи:</b> <span class="f11px itl txt-muted">попробуйте изменять</span></p>
+
+                <textarea id="sample1-textarea" style="width: 400px; height: 150px;">
+(Am) Песен еще ненаписанных, сколько?
+Скажи, кук(G)ушка, (Dm) проп(Am)ой.
+(Am) В городе мне жить или на выселках,
+Камнем лежать или гореть звезд(G)ой? (Dm) Звезд(Am)ой.
+            </textarea>
+            </div>
+            <div class="col-md-6">
+                <div class="pl20">
+                    <p><b>Будет отражаться как:</b></p>
+                    <div id="sample1-target" class="song-text"></div>
+                </div>
+            </div>
+
+            <script>
+                var updateSample1 = function () {
+                    return $site.SongView.renderSong({
+                        text: $("#sample1-textarea").val(),
+                        targetSelector: "#sample1-target",
+                        chordsMode: "Inlined",
+                        textViewMode: "Visible"
+                    });
+                };
+                $("#sample1-textarea").on("input propertychange", updateSample1);
+                $(updateSample1);
+            </script>
+        </div>
+    </div>
 </wicket:extend>
 </html>
