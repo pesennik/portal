@@ -18,13 +18,20 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.event.Broadcast;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import static org.apache.wicket.markup.head.OnDomReadyHeaderItem.forScript;
+
 public class SongEditPanel extends Panel {
+
+    private final Form form;
+
+    private final InputArea textField;
 
     public SongEditPanel(String id, @Nullable UserSongId songId, @NotNull AjaxCallback closeCallback) {
         super(id);
@@ -33,7 +40,7 @@ public class SongEditPanel extends Panel {
         Feedback feedback = new Feedback("feedback");
         add(feedback);
 
-        Form form = new Form("form");
+        form = new Form("form");
         form.setOutputMarkupId(true);
         add(form);
 
@@ -59,7 +66,7 @@ public class SongEditPanel extends Panel {
         InputField bandField = new InputField("band", s.band);
         form.add(bandField);
 
-        InputArea textField = new InputArea("text", s.text);
+        textField = new InputArea("text", s.text);
         textField.setAutofocus(s.id != null);
         form.add(textField);
 
@@ -155,5 +162,12 @@ public class SongEditPanel extends Panel {
         }.setVisible(songId != null));
 
         form.add(new AnchoredBookmarkablePageLink("about_link", AboutPage.class, AboutPage.FORMAT_ANCHOR));
+    }
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        response.render(forScript("$('#" + textField.getMarkupId() + "').css('maxHeight', Math.max(200, $(window).height() - 300));\n" +
+                "$site.Utils.scrollToBlock('#" + form.getMarkupId() + "');"));
     }
 }
