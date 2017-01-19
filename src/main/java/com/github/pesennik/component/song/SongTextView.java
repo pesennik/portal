@@ -37,8 +37,6 @@ public class SongTextView extends Panel {
         JSONObject options = new JSONObject();
         options.put("text", song.text);
         options.put("targetSelector", "#" + songView.getMarkupId());
-        options.put("chordsMode", song.extra.chordsViewMode.getJsValue());
-        options.put("textViewMode", song.extra.textViewMode.getJsValue());
 
         response.render(OnDomReadyHeaderItem.forScript("$site.SongView.renderSong(" + options + ");"));
     }

@@ -22,27 +22,16 @@
                 <div wicket:id="toolbar" class="song-toolbar">
                     <table class="pr15_td">
                         <tr>
-                            <td>
+                            <td class="nowrap">
                                 <a wicket:id="edit_link" class="btn btn-default btn-xs">Редактировать</a>
                             </td>
-
-                            <td class="nowrap">
-                                <b class="txt-muted-7">Текст: </b>
-                                <a wicket:id="text_view_visible_link" class="btn btn-default btn-xs">Показать</a>
-                                <a wicket:id="text_view_hidden_link" class="btn btn-default btn-xs">Скрыть</a>
-                            </td>
-
-                            <td class="nowrap">
-                                <b class="txt-muted-7">Аккорды: </b>
-                                <a wicket:id="chords_view_inlined_link" class="btn btn-default btn-xs">Показать</a>
-                                <a wicket:id="chords_view_hidden_link" class="btn btn-default btn-xs">Скрыть</a>
-                            </td>
-                            <td class="nowrap">
-                                <b class="txt-muted-7">Тональность: </b>
-                                <a wicket:id="tone_down_link" class="btn btn-default btn-xs"><i
-                                        class="glyphicon glyphicon-chevron-down"></i></a>
-                                <a wicket:id="tone_up_link" class="btn btn-default btn-xs"><i
-                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                            <td title="Повысить или понизить тональность">
+                                <a wicket:id="tone_down_link" class="btn btn-default btn-xs">
+                                    <i class="glyphicon glyphicon-chevron-down"></i>
+                                </a>
+                                <a wicket:id="tone_up_link" class="btn btn-default btn-xs">
+                                    <i class="glyphicon glyphicon-chevron-up"></i>
+                                </a>
                             </td>
                             <td style="padding-right: 0;">
                                 <a class="song-toolbar-close" title="Скрыть тулбар"
