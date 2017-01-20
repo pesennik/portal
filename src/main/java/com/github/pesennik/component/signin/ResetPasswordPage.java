@@ -3,6 +3,8 @@ package com.github.pesennik.component.signin;
 import com.github.pesennik.Context;
 import com.github.pesennik.UserSession;
 import com.github.pesennik.annotation.MountPath;
+import com.github.pesennik.component.BasePage;
+import com.github.pesennik.component.HomePage;
 import com.github.pesennik.component.form.Feedback;
 import com.github.pesennik.component.form.PasswordField;
 import com.github.pesennik.component.parsley.ParsleyUtils;
@@ -11,8 +13,6 @@ import com.github.pesennik.model.User;
 import com.github.pesennik.model.VerificationRecord;
 import com.github.pesennik.model.VerificationRecordId;
 import com.github.pesennik.model.VerificationRecordType;
-import com.github.pesennik.component.BasePage;
-import com.github.pesennik.component.HomePage;
 import com.github.pesennik.util.DigestUtils;
 import com.github.pesennik.util.RegistrationUtils;
 import com.github.pesennik.util.UDate;
@@ -28,13 +28,13 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.string.StringValue;
+import org.jetbrains.annotations.NotNull;
 
 import static org.apache.wicket.core.request.handler.RenderPageRequestHandler.RedirectPolicy.NEVER_REDIRECT;
 
-@MountPath("/password/reset")
+@MountPath("/password/reset/${id}")
 public class ResetPasswordPage extends BasePage {
 
-    public static final String HASH_PARAM = "id";
     public static final int REQUEST_VALID_HOURS = 24;
 
     public ResetPasswordPage(PageParameters params) {
@@ -51,7 +51,7 @@ public class ResetPasswordPage extends BasePage {
         BookmarkablePageLink newRequestLink = new BookmarkablePageLink("new_request_link", ForgotPasswordPage.class);
         add(newRequestLink);
 
-        StringValue hash = params.get(HASH_PARAM);
+        StringValue hash = params.get("id");
         if (hash.isEmpty() || !DigestUtils.isValidUUID(hash.toString())) {
             resetBlock.setVisible(false);
             feedback.error("Некорректный код!");
@@ -134,6 +134,12 @@ public class ResetPasswordPage extends BasePage {
                 target.add(resetBlock);
             }
         });
+    }
+
+    @NotNull
+    public static PageParameters getPageParams(@NotNull String hash) {
+        return new PageParameters()
+                .add("id", hash);
     }
 }
 

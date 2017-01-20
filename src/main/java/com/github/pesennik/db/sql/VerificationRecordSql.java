@@ -10,9 +10,6 @@ import com.github.mjdbc.BindBean;
 import com.github.mjdbc.Sql;
 import org.jetbrains.annotations.NotNull;
 
-/**
- *
- */
 public interface VerificationRecordSql {
 
     @Sql("UPDATE verification_record SET verification_date = :date WHERE id = :id")

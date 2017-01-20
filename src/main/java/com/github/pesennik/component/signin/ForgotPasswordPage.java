@@ -2,8 +2,9 @@ package com.github.pesennik.component.signin;
 
 import com.github.pesennik.Constants;
 import com.github.pesennik.Context;
-import com.github.pesennik.Mounts;
 import com.github.pesennik.annotation.MountPath;
+import com.github.pesennik.component.BasePage;
+import com.github.pesennik.component.HomePage;
 import com.github.pesennik.component.form.CaptchaField;
 import com.github.pesennik.component.form.Feedback;
 import com.github.pesennik.component.form.InputField;
@@ -12,11 +13,11 @@ import com.github.pesennik.component.parsley.LoginJsValidator;
 import com.github.pesennik.component.parsley.ParsleyUtils;
 import com.github.pesennik.component.parsley.RequiredFieldJsValidator;
 import com.github.pesennik.component.parsley.ValidatingJsAjaxSubmitLink;
+import com.github.pesennik.component.util.ContainerWithId;
 import com.github.pesennik.db.dbi.UsersDbi;
 import com.github.pesennik.model.User;
 import com.github.pesennik.model.VerificationRecord;
 import com.github.pesennik.model.VerificationRecordType;
-import com.github.pesennik.component.BasePage;
 import com.github.pesennik.util.MailClient;
 import com.github.pesennik.util.UserSessionUtils;
 import com.github.pesennik.util.WebUtils;
@@ -25,6 +26,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.image.NonCachingImage;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,11 +37,18 @@ public class ForgotPasswordPage extends BasePage {
     public ForgotPasswordPage() {
         UserSessionUtils.redirectHomeIfSignedIn();
 
+        WebMarkupContainer panel = new ContainerWithId("panel");
+        add(panel);
+
         Feedback feedback = new Feedback("feedback");
-        add(feedback);
+        panel.add(feedback);
+
+        BookmarkablePageLink backHomeLink = new BookmarkablePageLink("back_home_link", HomePage.class);
+        backHomeLink.setVisible(false);
+        panel.add(backHomeLink);
 
         Form form = new Form("reset_from");
-        add(form);
+        panel.add(form);
 
         WebMarkupContainer loginError = new WebMarkupContainer("login_error");
         form.add(loginError);
@@ -86,15 +95,18 @@ public class ForgotPasswordPage extends BasePage {
                 Context.getUsersDbi().createVerificationRecord(resetRequest);
 
                 feedback.info("На почтовый адрес '" + user.email + "' было выслано письмо с инструкцией о том, как изменить пароль");
+                form.setVisible(false);
+                backHomeLink.setVisible(true);
+                target.add(panel);
                 try {
-                    MailClient.sendMail(user.email, Constants.BRAND_NAME + " - восстановление пароля",
-                            "Имя вашего пользователя: " + user.login + "\n" +
-                                    "Для того, чтобы изменить пароль, используйте следующую ссылку: " +
-                                    Mounts.urlFor(ResetPasswordPage.class) + "?" + ResetPasswordPage.HASH_PARAM + "=" + resetRequest.hash);
-
+                    String url = WebUtils.getFullPageUrl(ResetPasswordPage.class, ResetPasswordPage.getPageParams(resetRequest.hash));
+                    String subject = Constants.BRAND_NAME + " - восстановление пароля";
+                    String body = "Имя Вашего пользователя: " + user.login + "\n" +
+                            "Для того, чтобы изменить пароль, используйте следующую ссылку: " + url;
+                    MailClient.sendMail(user.email, subject, body);
                 } catch (Exception e) {
-                    log.error("", e);
-                    feedback.error("Внутренняя ошибка! Пожалуйста сообщите на " + MailClient.SUPPORT);
+                    log.error("Error sending email", e);
+                    feedback.error("Внутренняя ошибка! Пожалуйста сообщите на " + MailClient.SUPPORT_EMAIL);
                 }
             }
         };
@@ -102,7 +114,6 @@ public class ForgotPasswordPage extends BasePage {
 
         WebUtils.addFocusOnEnter(emailOrLoginField, captchaField);
         WebUtils.addClickOnEnter(captchaField, resetLink);
-
     }
 
 }

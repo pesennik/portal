@@ -18,7 +18,7 @@ public class MailClient {
 
     private static final Logger log = LoggerFactory.getLogger(MailClient.class);
 
-    public static final String SUPPORT = "support@pesennik.online";
+    public static final String SUPPORT_EMAIL = "support@pesennik.online";
 
     /**
      * Configuration for Amazon Simple Mail Service.
@@ -38,7 +38,7 @@ public class MailClient {
             );
             return;
         }
-        sendBySes(SUPPORT, toEmail, subject, body);
+        sendBySes(SUPPORT_EMAIL, toEmail, subject, body);
     }
 
     private static synchronized void sendBySes(@NotNull String from, @NotNull String to, @NotNull String subject, @NotNull String body) throws MessagingException {
