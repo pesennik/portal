@@ -82,7 +82,7 @@ public class ResetPasswordPage extends BasePage {
         loginLink.setVisible(false);
         resetBlock.add(loginLink);
 
-        Form form = new Form("reset_from");
+        Form form = new Form("reset_form");
         form.setOutputMarkupId(true);
         resetBlock.add(form);
 
