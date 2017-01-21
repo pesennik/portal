@@ -1,10 +1,15 @@
 package com.github.pesennik.util;
 
 import com.github.pesennik.Context;
+import com.github.pesennik.UserSession;
 import com.github.pesennik.ZApplication;
+import com.github.pesennik.component.BasePage;
+import com.github.pesennik.component.HomePage;
+import com.github.pesennik.model.User;
 import org.apache.commons.io.IOUtils;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
+import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.core.request.handler.BookmarkablePageRequestHandler;
@@ -87,5 +92,18 @@ public class WebUtils {
             url = "/" + url;
         }
         return url;
+    }
+
+    @NotNull
+    public static User getUserOrRedirectHome() {
+        return nonNullOrRedirect(UserSession.get().getUser(), HomePage.class);
+    }
+
+    @NotNull
+    private static <T> T nonNullOrRedirect(@Nullable T t, Class<? extends BasePage> page) {
+        if (t == null) {
+            throw new RestartResponseException(page);
+        }
+        return t;
     }
 }

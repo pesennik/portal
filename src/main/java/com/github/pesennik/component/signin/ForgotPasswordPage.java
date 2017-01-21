@@ -22,6 +22,7 @@ import com.github.pesennik.util.MailClient;
 import com.github.pesennik.util.UserSessionUtils;
 import com.github.pesennik.util.WebUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.image.Image;
@@ -67,10 +68,17 @@ public class ForgotPasswordPage extends BasePage {
         form.add(captchaImage);
         form.add(new RefreshCaptchaLink("change_captcha", captchaField, captchaImage));
 
-        ValidatingJsAjaxSubmitLink resetLink = new ValidatingJsAjaxSubmitLink("submit", form) {
+        AjaxSubmitLink resetLink = new ValidatingJsAjaxSubmitLink("submit", form) {
             @Override
             protected void onSubmit(AjaxRequestTarget target) {
                 feedback.reset(target);
+
+                String captcha = captchaField.getUserText();
+                if (!captchaField.getOriginalText().equals(captcha)) {
+                    ParsleyUtils.addParsleyError(target, captchaError, "Некорректный код!");
+                    WebUtils.focus(target, captchaField);
+                    return;
+                }
 
                 UsersDbi dao = Context.getUsersDbi();
                 String emailOrLogin = emailOrLoginField.getInputString();
@@ -82,13 +90,6 @@ public class ForgotPasswordPage extends BasePage {
                         WebUtils.focus(target, emailOrLoginField);
                         return;
                     }
-                }
-
-                String captcha = captchaField.getUserText();
-                if (!captchaField.getOriginalText().equals(captcha)) {
-                    ParsleyUtils.addParsleyError(target, captchaError, "Некорректный код!");
-                    WebUtils.focus(target, captchaField);
-                    return;
                 }
 
                 VerificationRecord resetRequest = new VerificationRecord(user, VerificationRecordType.PasswordReset, "");

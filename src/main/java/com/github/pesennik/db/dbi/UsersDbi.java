@@ -15,8 +15,6 @@ public interface UsersDbi {
 
     void createUser(@NotNull User user);
 
-    void updateUserSettings(@NotNull User user);
-
     void updateLastLoginDate(@NotNull User user);
 
     @Nullable
@@ -28,8 +26,6 @@ public interface UsersDbi {
     void updatePassword(@NotNull User user, @Nullable VerificationRecord r);
 
     void createVerificationRecord(@NotNull VerificationRecord r);
-
-    void deleteAllUserVerificationsByType(@NotNull UserId id, @NotNull VerificationRecordType type);
 
     @Nullable
     VerificationRecord getVerificationRecordById(@NotNull VerificationRecordId id);

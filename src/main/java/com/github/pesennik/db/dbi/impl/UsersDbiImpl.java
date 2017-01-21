@@ -51,11 +51,6 @@ public final class UsersDbiImpl extends AbstractDbi implements UsersDbi {
     }
 
     @Override
-    public void updateUserSettings(@NotNull User user) {
-        usersSql.updateSettings(user);
-    }
-
-    @Override
     public void updateLastLoginDate(@NotNull User user) {
         user.lastLoginDate = UDate.now();
         usersSql.updateLastLoginDate(user);
@@ -75,7 +70,8 @@ public final class UsersDbiImpl extends AbstractDbi implements UsersDbi {
 
     @Override
     public void updatePassword(@NotNull User user, @Nullable VerificationRecord r) {
-        assertTrue(r == null || r.type == VerificationRecordType.PasswordReset && user.id.equals(r.userId), () -> "Некорректная запись: " + r + " user: " + user);
+        assertTrue(r == null || (r.type == VerificationRecordType.PasswordReset && user.id.equals(r.userId)),
+                () -> "Некорректная запись: " + r + " user: " + user);
         usersSql.updatePasswordHash(user.id, user.passwordHash);
         if (r != null) {
             vrSql.updateVerificationDate(r.id, UDate.now());
@@ -89,11 +85,6 @@ public final class UsersDbiImpl extends AbstractDbi implements UsersDbi {
     public void createVerificationRecord(@NotNull VerificationRecord r) {
         r.hash = UUID.randomUUID().toString();
         r.id = vrSql.insertVerificationRecord(r);
-    }
-
-    @Override
-    public void deleteAllUserVerificationsByType(@NotNull UserId id, @NotNull VerificationRecordType type) {
-        vrSql.deleteAllUserVerificationsByType(id, type);
     }
 
     @Override

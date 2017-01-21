@@ -9,6 +9,7 @@ import com.github.pesennik.component.form.Feedback;
 import com.github.pesennik.component.form.PasswordField;
 import com.github.pesennik.component.parsley.ParsleyUtils;
 import com.github.pesennik.component.parsley.PasswordJsValidator;
+import com.github.pesennik.component.parsley.ValidatingJsAjaxSubmitLink;
 import com.github.pesennik.model.User;
 import com.github.pesennik.model.VerificationRecord;
 import com.github.pesennik.model.VerificationRecordId;
@@ -20,7 +21,6 @@ import com.github.pesennik.util.UserSessionUtils;
 import com.github.pesennik.util.WebUtils;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.core.request.handler.PageProvider;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
@@ -103,7 +103,7 @@ public class ResetPasswordPage extends BasePage {
 
 
         VerificationRecordId recordId = r.id;
-        form.add(new AjaxSubmitLink("submit_link", form) {
+        form.add(new ValidatingJsAjaxSubmitLink("submit_link", form) {
             @Override
             protected void onSubmit(AjaxRequestTarget target) {
                 feedback.reset(target);
