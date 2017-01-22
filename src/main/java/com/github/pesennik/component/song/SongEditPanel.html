@@ -48,9 +48,10 @@
         </div>
         <div class="mt10">
             <a wicket:id="cancel_link" class="btn btn-default mr10">Отменить</a>
-            <a wicket:id="delete_link" class="btn btn-danger mr10">Удалить</a>
-            <a wicket:id="save_link" class="btn btn-success">Сохранить</a>
-            <a wicket:id="about_link" class="txt-muted " style="float:right" target="_blank">О формате записи</a>
+            <input type="checkbox" class="ml5 glyphicon text-danger" onchange="$(this).next().toggleClass('disabled')" title="Подтвердить удаление"/>
+            <a wicket:id="delete_link" class="btn btn-danger mr10 disabled">Удалить</a>
+            <a wicket:id="save_link" class="ml10 btn btn-success">Сохранить</a>
+            <a wicket:id="about_link" class="txt-muted pt5" style="float:right" target="_blank">О формате записи</a>
         </div>
     </form>
 

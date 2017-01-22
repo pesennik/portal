@@ -1,0 +1,12 @@
+input[type=checkbox].glyphicon:before {
+    visibility: visible;
+    content: "\e157";
+}
+
+input[type=checkbox].glyphicon:checked:before {
+    content: "\e067";
+}
+
+input[type=checkbox].glyphicon {
+    visibility: hidden;
+}
