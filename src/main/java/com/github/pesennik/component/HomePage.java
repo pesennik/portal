@@ -10,6 +10,7 @@ import com.github.pesennik.component.signin.LoginPanel;
 import com.github.pesennik.component.signin.RegistrationPanel;
 import com.github.pesennik.component.song.PesennikPage;
 import com.github.pesennik.component.tuner.TunerPage;
+import com.github.pesennik.component.user.UserProfileSettingsPage;
 import com.github.pesennik.model.User;
 import com.github.pesennik.util.UDate;
 import com.github.pesennik.util.UserSessionUtils;
@@ -53,6 +54,7 @@ public class HomePage extends BasePage {
         if (loggedInBlock.isVisible()) {
             loggedInBlock.add(new BookmarkablePageLink("user_home_link", PesennikPage.class));
             loggedInBlock.add(new BookmarkablePageLink("tuner_link", TunerPage.class));
+            loggedInBlock.add(new BookmarkablePageLink("settings_link", UserProfileSettingsPage.class));
             loggedInBlock.add(new AjaxLink<Void>("logout_link") {
                 @Override
                 public void onClick(AjaxRequestTarget ajaxRequestTarget) {

@@ -2,6 +2,7 @@ package com.github.pesennik.component.song;
 
 import com.github.pesennik.Context;
 import com.github.pesennik.annotation.MountPath;
+import com.github.pesennik.component.HomePage;
 import com.github.pesennik.component.bootstrap.BootstrapLazyModalLink;
 import com.github.pesennik.component.bootstrap.BootstrapModal;
 import com.github.pesennik.component.bootstrap.BootstrapStaticModalLink;
@@ -21,6 +22,7 @@ import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.IModel;
@@ -64,6 +66,8 @@ public class PesennikPage extends BaseUserPage {
                 target.add(newSongBlock);
             }
         });
+
+        add(new BookmarkablePageLink("home_link", HomePage.class));
 
         BootstrapModal listPopup = new BootstrapModal("list_popup", "Список песен", SongListModalPanel::new, BootstrapModal.BodyMode.Static, BootstrapModal.FooterMode.Show);
         add(listPopup);
