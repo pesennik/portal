@@ -111,7 +111,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.21</version>
+            <version>1.7.22</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
@@ -120,11 +120,11 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Sending emails -->
+        <!-- To send emails -->
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
-            <version>1.4.7</version>
+            <version>1.5.4</version>
         </dependency>
 
 
