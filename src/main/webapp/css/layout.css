@@ -1,3 +1,8 @@
+#content-block {
+    width: 100%;
+    padding-left: 80px;
+}
+
 #sidebar {
     position: fixed;
     width: 80px;
@@ -16,11 +21,6 @@
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
     height: 37px;
-}
-
-#content-block {
-    width: 100%;
-    padding-left: 80px;
 }
 
 .sidebar-nav {
@@ -61,4 +61,11 @@
 
 .sidebar-spacer {
     margin-top: 50px;
+}
+
+.sidebar-bottom {
+    width: 60px;
+    position: fixed;
+    bottom: 20px;
+    left: 15px;
 }

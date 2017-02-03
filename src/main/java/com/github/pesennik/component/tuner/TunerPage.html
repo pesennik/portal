@@ -2,8 +2,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 <wicket:extend>
 
-    <div class="container-fluid">
-        <wicket:panel wicket:id="tuner_panel"/>
+    <div id="sidebar-toggle">
+        <a href="#"><i class="glyphicon glyphicon-menu-hamburger txt-muted"></i></a>
     </div>
+    <div id="sidebar">
+        <div class="sidebar-nav">
+            <div class="sidebar-bottom-block">
+                <div>
+                    <a wicket:id="home_link" title="Вернуться на главную страницу">
+                        <img src="/img/back.png">
+                        <div class="sidebar-menu-text">главная</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="content-block">
+        <div class="container-fluid">
+            <div class="pt50">
+                <wicket:panel wicket:id="tuner_panel"/>
+            </div>
+        </div>
+    </div>
+    <script>
+        $site.Utils.initSidebar();
+    </script>
 </wicket:extend>
 </html>

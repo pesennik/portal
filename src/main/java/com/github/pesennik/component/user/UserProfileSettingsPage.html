@@ -2,60 +2,81 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 
 <wicket:extend>
-    <div class="container-fluid ml20 mb50 mt50">
-        <div class="txtc" style="max-width: 480px;margin: 0 auto;">
-
-            <h3 class="mb30">Смена пароля</h3>
-            <div wicket:id="panel">
-
-                <div wicket:id="feedback" class="mt20"></div>
-
-                <a wicket:id="home_link" class="btn btn-success mt20">Главная страница</a>
-
-                <form wicket:id="form" class="mt20">
-
-                    <div class="md-group">
-                        <input wicket:id="old_password_field" type="password" required autofocus/>
-                        <span class="md-highlight"></span>
-                        <span class="md-bar"></span>
-                        <label>Текущий пароль</label>
-                        <span wicket:id="old_password_error"></span>
-                    </div>
-
-                    <div class="md-group">
-                        <input wicket:id="password1_field" type="password" required/>
-                        <span class="md-highlight"></span>
-                        <span class="md-bar"></span>
-                        <label>Новый пароль</label>
-                        <span wicket:id="password1_error"></span>
-                    </div>
-                    <div class="md-group">
-                        <input wicket:id="password2_field" type="password" required/>
-                        <span class="md-highlight"></span>
-                        <span class="md-bar"></span>
-                        <label>Повтор пароля</label>
-                        <span wicket:id="password2_error"></span>
-                    </div>
-
-                    <div class="md-group">
-                        <input wicket:id="captcha_value" type="text" required/>
-                        <span class="md-highlight"></span>
-                        <span class="md-bar"></span>
-                        <label>Код на картинке</label>
-                        <span wicket:id="captcha_error"></span>
-                        <div class="mt20">
-                            <img wicket:id="captcha_image" style="width: 180px;"/>
-                            <a href="#" wicket:id="change_captcha" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-refresh mr-it"></i>Обновить</a>
-                        </div>
-                    </div>
-
-                    <div class="txtc">
-                        <a wicket:id="update_link" class="btn btn-success">Изменить пароль</a>
-                    </div>
-                </form>
+    <div id="sidebar-toggle">
+        <a href="#"><i class="glyphicon glyphicon-menu-hamburger txt-muted"></i></a>
+    </div>
+    <div id="sidebar">
+        <div class="sidebar-nav">
+            <div class="sidebar-bottom-block">
+                <div>
+                    <a wicket:id="home_link" title="Вернуться на главную страницу">
+                        <img src="/img/back.png">
+                        <div class="sidebar-menu-text">главная</div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
+
+    <div id="content-block">
+        <div class="container-fluid">
+            <div class="txtc pb50 pt50" style="max-width: 480px;margin: 0 auto;">
+
+                <h3 class="mb30">Смена пароля</h3>
+                <div wicket:id="panel">
+
+                    <div wicket:id="feedback" class="mt20"></div>
+
+                    <a wicket:id="home_link" class="btn btn-success mt20">Главная страница</a>
+
+                    <form wicket:id="form" class="mt20">
+
+                        <div class="md-group">
+                            <input wicket:id="old_password_field" type="password" required autofocus/>
+                            <span class="md-highlight"></span>
+                            <span class="md-bar"></span>
+                            <label>Текущий пароль</label>
+                            <span wicket:id="old_password_error"></span>
+                        </div>
+
+                        <div class="md-group">
+                            <input wicket:id="password1_field" type="password" required/>
+                            <span class="md-highlight"></span>
+                            <span class="md-bar"></span>
+                            <label>Новый пароль</label>
+                            <span wicket:id="password1_error"></span>
+                        </div>
+                        <div class="md-group">
+                            <input wicket:id="password2_field" type="password" required/>
+                            <span class="md-highlight"></span>
+                            <span class="md-bar"></span>
+                            <label>Повтор пароля</label>
+                            <span wicket:id="password2_error"></span>
+                        </div>
+
+                        <div class="md-group">
+                            <input wicket:id="captcha_value" type="text" required/>
+                            <span class="md-highlight"></span>
+                            <span class="md-bar"></span>
+                            <label>Код на картинке</label>
+                            <span wicket:id="captcha_error"></span>
+                            <div class="mt20">
+                                <img wicket:id="captcha_image" style="width: 180px;"/>
+                                <a href="#" wicket:id="change_captcha" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-refresh mr-it"></i>Обновить</a>
+                            </div>
+                        </div>
+
+                        <div class="txtc">
+                            <a wicket:id="update_link" class="btn btn-success">Изменить пароль</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $site.Utils.initSidebar();
+    </script>
 </wicket:extend>
 
 </html>

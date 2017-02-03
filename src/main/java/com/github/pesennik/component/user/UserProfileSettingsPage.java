@@ -29,6 +29,9 @@ public class UserProfileSettingsPage extends BaseUserPage {
 
     public UserProfileSettingsPage() {
         setTitleAndDesc("Профиль пользователя", "Редактирование персонального профиля пользователя");
+
+        add(new BookmarkablePageLink("home_link", HomePage.class));
+
         WebMarkupContainer panel = new ContainerWithId("panel");
         add(panel);
 
