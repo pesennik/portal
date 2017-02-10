@@ -3,6 +3,7 @@ package com.github.pesennik.component.signin;
 
 import com.github.pesennik.Context;
 import com.github.pesennik.UserSession;
+import com.github.pesennik.component.HomePage;
 import com.github.pesennik.component.form.InputField;
 import com.github.pesennik.component.form.PasswordField;
 import com.github.pesennik.component.parsley.EmailJsValidator;
@@ -12,7 +13,9 @@ import com.github.pesennik.component.parsley.PasswordJsValidator;
 import com.github.pesennik.component.parsley.RequiredFieldJsValidator;
 import com.github.pesennik.component.parsley.ValidatingJsAjaxSubmitLink;
 import com.github.pesennik.model.User;
-import com.github.pesennik.component.HomePage;
+import com.github.pesennik.model.UserId;
+import com.github.pesennik.model.UserSong;
+import com.github.pesennik.model.UserSongId;
 import com.github.pesennik.util.RegistrationUtils;
 import com.github.pesennik.util.TextUtils;
 import com.github.pesennik.util.UDate;
@@ -25,8 +28,12 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class RegistrationPanel extends Panel {
 
@@ -122,6 +129,7 @@ public class RegistrationPanel extends Panel {
 
                 target.add(form);
                 UserSession.get().setUser(user);
+                addRandomSongToUser(user.id);
                 setResponsePage(HomePage.class);
                 try {
                     RegistrationUtils.sendWelcomeEmail(user, password1);
@@ -137,5 +145,29 @@ public class RegistrationPanel extends Panel {
         WebUtils.addFocusOnEnter(password1Field, password2Field);
         WebUtils.addClickOnEnter(password2Field, registerButton);
 
+    }
+
+    private static void addRandomSongToUser(@NotNull UserId userId) {
+        List<UserSongId> templateIds = Context.getUserSongsDbi().getUserSongs(UserId.SYSTEM_USER_ID);
+        List<UserSong> templateSongs = templateIds.stream()
+                .map(id -> Context.getUserSongsDbi().getSong(id))
+                .filter(s -> s != null && s.deletionDate == null)
+                .collect(Collectors.toList());
+        if (templateSongs.isEmpty()) {
+            log.warn("No songs found for new users!");
+            return;
+        }
+        UserSong template = templateSongs.get((int) (System.currentTimeMillis() % templateIds.size()));
+        UserSong userSong = new UserSong();
+        userSong.userId = userId;
+        userSong.title = template.title;
+        userSong.textAuthor = template.textAuthor;
+        userSong.musicAuthor = template.musicAuthor;
+        userSong.singer = template.singer;
+        userSong.band = template.band;
+        userSong.text = template.text;
+        userSong.creationDate = UDate.now();
+        userSong.extra.links = template.extra.links;
+        Context.getUserSongsDbi().createSong(userSong);
     }
 }

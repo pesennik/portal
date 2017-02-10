@@ -5,6 +5,7 @@ import com.github.mjdbc.Mapper;
 
 public final class UserId extends AbstractId {
     public static final UserId INVALID_ID = new UserId(-1);
+    public static final UserId SYSTEM_USER_ID = new UserId(0);
 
     public UserId(int id) {
         super(id);
