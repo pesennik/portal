@@ -18,6 +18,7 @@ import com.github.pesennik.db.dbi.UsersDbi;
 import com.github.pesennik.model.User;
 import com.github.pesennik.model.VerificationRecord;
 import com.github.pesennik.model.VerificationRecordType;
+import com.github.pesennik.util.JSUtils;
 import com.github.pesennik.util.MailClient;
 import com.github.pesennik.util.UserSessionUtils;
 import com.github.pesennik.util.WebUtils;
@@ -76,7 +77,7 @@ public class ForgotPasswordPage extends BasePage {
                 String captcha = captchaField.getUserText();
                 if (!captchaField.getOriginalText().equals(captcha)) {
                     ParsleyUtils.addParsleyError(target, captchaError, "Некорректный код!");
-                    WebUtils.focus(target, captchaField);
+                    JSUtils.focus(target, captchaField);
                     return;
                 }
 
@@ -87,7 +88,7 @@ public class ForgotPasswordPage extends BasePage {
                     user = dao.getUserByEmail(emailOrLogin);
                     if (user == null) {
                         ParsleyUtils.addParsleyError(target, loginError, "Пользователь не найден!");
-                        WebUtils.focus(target, emailOrLoginField);
+                        JSUtils.focus(target, emailOrLoginField);
                         return;
                     }
                 }
@@ -113,8 +114,8 @@ public class ForgotPasswordPage extends BasePage {
         };
         form.add(resetLink);
 
-        WebUtils.addFocusOnEnter(emailOrLoginField, captchaField);
-        WebUtils.addClickOnEnter(captchaField, resetLink);
+        JSUtils.addFocusOnEnter(emailOrLoginField, captchaField);
+        JSUtils.addClickOnEnter(captchaField, resetLink);
     }
 
 }

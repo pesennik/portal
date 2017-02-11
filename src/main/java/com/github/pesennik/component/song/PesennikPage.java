@@ -31,7 +31,7 @@ import org.apache.wicket.model.Model;
 import java.util.Collections;
 import java.util.List;
 
-import static com.github.pesennik.util.WebUtils.scrollTo;
+import static com.github.pesennik.util.JSUtils.scrollTo;
 
 @MountPath("/home")
 public class PesennikPage extends BaseUserPage {

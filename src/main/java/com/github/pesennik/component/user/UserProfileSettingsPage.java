@@ -13,6 +13,7 @@ import com.github.pesennik.component.parsley.RequiredFieldJsValidator;
 import com.github.pesennik.component.parsley.ValidatingJsAjaxSubmitLink;
 import com.github.pesennik.component.util.ContainerWithId;
 import com.github.pesennik.model.User;
+import com.github.pesennik.util.JSUtils;
 import com.github.pesennik.util.RegistrationUtils;
 import com.github.pesennik.util.UserSessionUtils;
 import com.github.pesennik.util.WebUtils;
@@ -87,7 +88,7 @@ public class UserProfileSettingsPage extends BaseUserPage {
                 String captcha = captchaField.getUserText();
                 if (!captchaField.getOriginalText().equals(captcha)) {
                     ParsleyUtils.addParsleyError(target, captchaError, "Некорректный код!");
-                    WebUtils.focus(target, captchaField);
+                    JSUtils.focus(target, captchaField);
                     return;
                 }
 
@@ -96,7 +97,7 @@ public class UserProfileSettingsPage extends BaseUserPage {
                 String oldPasswordHash = UserSessionUtils.password2Hash(oldPassword);
                 if (!user.passwordHash.equals(oldPasswordHash)) {
                     ParsleyUtils.addParsleyError(target, oldPasswordError, "Неверный пароль");
-                    WebUtils.focus(target, oldPasswordField);
+                    JSUtils.focus(target, oldPasswordField);
                     return;
                 }
                 String password1 = password1Field.getModelObject();
@@ -104,14 +105,14 @@ public class UserProfileSettingsPage extends BaseUserPage {
                 String err = RegistrationUtils.validatePassword(password1, password2);
                 if (err != null) {
                     ParsleyUtils.addParsleyError(target, password1Error, err);
-                    WebUtils.focus(target, password1Field);
+                    JSUtils.focus(target, password1Field);
                     return;
                 }
                 user.passwordHash = UserSessionUtils.password2Hash(password1);
                 Context.getUsersDbi().updatePassword(user, null);
                 feedback.success("Пароль изменен");
                 homePageLink.setVisible(true);
-                WebUtils.scrollTo(feedback, target);
+                JSUtils.scrollTo(feedback, target);
                 target.add(panel);
             }
         });

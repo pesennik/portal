@@ -11,9 +11,8 @@ import com.github.pesennik.component.parsley.PasswordJsValidator;
 import com.github.pesennik.component.parsley.ValidatingJsAjaxSubmitLink;
 import com.github.pesennik.db.dbi.UsersDbi;
 import com.github.pesennik.model.User;
-import com.github.pesennik.component.signin.ForgotPasswordPage;
+import com.github.pesennik.util.JSUtils;
 import com.github.pesennik.util.UserSessionUtils;
-import com.github.pesennik.util.WebUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
@@ -61,18 +60,18 @@ public class LoginPanel extends Panel {
                 }
                 if (user == null) {
                     ParsleyUtils.addParsleyError(target, loginError, "Пользователь не найден!");
-                    WebUtils.focus(target, emailOrLoginField);
+                    JSUtils.focus(target, emailOrLoginField);
                     return;
                 }
                 String password = passwordField.getModelObject();
                 if (!UserSessionUtils.checkPassword(password, user.passwordHash)) {
                     ParsleyUtils.addParsleyError(target, passwordError, "Неверный пароль!");
-                    WebUtils.focus(target, passwordError);
+                    JSUtils.focus(target, passwordError);
                     return;
                 }
                 if (user.terminationDate != null) {
                     ParsleyUtils.addParsleyError(target, loginError, "Пользователь заблокирован!");
-                    WebUtils.focus(target, emailOrLoginField);
+                    JSUtils.focus(target, emailOrLoginField);
                     return;
 
                 }
@@ -82,8 +81,8 @@ public class LoginPanel extends Panel {
         };
         form.add(loginButton);
 
-        WebUtils.addFocusOnEnter(emailOrLoginField, passwordField);
-        WebUtils.addClickOnEnter(passwordField, loginButton);
+        JSUtils.addFocusOnEnter(emailOrLoginField, passwordField);
+        JSUtils.addClickOnEnter(passwordField, loginButton);
     }
 
 }

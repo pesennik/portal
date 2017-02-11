@@ -16,12 +16,12 @@ import com.github.pesennik.model.User;
 import com.github.pesennik.model.UserId;
 import com.github.pesennik.model.UserSong;
 import com.github.pesennik.model.UserSongId;
+import com.github.pesennik.util.JSUtils;
 import com.github.pesennik.util.RegistrationUtils;
 import com.github.pesennik.util.TextUtils;
 import com.github.pesennik.util.UDate;
 import com.github.pesennik.util.UserSessionUtils;
 import com.github.pesennik.util.ValidatorUtils;
-import com.github.pesennik.util.WebUtils;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -90,24 +90,24 @@ public class RegistrationPanel extends Panel {
                 String email = emailField.getInputString();
                 if (TextUtils.isEmpty(email)) {
                     ParsleyUtils.addParsleyError(target, emailError, "Необходимо указать email");
-                    WebUtils.focus(target, emailField);
+                    JSUtils.focus(target, emailField);
                     return;
                 }
                 if (!ValidatorUtils.isValidEmail(email)) {
                     ParsleyUtils.addParsleyError(target, emailError, "Некорректный формат email");
-                    WebUtils.focus(target, emailField);
+                    JSUtils.focus(target, emailField);
                     return;
                 }
                 User user = Context.getUsersDbi().getUserByEmail(email);
                 if (user != null) {
                     ParsleyUtils.addParsleyError(target, emailError, "Пользователь с таким email уже зарегистрирован");
-                    WebUtils.focus(target, emailField);
+                    JSUtils.focus(target, emailField);
                     return;
                 }
                 String login = loginField.getInputString();
                 if (!ValidatorUtils.isValidLogin(login)) {
                     ParsleyUtils.addParsleyError(target, loginError, "Недопустимый псевдоним");
-                    WebUtils.focus(target, loginField);
+                    JSUtils.focus(target, loginField);
                     return;
                 }
                 String password1 = password1Field.getModelObject();
@@ -115,7 +115,7 @@ public class RegistrationPanel extends Panel {
                 String err = RegistrationUtils.validatePassword(password1, password2);
                 if (err != null) {
                     ParsleyUtils.addParsleyError(target, password1Error, err);
-                    WebUtils.focus(target, password1Field);
+                    JSUtils.focus(target, password1Field);
                     return;
                 }
 
@@ -140,10 +140,10 @@ public class RegistrationPanel extends Panel {
         };
         form.add(registerButton);
 
-        WebUtils.addFocusOnEnter(emailField, loginField);
-        WebUtils.addFocusOnEnter(loginField, password1Field);
-        WebUtils.addFocusOnEnter(password1Field, password2Field);
-        WebUtils.addClickOnEnter(password2Field, registerButton);
+        JSUtils.addFocusOnEnter(emailField, loginField);
+        JSUtils.addFocusOnEnter(loginField, password1Field);
+        JSUtils.addFocusOnEnter(password1Field, password2Field);
+        JSUtils.addClickOnEnter(password2Field, registerButton);
 
     }
 

@@ -15,10 +15,10 @@ import com.github.pesennik.model.VerificationRecord;
 import com.github.pesennik.model.VerificationRecordId;
 import com.github.pesennik.model.VerificationRecordType;
 import com.github.pesennik.util.DigestUtils;
+import com.github.pesennik.util.JSUtils;
 import com.github.pesennik.util.RegistrationUtils;
 import com.github.pesennik.util.UDate;
 import com.github.pesennik.util.UserSessionUtils;
-import com.github.pesennik.util.WebUtils;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.core.request.handler.PageProvider;
@@ -110,7 +110,7 @@ public class ResetPasswordPage extends BasePage {
                 VerificationRecord r1 = Context.getUsersDbi().getVerificationRecordById(recordId);
                 if (r1 == null) {
                     ParsleyUtils.addParsleyError(target, password1Error, "Запрос на изменение пароля не найден. Попробуйте создать его снова!");
-                    WebUtils.focus(target, password1Field);
+                    JSUtils.focus(target, password1Field);
                     return;
                 }
                 String password1 = password1Field.getModelObject();
@@ -118,7 +118,7 @@ public class ResetPasswordPage extends BasePage {
                 String err = RegistrationUtils.validatePassword(password1, password2);
                 if (err != null) {
                     ParsleyUtils.addParsleyError(target, password1Error, err);
-                    WebUtils.focus(target, password1Field);
+                    JSUtils.focus(target, password1Field);
                     return;
                 }
                 User user = Context.getUsersDbi().getUserById(r1.userId);
