@@ -69,7 +69,7 @@ public class Context {
     }
 
     public static String getBaseUrl() {
-        return isProduction() ? "http://pesennik.online" : "http://localhost:8080";
+        return isProduction() ? "https://pesennik.online" : "http://localhost:8080";
     }
 
     public static Properties getProdConfig() {
