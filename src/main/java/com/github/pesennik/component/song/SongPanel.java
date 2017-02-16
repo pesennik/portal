@@ -73,7 +73,10 @@ public class SongPanel extends Panel {
         songBlock.add(new Label("date", Formatters.SONG_DATE_FORMAT.format(song.creationDate)));
         songBlock.add(new SongLinksPanel("links", song.extra.links));
 
-        songView = new SongTextView("text_view", songId);
+        ContainerWithId chordsView = new ContainerWithId("chords_view");
+        songBlock.add(chordsView);
+
+        songView = new SongTextView("text_view", songId, chordsView.getMarkupId());
         songBlock.add(songView);
 
         ContainerWithId toolbar = new ContainerWithId("toolbar");

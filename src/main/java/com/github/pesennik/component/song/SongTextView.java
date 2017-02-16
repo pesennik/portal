@@ -9,15 +9,23 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class SongTextView extends Panel {
+
     @NotNull
     private final UserSongId songId;
-    ContainerWithId songView = new ContainerWithId("song_text");
 
-    public SongTextView(@NotNull String id, @NotNull UserSongId songId) {
+    @Nullable
+    private String chordsViewId;
+
+    @NotNull
+    private final ContainerWithId songView = new ContainerWithId("song_text");
+
+    public SongTextView(@NotNull String id, @NotNull UserSongId songId, @Nullable String chordsViewId) {
         super(id);
         this.songId = songId;
+        this.chordsViewId = chordsViewId;
         setOutputMarkupId(true);
 
         add(songView);
@@ -29,15 +37,17 @@ public class SongTextView extends Panel {
         if (song == null) {
             JSONObject options = new JSONObject();
             options.put("text", "не найдена");
-            options.put("targetSelector", "#" + songView.getMarkupId());
+            options.put("songViewSelector", "#" + songView.getMarkupId());
             response.render(OnDomReadyHeaderItem.forScript("$site.SongView.renderSong(" + options + ");"));
             return;
         }
 
         JSONObject options = new JSONObject();
         options.put("text", song.text);
-        options.put("targetSelector", "#" + songView.getMarkupId());
-
+        options.put("songViewSelector", "#" + songView.getMarkupId());
+        if (chordsViewId != null) {
+            options.put("chordsViewSelector", "#" + chordsViewId);
+        }
         response.render(OnDomReadyHeaderItem.forScript("$site.SongView.renderSong(" + options + ");"));
     }
 }
