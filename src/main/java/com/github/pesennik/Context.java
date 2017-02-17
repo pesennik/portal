@@ -65,7 +65,7 @@ public class Context {
     }
 
     public static boolean isProduction() {
-        return System.getProperty("online.pesennik.production") != null;
+        return System.getProperty("pesennik.online.production") != null;
     }
 
     public static String getBaseUrl() {
