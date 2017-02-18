@@ -48,3 +48,18 @@
     font-weight: bold;
     cursor: pointer;
 }
+
+/* Make youtube show volume control */
+@media only screen and (min-width: 1024px) and (max-width: 1600px) {
+    .song-links {
+        min-width: 350px;
+        margin-left: -40px;
+    }
+
+    .chords-view {
+        min-width: 372px;
+        margin-left: -47px;
+        text-align: center;
+    }
+}
+
