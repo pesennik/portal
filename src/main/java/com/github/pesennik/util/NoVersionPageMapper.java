@@ -1,7 +1,7 @@
 package com.github.pesennik.util;
 
-import org.apache.wicket.core.request.handler.BookmarkableListenerInterfaceRequestHandler;
-import org.apache.wicket.core.request.handler.ListenerInterfaceRequestHandler;
+import org.apache.wicket.core.request.handler.BookmarkableListenerRequestHandler;
+import org.apache.wicket.core.request.handler.ListenerRequestHandler;
 import org.apache.wicket.core.request.mapper.MountedMapper;
 import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.Url;
@@ -20,7 +20,7 @@ public class NoVersionPageMapper extends MountedMapper {
     }
 
     public Url mapHandler(IRequestHandler requestHandler) {
-        if (requestHandler instanceof ListenerInterfaceRequestHandler || requestHandler instanceof BookmarkableListenerInterfaceRequestHandler) {
+        if (requestHandler instanceof ListenerRequestHandler || requestHandler instanceof BookmarkableListenerRequestHandler) {
             return null;
         } else {
             return super.mapHandler(requestHandler);

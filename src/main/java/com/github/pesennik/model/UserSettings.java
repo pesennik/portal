@@ -1,8 +1,8 @@
 package com.github.pesennik.model;
 
 import com.github.mjdbc.type.DbString;
-import org.apache.wicket.ajax.json.JSONObject;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
 
 /**
  * Set of user settings serializable to JSON

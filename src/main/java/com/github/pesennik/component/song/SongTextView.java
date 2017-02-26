@@ -4,12 +4,12 @@ import com.github.pesennik.Context;
 import com.github.pesennik.component.util.ContainerWithId;
 import com.github.pesennik.model.UserSong;
 import com.github.pesennik.model.UserSongId;
-import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONObject;
 
 public class SongTextView extends Panel {
 

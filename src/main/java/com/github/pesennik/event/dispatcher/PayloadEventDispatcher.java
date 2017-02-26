@@ -30,8 +30,6 @@ public class PayloadEventDispatcher implements IEventDispatcher {
                 } catch (Exception e) {
                     throw new RuntimeException("Exception when delivering event object " + payload.getClass() + " to component " + sink.getClass() + " and method " + method.getName(), e);
                 }
-                // We only deliver an event once to a single component, if there are multiple methods configured for it we ignore all but one
-                return;
             }
         }
     }
