@@ -40,7 +40,7 @@ public class Mounts {
         return a == null ? null : mountPath(a.value());
     }
 
-    @Nullable
+    @NotNull
     public static String mountPath(@NotNull String mountPathWithParams) {
         int first$Idx = mountPathWithParams.indexOf('$');
         if (first$Idx == -1) {

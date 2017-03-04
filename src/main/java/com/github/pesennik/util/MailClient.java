@@ -11,7 +11,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.IOException;
 import java.util.Properties;
 
 public class MailClient {
@@ -28,7 +27,7 @@ public class MailClient {
     private static final String SES_HOST = Context.getProdConfig().getProperty("ses.host", "email-smtp.us-east-1.amazonaws.com");
     private static final int SES_PORT = Integer.parseInt(Context.getProdConfig().getProperty("ses.port", "587"));
 
-    public static void sendMail(@NotNull String toEmail, @NotNull String subject, @NotNull String body) throws IOException, MessagingException {
+    public static void sendMail(@NotNull String toEmail, @NotNull String subject, @NotNull String body) throws MessagingException {
         if (!Context.isProduction()) {
             log.info("EMAIL to: " + toEmail + "" +
                     "\nsubj: " + subject

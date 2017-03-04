@@ -41,7 +41,6 @@ public abstract class BasePage extends WebPage implements IRequestablePage {
     public BasePage() {
         checkCorrectMount();
         UserSessionUtils.initializeSession();
-        pageInitCallback();
 
         add(header);
         add(footer);
@@ -67,10 +66,6 @@ public abstract class BasePage extends WebPage implements IRequestablePage {
             log.error("Page is not mounted: " + getClass());
         }
     }
-
-    protected void pageInitCallback() {
-    }
-
 
     public void setTitle(String v) {
         title.setDefaultModelObject(v);

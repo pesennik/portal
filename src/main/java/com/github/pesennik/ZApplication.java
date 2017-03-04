@@ -72,7 +72,7 @@ public class ZApplication extends WebApplication {
         mount(cls, a.value());
     }
 
-    private void mount(Class cls, String... mountPaths) {
+    private void mount(Class<? extends Page> cls, String... mountPaths) {
         for (String mountPath : mountPaths) {
             if (TextUtils.isEmpty(mountPath)) {
                 throw new IllegalArgumentException("Illegal mount for page " + cls + " mount: " + mountPath);
