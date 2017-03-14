@@ -19,7 +19,6 @@ import com.github.pesennik.model.UserSongId;
 import com.github.pesennik.util.JSUtils;
 import com.github.pesennik.util.RegistrationUtils;
 import com.github.pesennik.util.TextUtils;
-import com.github.pesennik.util.UDate;
 import com.github.pesennik.util.UserSessionUtils;
 import com.github.pesennik.util.ValidatorUtils;
 import org.apache.wicket.RestartResponseException;
@@ -32,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -121,8 +121,8 @@ public class RegistrationPanel extends Panel {
 
                 user = new User();
                 user.login = login;
-                user.lastLoginDate = UDate.now();
-                user.registrationDate = UDate.now();
+                user.lastLoginDate = Instant.now();
+                user.registrationDate = Instant.now();
                 user.email = email;
                 user.passwordHash = UserSessionUtils.password2Hash(password1);
                 Context.getUsersDbi().createUser(user);
@@ -166,7 +166,7 @@ public class RegistrationPanel extends Panel {
         userSong.singer = template.singer;
         userSong.band = template.band;
         userSong.text = template.text;
-        userSong.creationDate = UDate.now();
+        userSong.creationDate = Instant.now();
         userSong.extra.links = template.extra.links;
         Context.getUserSongsDbi().createSong(userSong);
     }

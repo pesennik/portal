@@ -4,7 +4,7 @@ import com.github.pesennik.Constants;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.jetbrains.annotations.NotNull;
 
-import java.text.ParseException;
+import java.time.Instant;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -36,17 +36,9 @@ public class UDateFormat {
     }
 
     @NotNull
-    public String format(@NotNull UDate date) {
-        String res = df.format(new Date(date.instant.toEpochMilli()));
+    public String format(@NotNull Instant instant) {
+        String res = df.format(new Date(instant.toEpochMilli()));
         return fixMonthNames ? res.replace("май", "мая") : res;
     }
 
-    @NotNull
-    public UDate parse(@NotNull String val) {
-        try {
-            return UDate.fromDate(df.parse(val));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

@@ -11,7 +11,6 @@ import com.github.pesennik.event.UserSongChangedEvent;
 import com.github.pesennik.event.UserSongChangedEvent.ChangeType;
 import com.github.pesennik.model.UserSong;
 import com.github.pesennik.model.UserSongId;
-import com.github.pesennik.util.UDate;
 import com.github.pesennik.util.UserSessionUtils;
 import com.github.pesennik.util.ValidatorUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -24,6 +23,8 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.time.Instant;
 
 import static org.apache.wicket.markup.head.OnDomReadyHeaderItem.forScript;
 
@@ -130,7 +131,7 @@ public class SongEditPanel extends Panel {
                 song.singer = singer;
                 song.band = band;
                 song.text = text;
-                song.creationDate = UDate.now();
+                song.creationDate = Instant.now();
                 song.extra.links = links;
                 if (songId == null) {
                     Context.getUserSongsDbi().createSong(song);

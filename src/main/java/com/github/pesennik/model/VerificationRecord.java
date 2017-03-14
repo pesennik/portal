@@ -1,11 +1,12 @@
 package com.github.pesennik.model;
 
-import com.github.pesennik.util.UDate;
 import com.github.mjdbc.DbMapper;
 import com.github.mjdbc.Mapper;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
+import java.time.Instant;
+
+import static com.github.pesennik.db.util.DbUtils.optionalInstant;
 
 /**
  *
@@ -16,8 +17,8 @@ public class VerificationRecord extends Identifiable<VerificationRecordId> {
     public UserId userId;
     public VerificationRecordType type;
     public String value;
-    public UDate creationDate;
-    public UDate verificationDate;
+    public Instant creationDate;
+    public Instant verificationDate;
 
     public VerificationRecord() {
     }
@@ -26,7 +27,7 @@ public class VerificationRecord extends Identifiable<VerificationRecordId> {
         this.userId = user.id;
         this.type = type;
         this.value = value;
-        this.creationDate = UDate.now();
+        this.creationDate = Instant.now();
     }
 
     @Mapper
@@ -37,8 +38,8 @@ public class VerificationRecord extends Identifiable<VerificationRecordId> {
         res.userId = new UserId(r.getInt("user_id"));
         res.type = VerificationRecordType.fromId(r.getInt("type"));
         res.value = r.getString("value");
-        res.creationDate = UDate.fromDate(Objects.requireNonNull(r.getTimestamp("creation_date")));
-        res.verificationDate = UDate.fromDate(r.getTimestamp("verification_date"));
+        res.creationDate = r.getTimestamp("creation_date").toInstant();
+        res.verificationDate = optionalInstant(r.getTimestamp("verification_date"));
         return res;
     };
 

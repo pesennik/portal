@@ -41,7 +41,7 @@ public class Context {
             registerBuiltInTypes(db);
             usersDbi = db.attachDbi(new UsersDbiImpl(db), UsersDbi.class);
             userSongsDbi = db.attachDbi(new UserSongsDbiImpl(db), UserSongsDbi.class);
-            sharingDbi = db.attachDbi(new SharingDbiImpl(db), SharingDbiImpl.class);
+            sharingDbi = db.attachDbi(new SharingDbiImpl(db), SharingDbi.class);
         } catch (Exception e) {
             log.error("", e);
             shutdown();

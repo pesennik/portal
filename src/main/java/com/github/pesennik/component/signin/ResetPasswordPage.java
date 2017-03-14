@@ -17,7 +17,6 @@ import com.github.pesennik.model.VerificationRecordType;
 import com.github.pesennik.util.DigestUtils;
 import com.github.pesennik.util.JSUtils;
 import com.github.pesennik.util.RegistrationUtils;
-import com.github.pesennik.util.UDate;
 import com.github.pesennik.util.UserSessionUtils;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -29,6 +28,10 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.string.StringValue;
 import org.jetbrains.annotations.NotNull;
+
+import java.time.Duration;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 
 import static org.apache.wicket.core.request.handler.RenderPageRequestHandler.RedirectPolicy.NEVER_REDIRECT;
 
@@ -70,7 +73,8 @@ public class ResetPasswordPage extends BasePage {
             return;
         }
 
-        boolean expired = r.creationDate.isBefore(UDate.now().minusHours(REQUEST_VALID_HOURS));
+        ZonedDateTime expireDate = ZonedDateTime.now(ZoneOffset.UTC).minus(Duration.ofHours(REQUEST_VALID_HOURS));
+        boolean expired = r.creationDate.isBefore(expireDate.toInstant());
         if (expired) {
             resetBlock.setVisible(false);
             feedback.error("Время действия кода истекло. Создайте запрос снова!");

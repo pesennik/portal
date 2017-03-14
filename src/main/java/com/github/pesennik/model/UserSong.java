@@ -2,11 +2,12 @@ package com.github.pesennik.model;
 
 import com.github.mjdbc.DbMapper;
 import com.github.mjdbc.Mapper;
-import com.github.pesennik.util.UDate;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static java.util.Objects.requireNonNull;
+import java.time.Instant;
+
+import static com.github.pesennik.db.util.DbUtils.optionalInstant;
 
 /**
  * User's song
@@ -41,10 +42,10 @@ public class UserSong extends Identifiable<UserSongId> {
     public String text = "";
 
     @NotNull
-    public UDate creationDate = UDate.MIN_DATE;
+    public Instant creationDate = Instant.MIN;
 
     @Nullable
-    public UDate deletionDate = null;
+    public Instant deletionDate = null;
 
     @NotNull
     public UserSongExtra extra = new UserSongExtra();
@@ -60,8 +61,8 @@ public class UserSong extends Identifiable<UserSongId> {
         res.singer = r.getString("singer");
         res.band = r.getString("band");
         res.text = r.getString("text");
-        res.creationDate = UDate.fromDate(requireNonNull(r.getTimestamp("creation_date")));
-        res.deletionDate = UDate.fromDate(r.getTimestamp("deletion_date"));
+        res.creationDate = r.getTimestamp("creation_date").toInstant();
+        res.deletionDate = optionalInstant(r.getTimestamp("deletion_date"));
         res.extra = UserSongExtra.parse(r.getString("extra"));
         return res;
     };
