@@ -5,6 +5,8 @@ import com.github.mjdbc.Mapper;
 
 public class UserSongId extends AbstractId {
 
+    public static final UserSongId UNDEFINED = new UserSongId(0);
+
     public UserSongId(int value) {
         super(value);
     }

@@ -50,3 +50,11 @@ CREATE TABLE user_songs (
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
+
+CREATE TABLE lenta (
+  id           INTEGER AUTO_INCREMENT PRIMARY KEY,
+  user_song_id INTEGER  NOT NULL,
+  sharing_date DATETIME NOT NULL
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;

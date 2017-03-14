@@ -12,7 +12,6 @@ import com.github.pesennik.component.song.PesennikPage;
 import com.github.pesennik.component.tuner.TunerPage;
 import com.github.pesennik.component.user.UserProfileSettingsPage;
 import com.github.pesennik.model.User;
-import com.github.pesennik.util.UDate;
 import com.github.pesennik.util.UserSessionUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -21,6 +20,8 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
+
+import java.time.ZonedDateTime;
 
 public class HomePage extends BasePage {
 
@@ -70,7 +71,7 @@ public class HomePage extends BasePage {
     @Override
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
-        int day = UDate.now().getDayOfYear();
+        int day = ZonedDateTime.now().getDayOfYear();
         int bg = 1 + day % MAX_BACKGROUNDS;
         String style = bg > 100 ? "" + bg : bg > 10 ? "0" + bg : "00" + bg;
         response.render(CssHeaderItem.forUrl("/backgrounds/" + style + ".css"));

@@ -20,7 +20,7 @@ public class UserSong extends Identifiable<UserSongId> {
     public static final int MAX_URLS_TEXT_LENGTH = 1000;
 
     @NotNull
-    public UserId userId = UserId.INVALID_ID;
+    public UserId userId = UserId.UNDEFINED;
 
     @NotNull
     public String title = "";

@@ -76,9 +76,7 @@
                         </webResource>
                     </webResources>
                     <!-- All CSS are minified to style.css, site.js is copied from js module's 'dist' folder -->
-                    <warSourceExcludes>
-                        **/css/*.css
-                    </warSourceExcludes>
+                    <warSourceExcludes>**/css/*.css</warSourceExcludes>
                 </configuration>
             </plugin>
             <plugin>
