@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<body>
+<wicket:panel>
+
+    <div>
+        <a href="#" onclick="$site.SongView.zoom({delta:-5});return false;" title="Уменьшить размер шрифта">
+            <img src="/img/zoom_out.png">
+            <div class="sidebar-menu-text">уменьшить</div>
+        </a>
+    </div>
+    <div>
+        <a href="#" onclick="$site.SongView.zoom({delta:+5}); return false;" title="Увеличить размер шрифта">
+            <img src="/img/zoom_in.png">
+            <div class="sidebar-menu-text">увеличить</div>
+        </a>
+    </div>
+    <div>
+        <a href="#" onclick="$site.SongView.zoom({value:100}); return false;" title="Изменить размер на изначальный">
+            <img src="/img/zoom_reset.png">
+            <div class="sidebar-menu-text">сбросить</div>
+        </a>
+    </div>
+
+</wicket:panel>
+</body>
+</html>

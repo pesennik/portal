@@ -4,10 +4,11 @@ import com.github.pesennik.annotation.MountPath;
 import com.github.pesennik.component.InternalErrorPage;
 import com.github.pesennik.component.PageNotFoundPage;
 import com.github.pesennik.component.help.AboutPage;
-import com.github.pesennik.component.tuner.TunerPage;
-import com.github.pesennik.component.song.PesennikPage;
 import com.github.pesennik.component.signin.ForgotPasswordPage;
 import com.github.pesennik.component.signin.ResetPasswordPage;
+import com.github.pesennik.component.song.LentaPage;
+import com.github.pesennik.component.song.PesennikPage;
+import com.github.pesennik.component.tuner.TunerPage;
 import com.github.pesennik.component.user.UserProfileSettingsPage;
 import org.apache.wicket.request.component.IRequestablePage;
 import org.jetbrains.annotations.NotNull;
@@ -30,7 +31,8 @@ public class Mounts {
 
                 // Public resources
                 TunerPage.class,
-                AboutPage.class
+                AboutPage.class,
+                LentaPage.class
         );
     }
 

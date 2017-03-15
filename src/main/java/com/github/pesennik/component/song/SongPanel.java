@@ -1,6 +1,7 @@
 package com.github.pesennik.component.song;
 
 import com.github.pesennik.Context;
+import com.github.pesennik.UserSession;
 import com.github.pesennik.behavior.ToggleDisplayBehavior;
 import com.github.pesennik.component.util.AjaxCallback;
 import com.github.pesennik.component.util.ContainerWithId;
@@ -39,10 +40,12 @@ public class SongPanel extends Panel {
     @NotNull
     private Panel editPanel;
 
-    public SongPanel(String id, @NotNull UserSongId songId) {
-        super(id);
-        this.songId = songId;
+    private final boolean readOnly;
 
+    public SongPanel(String id, @NotNull UserSong song) {
+        super(id);
+        this.songId = song.id;
+        readOnly = !song.userId.equals(UserSession.get().getUserId());
         mainPanel = new WebMarkupContainer("main_panel");
         mainPanel.setOutputMarkupId(true);
         add(mainPanel);
@@ -123,6 +126,9 @@ public class SongPanel extends Panel {
     }
 
     private void switchToEditMode(AjaxRequestTarget target) {
+        if (readOnly) {
+            return;
+        }
         songBlock.setVisible(false);
         mainPanel.remove(editPanel);
         editPanel = new SongEditPanel("edit_panel", songId, (AjaxCallback & IClusterable) this::switchToViewMode);

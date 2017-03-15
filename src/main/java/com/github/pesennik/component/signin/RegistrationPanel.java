@@ -154,7 +154,7 @@ public class RegistrationPanel extends Panel {
                 .filter(s -> s != null && s.deletionDate == null)
                 .collect(Collectors.toList());
         if (templateSongs.isEmpty()) {
-            log.warn("No songs found for new users!");
+            log.error("No songs found for new users!");
             return;
         }
         UserSong template = templateSongs.get((int) (System.currentTimeMillis() % templateIds.size()));

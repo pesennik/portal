@@ -4,6 +4,7 @@ import com.github.mjdbc.BindBean;
 import com.github.mjdbc.Sql;
 import com.github.pesennik.model.LentaEntry;
 import com.github.pesennik.model.LentaEntryId;
+import com.github.pesennik.model.UserSongId;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface LentaSql {
     LentaEntryId insert(@NotNull @BindBean LentaEntry entry);
 
     @NotNull
-    @Sql("SELECT * FROM lenta ORDER BY id")
-    List<LentaEntryId> selectAll();
+    @Sql("SELECT user_song_id FROM lenta ORDER BY sharing_date")
+    List<UserSongId> selectSharedSongs();
 
 }
