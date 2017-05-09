@@ -52,7 +52,7 @@
             <!--WAR file assembler-->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.1.0</version>
                 <configuration>
                     <webResources>
                         <webResource>
@@ -109,7 +109,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.24</version>
+            <version>1.7.25</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
