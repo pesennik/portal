@@ -29,11 +29,7 @@ public class Feedback extends Panel {
 
         add(feedbackBlock);
         feedbackBlock.setVisible(false);
-        feedbackBlock.add(new ClassModifier(new LoadableDetachableModel<String>() {
-            protected String load() {
-                return "alert " + (alertClass == null ? "" : alertClass) + " alert-dismissible fade in";
-            }
-        }));
+        feedbackBlock.add(new ClassModifier(LoadableDetachableModel.of(() -> "alert " + (alertClass == null ? "" : alertClass) + " alert-dismissible fade in")));
         feedbackBlock.add(label);
     }
 
