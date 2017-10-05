@@ -1,11 +1,11 @@
 package com.github.pesennik.model;
 
 import com.github.mjdbc.type.DbString;
+import com.github.openjson.JSONObject;
 import com.github.pesennik.util.JsonUtils;
 import com.github.pesennik.util.TextUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.json.JSONObject;
 
 public class UserSongExtra implements DbString {
 

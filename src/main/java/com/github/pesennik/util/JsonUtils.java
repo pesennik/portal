@@ -1,9 +1,9 @@
 package com.github.pesennik.util;
 
+import com.github.openjson.JSONArray;
+import com.github.openjson.JSONObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Iterator;

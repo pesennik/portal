@@ -143,7 +143,7 @@
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-extensions</artifactId>
-            <version>8.0.0-M4</version>
+            <version>8.0.0-M7</version>
             <scope>compile</scope>
         </dependency>
 
@@ -165,8 +165,13 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.5</version>
-            <scope>compile</scope>
+            <version>3.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.openjson</groupId>
+            <artifactId>openjson</artifactId>
+            <version>1.0.9</version>
         </dependency>
 
         <!-- Compile time tools-->

@@ -1,11 +1,7 @@
 package com.github.pesennik.util;
 
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.github.openjson.JSONArray;
+import com.github.openjson.JSONObject;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;
@@ -15,6 +11,9 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HttpIO {
     private static final Logger log = LoggerFactory.getLogger(HttpIO.class);
