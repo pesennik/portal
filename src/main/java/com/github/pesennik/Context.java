@@ -2,6 +2,7 @@ package com.github.pesennik;
 
 import com.github.mjdbc.Binders;
 import com.github.mjdbc.Db;
+import com.github.mjdbc.DbFactory;
 import com.github.pesennik.db.dbi.SharingDbi;
 import com.github.pesennik.db.dbi.UserSongsDbi;
 import com.github.pesennik.db.dbi.UsersDbi;
@@ -37,7 +38,7 @@ public class Context {
                 prodConfig.load(new FileInputStream("/opt/pesennik/service.properties"));
             }
             ds = new HikariDataSource(prepareDbConfig("/hikari.properties"));
-            db = Db.newInstance(ds);
+            db = DbFactory.wrap(ds);
             registerBuiltInTypes(db);
             usersDbi = db.attachDbi(new UsersDbiImpl(db), UsersDbi.class);
             userSongsDbi = db.attachDbi(new UserSongsDbiImpl(db), UserSongsDbi.class);
